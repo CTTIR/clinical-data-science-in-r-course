@@ -1,0 +1,86 @@
+---
+title: "Clinical Data Science in R · Course"
+subtitle: "Clinical AI and translational trauma research in four parts"
+description: "A course in eight workshops (32 teaching units) on reading clinical data, testing models in R and defending a limited recommendation."
+---
+
+A fracture alert can perform well on a test data set and still help little in the emergency department. A model can
+reliably recognise further images of the same laboratory animal and fail on a new one. This course starts from
+such decisions. Participants learn to read a finding, carry out the appropriate check in R themselves, and defend a
+limited recommendation to patients, researchers or hospital management.
+
+| | Course profile |
+|---|---|
+| **For** | Medical students, clinical researchers and doctoral researchers who want to judge data from clinical care and run their own analyses in R. |
+| **Entry** | Basic clinical concepts. A first R session is part of the first workshop; no prior programming, Python, Julia or machine learning needed. |
+| **Scope** | Four parts, eight workshops (W1–W8), four teaching units of 45 minutes each: 32 units = 24 hours of contact time, plus about 36 hours of self-study. |
+| **Setting** | Laptop with R, or printed outputs on paper. All required cases use synthetic data. No external AI account is needed. |
+| **Completion** | An individual examination and a group project with an executable R analysis, a model passport and a reasoned decision. |
+| **Companion book** | [Clinical Data Science in R](https://r-heller.github.io/clinical-data-science-in-r/). Chapters B01–B28 are fixed identifiers; each workshop requires the core readings of two chapters. |
+
+## Four parts, eight workshops
+
+| Part | Workshops | Guiding question |
+|---|---|---|
+| **I · Clinical questions and data** (entry) | [W1 · From clinical case to testable question](lessons/w1-from-clinical-case-to-question.qmd) · [W2 · Language models and scientific evidence](lessons/w2-language-models-and-evidence.qmd) | What exactly is being claimed here? |
+| **II · Testing and comparing models** (application) | [W3 · Diagnostics, prediction and external evidence](lessons/w3-diagnostics-prediction-evidence.qmd) · [W4 · What imaging, gait and tissue models measure](lessons/w4-imaging-gait-tissue.qmd) | Does the evidence hold in my setting? |
+| **III · Justifying complex models** (advanced) | [W5 · Causal questions, trajectories and phenotypes](lessons/w5-causality-trajectories-phenotypes.qmd) · [W6 · Pharmacometrics, forecasting and simulation](lessons/w6-pharmacometrics-forecasting-simulation.qmd) | Which biology or process lies behind the data? |
+| **IV · Translating models into practice** (independent application) | [W7 · Regulation, data protection and a security incident](lessons/w7-regulation-data-protection-incident.qmd) · [W8 · Model colloquium, decision and review](lessons/w8-colloquium-and-decision.qmd) | Which decision is defensible today? |
+
+In Part I participants formulate a clinical question and check where their data come from. In Part II they test a
+model, in Part III they compare explanations for their findings, and in Part IV they defend a decision about its
+use. One [group project](exercises/project-brief.qmd) runs through all four parts. Start with the
+[syllabus](syllabus.qmd) for workload, assessment and organisation.
+
+## How a workshop works
+
+Each workshop page states the guiding question, observable learning objectives, the required reading, a table of
+the four teaching units with the evidence each one produces, the materials and the transition to the next
+workshop. The **labs** contain the full R code with real output; every lab also runs as a stand-alone script in a
+fresh R session and checks its target values with `stopifnot()`. Legal and role-play parts come as **case sheets**
+without code.
+
+Every lab follows the same five steps: state the **decision**, **look at the data**, name the **assumption**,
+**compute** in R and **report** in one sentence for the person who has to act.
+
+## Connection to existing courses and books
+
+This course does not repeat general statistics. Where a method is introduced only briefly, workshop and lab pages
+link to the place where it is explained in full.
+
+**Progression.** The four parts follow the stages of the CTTIR statistics curriculum, which leads from
+introductory foundations (course 1) through intermediate regression and model diagnostics (course 2) and advanced
+study design, longitudinal data and causal inference (course 3) to specialist statistical learning (course 4). Here
+the same progression is applied to clinical decisions: entry (Part I), application (Part II), advanced (Part III)
+and independent application (Part IV). The five steps of every lab mirror the curriculum's lab template, in which
+inference labs move from hypothesis through visualisation, assumptions and conduct to conclusion, and workflow labs
+from goal through approach, execution and check to report. Participants who have worked through the CTTIR courses
+will recognise the rhythm; those who have not can use them as a reference for every method used here.
+
+| Resource | What it offers this course |
+|---|---|
+| [CTTIR Courses](https://cttir.github.io/courses/) | A four-course biostatistics curriculum in R with runnable labs. The workshop pages link to the matching labs, for example on [diagnostic testing](https://cttir.github.io/courses/course1_foundations/labs/lab_week2_session3.html), [mixed models](https://cttir.github.io/courses/course3_design_causal/labs/lab_week2_session3.html) or [cross-validation](https://cttir.github.io/courses/course4_ml_highdim/labs/lab_week1_session1.html). |
+| [CTTIR Tutorials](https://cttir.github.io/tutorials/) | Stand-alone tutorials by topic, useful for looking up a single method during a lab. |
+| [Methods in R](https://r-heller.github.io/methods-in-r/) | A method reference for researchers and reviewers, with diagnostics, red flags and reporting templates such as TRIPOD-AI and ARRIVE. |
+| [Scientometrics in R](https://r-heller.github.io/scientometrics-in-r/) | Case studies, labs and reference material on research literature, full text and reproducible pipelines; relevant to checking sources in W2. |
+| [Strategy in R](https://r-heller.github.io/strategy-in-r/) | Simulation with explicit assumptions and decisions under uncertainty; relevant to W6 and to the ethics of automated decisions. |
+| [Clinical Data Science in R](https://r-heller.github.io/clinical-data-science-in-r/) (companion book) | The cases, core readings and complete R labs behind every workshop. Course and book share cases, identifiers and figure style. |
+
+: Existing courses and books and their role in this course. All resources except the companion book are in English as well. {#tbl-connections}
+
+## Data status
+
+All numbers are labelled as *synthetic* (generated in the course with a fixed seed), *published* (taken from a cited
+source), *assumption* (set for teaching; would need local checking) or *open* (a question the course raises but does
+not answer). No number describes a commercial product, a real hospital or unpublished project results. Fictitious
+animals and virtual pharmacokinetic parameters are used throughout; nothing on this site is a dosing
+recommendation.
+
+## Licence and citation
+
+Texts are licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), code under the
+[MIT licence](https://opensource.org/licenses/MIT).
+
+> Heller, R. (2026). *Clinical Data Science in R · Course.* <https://r-heller.github.io/clinical-data-science-in-r-course/>
+
+This course does not replace individual medical, legal or statistical advice.
