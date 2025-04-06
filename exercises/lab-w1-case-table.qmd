@@ -1,0 +1,170 @@
+---
+title: "Lab W1 · Counting people, images and readings"
+description: "Teaching units 02–04: twelve synthetic register rows with a repeated identifier and a unit error, a data dictionary, a fixed rule against a learnt threshold, and a reduced teaching table."
+---
+
+```{r}
+#| label: setup
+#| include: false
+source("../r/style.R")
+source("../r/course.R")
+knitr::read_chunk("../r/w1-case-table.R")
+```
+
+::: {.callout-note appearance="simple" icon=false}
+**Workshop:** [W1 · From clinical case to testable question](../lessons/w1-from-clinical-case-to-question.qmd) ·
+**Teaching units:** 02–04 · **Data:** synthetic, written into the script ·
+**Script:** [`r/w1-case-table.R`](../r/w1-case-table.R) (runs on its own in a fresh R session) ·
+**Tables:** [`w1-register-raw.csv`](../data/w1-register-raw.csv),
+[`w1-register-corrected.csv`](../data/w1-register-corrected.csv),
+[`w1-data-dictionary.csv`](../data/w1-data-dictionary.csv), [`w1-teaching-table.csv`](../data/w1-teaching-table.csv) ·
+**Run time:** about 2 seconds
+:::
+
+This is the first R lab of the course. You need only four things: a table (`data.frame`), a count (`nrow()`,
+`length(unique())`), a selection with square brackets and one figure. Read each chunk, predict what it will print,
+then compare. Every part follows the same five steps: decision, look at the data, assumption, compute, report.
+
+::: {.callout-tip title="Starting R for the first time"}
+Open the script in RStudio or Positron and run it line by line (Ctrl/Cmd + Enter). If installation fails, work
+with the printed output on this page and a partner's computer; the paper version of the tasks is the same.
+:::
+
+```{r w1-packages}
+```
+
+## Part A · How many observations are in twelve rows? (unit 02) {#part-a}
+
+**Decision.** A study team wants to know how many patients with a wrist injury had a fracture read on imaging. The
+register export below has twelve rows. Before anyone computes a percentage, the team must agree on the denominator.
+
+**Look at the data.** Count by hand first: how many people, how many images, how many readings? Write your three
+numbers down.
+
+```{r w1-raw-table}
+```
+
+Now let R count every distinct entry without thinking:
+
+```{r w1-count-naive}
+```
+
+**Assumption.** Rows are readings, not people. An identifier means the same thing in every row. Both assumptions
+fail here in different ways. Look for the identifier error and for a value in the wrong unit:
+
+```{r w1-find-errors}
+```
+
+```{r w1-correct}
+```
+
+**Report.** The export holds `r counts[["rows"]]` readings of `r counts[["images"]]` images from
+`r counts[["persons"]]` people. For a question about patients, the independent unit is the person; counting rows
+would inflate the denominator by more than a factor of two. Row 7 records the wrist circumference in millimetres
+instead of centimetres.
+
+```{r fig-w1-units}
+#| fig-cap: "Structure of the synthetic register extract: each point is one reading, arranged by person (horizontal) and image (vertical); shape shows the reader and colour the reading. 12 readings, 7 images, n = 5 people."
+#| fig-alt: "Dot plot with five people on the horizontal axis and seven images on the vertical axis. Person P01 has two images, P04 has two images, the others one each. Most images were read twice, once by radiology (circle) and once by the emergency team (triangle). Image P02-A was read as no fracture by radiology and as fracture by the emergency team; all other pairs agree."
+```
+
+Two readers disagree on one image:
+
+```{r w1-per-image}
+```
+
+::: {.callout-tip title="Counter-check: predict first"}
+Suppose the team reports "fracture read in 7 of 12 cases". Which denominator is that, and what would the
+statement be at image level and at person level? Decide how you count a person whose two readers disagree before
+you look at the table again.
+:::
+
+## Part B · A data dictionary (unit 02) {#part-b}
+
+**Decision.** Which columns may leave the clinical system for a teaching or research table, and what does each
+column mean?
+
+A data dictionary names, for every column, its meaning, its unit, its time zero and the reason it was collected.
+Time zero matters: "hours since injury" starts at a self-reported moment, "wrist circumference" at the time of
+imaging.
+
+```{r w1-dictionary}
+```
+
+**Report.** Two columns are not needed for any teaching question: the export row number and the free-text note.
+The free text contains details that can identify a person on their own (an occupation, a care-home room, a
+relative's ward).
+
+## Part C · A fixed rule against a learnt threshold (unit 03) {#part-c}
+
+**Decision.** Should a simple alert use a cut-off written down in advance or one learnt from data?
+
+**Look at the data.** For 60 *synthetic* people we know the difference in wrist circumference between the injured
+and the uninjured side and whether a fracture was present. The first 40 people are the **training** data, the
+remaining 20 the **application** data. Nobody appears in both.
+
+**Assumption.** The rule ("alert at a difference of 1.0 cm or more") was fixed before seeing any data. The learnt
+threshold is the cut-off that best separates fractures from non-fractures in the 40 training people.
+
+```{r w1-rule-vs-learned}
+```
+
+```{r fig-w1-threshold}
+#| fig-cap: "Difference in wrist circumference (cm) by fracture status in the synthetic training data, with the fixed rule (dashed, 1.0 cm) and the threshold learnt from these data (solid). n = 40 people."
+#| fig-alt: "Strip plot of 40 people. People without a fracture cluster between about -0.4 and 1.3 cm, people with a fracture mostly between 1.3 and 3.0 cm, with two fractures at about 0.3 and 0.9 cm. The dashed rule line is at 1.0 cm and the solid learnt line at 1.3 cm."
+```
+
+**Report.** In the 20 application people, the fixed rule raises `r comparison["rule", "alerts"]` alerts and finds
+`r comparison["rule", "detected"]` of `r comparison["rule", "fractures"]` fractures; the learnt threshold of
+`r learnt_cm` cm raises `r comparison["learnt", "alerts"]` alerts and finds `r comparison["learnt", "detected"]`.
+"Learning" here means nothing more than choosing a number from training data; with 40 people that number is
+unstable, as the counter-check shows.
+
+::: {.callout-tip title="Counter-check: predict first"}
+The threshold is learnt again from a different set of 40 people drawn from the same 60. Will it stay at 1.3 cm,
+move by about 0.1 cm, or move by more? Then run the chunk.
+:::
+
+```{r w1-relearn}
+```
+
+## Part D · A reduced teaching table (unit 04) {#part-d}
+
+**Decision.** The table will be used in a course. What is the smallest table that still answers the teaching
+questions?
+
+**Assumption.** Pseudonymised identifiers stay (they are needed to count people and images); the free text and the
+exact age go; age is kept in four bands. Whether such a table may be shared outside the clinic is a separate
+question of data protection and local approval (*open*; see [W7](../lessons/w7-regulation-data-protection-incident.qmd)).
+
+```{r w1-teaching-table}
+```
+
+**Report.** The teaching table has 12 rows and no free text or exact age. Every removed column is listed in the data
+dictionary with the reason it is not needed.
+
+## Your record for the workshop
+
+1. The three counts (readings, images, people) with the error you found in each.
+2. The data dictionary with key, unit, time zero and reason for collection.
+3. A sketch of rule versus learnt threshold, marking which data were used for training and which for application,
+   and the script that recreates the table in a fresh R session.
+4. The reduced teaching table and one sentence justifying each removed field.
+
+```{r w1-save}
+#| include: false
+```
+
+## Further reading
+
+- Companion book: [B01 · Clinical decisions and the translational chain](https://r-heller.github.io/clinical-data-science-in-r/chapters/b01-clinical-decision.html#sec-b01-core)
+  and [B03 · How data arise: missingness and denominators](https://r-heller.github.io/clinical-data-science-in-r/chapters/b03-how-data-arise.html#sec-b03-core)
+  – why the denominator is a clinical decision.
+- [B04 · Reconstructing a research project in R](https://r-heller.github.io/clinical-data-science-in-r/chapters/b04-reconstructing-a-project-in-r.html)
+  – scripts, relative paths and a target value that a colleague can check.
+- [CTTIR Courses: Data types, tidy data, accuracy and precision](https://cttir.github.io/courses/course1_foundations/labs/lab_week1_session3.html)
+  – long and wide tables, one row per observation.
+- [CTTIR Courses: Import, joins, and missingness with dplyr](https://cttir.github.io/courses/course1_foundations/labs/lab_week1_session4.html)
+  – the next step after base R.
+- [Methods in R: Scales of Measurement](https://r-heller.github.io/methods-in-r/sec-ch-01-foundations.html#sec-chapters-01-foundations-scales-of-measurement)
+  – units and measurement levels.

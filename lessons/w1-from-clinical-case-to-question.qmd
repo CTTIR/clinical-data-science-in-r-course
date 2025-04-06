@@ -1,0 +1,132 @@
+---
+title: "W1 · From clinical case to testable question"
+description: "Workshop W1, teaching units 01–04: purpose, target population, reference, independent unit and permissible data flow of a fictitious wrist injury."
+---
+
+::: {.callout-note appearance="simple" icon=false}
+**Part I · Clinical questions and data** · **Level:** entry · **Teaching units:** 01–04 (4 × 45 min) ·
+**Required reading:** core readings of B01 and B03 (about 20 minutes) · **Lab:** [Lab W1](../exercises/lab-w1-case-table.qmd)
+:::
+
+## Guiding question
+
+**How many independent observations do we actually have, and which question can they answer?**
+
+After a fictitious wrist injury there is one radiograph, two readings and several measurements. Before anyone
+fits a model, the team has to agree on what is being claimed, about whom, at what time and compared with what.
+
+## Learning objectives
+
+By the end of this workshop you can
+
+1. formulate a descriptive, a prognostic and a causal question about the same material and name the decision each
+   one would support;
+2. state purpose, target population, reference standard, time zero and independent unit for a clinical question;
+3. count people, images and readings in a table by hand and in R, and locate an identifier error and a unit error;
+4. write a data dictionary with key, unit, time zero and reason for collection;
+5. distinguish training data from application data for a rule and for a learnt threshold;
+6. draw a data flow for care, research and teaching, and justify removing every field the teaching table does not
+   need.
+
+## Preparation
+
+- **Required reading** (about 20 minutes):
+  [B01 · Clinical decisions and the translational chain – core reading](https://r-heller.github.io/clinical-data-science-in-r/chapters/b01-clinical-decision.html#sec-b01-core)
+  and
+  [B03 · How data arise: missingness and denominators – core reading](https://r-heller.github.io/clinical-data-science-in-r/chapters/b03-how-data-arise.html#sec-b03-core).
+- **Before the session:** install R (any version from 4.4) and, if you like, RStudio or Positron. Open
+  [`r/w1-case-table.R`](../r/w1-case-table.R) once. If anything fails, bring the printed lab page; a partner
+  computer is enough.
+- **Bring:** paper and a pen. Unit 01 starts without a screen.
+
+## The case
+
+> A 52-year-old cyclist falls on an outstretched hand. In the emergency department the wrist is swollen and tender.
+> A radiograph is taken and read twice: once by the emergency team, once by radiology. Two days later a follow-up
+> image is taken. A research group wants to use such cases to develop a fracture alert; a lecturer wants to use them
+> in a course.
+
+Everything in the case and in the tables is *synthetic*. Any similarity to a real person is coincidental.
+
+## Teaching units
+
+| Unit | Task | Minutes | Observable evidence |
+|---|---|---:|---|
+| 01 | Entry self-assessment (5 min, below). Trace the patient's pathway and the research question. Fix target, time point and addressee of a prediction. Formulate a descriptive, a prognostic and a causal question about the same material. | 45 | A case card with three question types, each with population, time zero and the decision it supports. |
+| 02 | Count people, images and readings first by hand, then in R ([Lab W1, Parts A–B](../exercises/lab-w1-case-table.qmd)). Locate the identifier error and the unit error. | 45 | A data dictionary with key, unit, time zero and reason for collection; the three corrected counts. |
+| 03 | Compare a fixed rule with a learnt threshold on a small table ([Part C](../exercises/lab-w1-case-table.qmd#part-c)). Mark training and application. | 45 | A sketch of both approaches and an R script that recreates the starting table in a fresh session. |
+| 04 | Draw one data flow for care, research and teaching. Mark roles, expected benefit and dispensable fields. Build the reduced teaching table ([Part D](../exercises/lab-w1-case-table.qmd#part-d)). | 45 | A reduced teaching table and a reasoned decision to drop identifying free-text fields. |
+
+### Entry self-assessment (unit 01, 5 minutes) {#self-assessment}
+
+Rate each statement from 1 (not at all) to 5 (fully), anonymously. You will see the same statements again in W8.
+The ratings are feedback for you and for the course team; they never count towards a grade.
+
+1. I can tell which number is the denominator of a percentage in a clinical study.
+2. I can explain why images from the same patient in training and test data are a problem.
+3. I can check whether a cited source actually supports a sentence.
+4. I know who has to be informed, and by when, if patient data reach the wrong recipient.
+
+Then work on **short case A** for five minutes, on paper and without help:
+
+> A research group reports "94% accuracy on 1,200 test images" for a model that classifies tissue in images from
+> 20 fictitious rats. Images of every rat were used both for training and for testing. A week later a technician
+> notices that a spreadsheet with the animal-house cage cards, including the names of the responsible staff, was
+> sent to an external software helpdesk.
+>
+> (a) What is the independent number of units in the test? (b) What does the 94% measure? (c) Name the first two
+> steps after the spreadsheet is discovered.
+
+Keep your answer. The course team collects it anonymously and compares it with a parallel case in W8.
+
+### Three question types (unit 01)
+
+| Type | Example for the wrist case | Decision it supports | Comparison needed |
+|---|---|---|---|
+| Descriptive | What share of adults presenting with wrist pain after a fall have a fracture on imaging? | Staffing of radiology in the emergency department | None; a well-defined population and denominator |
+| Prognostic | Which patients will still have reduced grip strength after six weeks? | Who gets an early physiotherapy appointment | Predictors known at time zero, outcome later |
+| Causal | Does an immediate second read of every radiograph reduce missed fractures? | Whether to introduce the second read | Patients with and without the second read, comparable at time zero |
+
+## Materials
+
+- [Lab W1 · Counting people, images and readings](../exercises/lab-w1-case-table.qmd) with
+  [`r/w1-case-table.R`](../r/w1-case-table.R).
+- Tables: [raw export](../data/w1-register-raw.csv), [corrected table](../data/w1-register-corrected.csv),
+  [data dictionary](../data/w1-data-dictionary.csv), [teaching table](../data/w1-teaching-table.csv).
+- Paper version: the lab page prints all results; groups without a working R installation complete Parts A–D on
+  paper and swap to a partner computer for the script.
+
+## Four perspectives in this workshop
+
+- **Ethics.** Who would act differently because of the alert, and who carries the harm of a wrong answer? The
+  case card names one affected person.
+- **Regulation.** Only indirectly: the intended purpose of a future alert decides which rules apply. This becomes
+  the central question in [W7](w7-regulation-data-protection-incident.qmd).
+- **Data protection.** The data flow in unit 04 separates care, research and teaching. Free text and exact age are
+  removed because the teaching question does not need them (data minimisation, Article 5(1)(c) of the
+  [General Data Protection Regulation (GDPR)](https://eur-lex.europa.eu/eli/reg/2016/679/oj)).
+- **Security.** A teaching table that leaves the clinic is a copy that has to be protected or, better, that
+  contains nothing worth protecting.
+
+## Transition to W2
+
+The case card and the data dictionary are the first two parts of your project. In W2 you add an evidence card: a
+claim about your case, checked against its original source.
+
+## Further reading
+
+- [B01 · Clinical decisions and the translational chain](https://r-heller.github.io/clinical-data-science-in-r/chapters/b01-clinical-decision.html)
+  and [B03 · How data arise](https://r-heller.github.io/clinical-data-science-in-r/chapters/b03-how-data-arise.html)
+  – the full chapters behind the required reading.
+- [B02 · Describe, predict, explain](https://r-heller.github.io/clinical-data-science-in-r/chapters/b02-describe-predict-explain.html)
+  – the three question types in depth; returns in W5.
+- [B04 · Reconstructing a research project in R](https://r-heller.github.io/clinical-data-science-in-r/chapters/b04-reconstructing-a-project-in-r.html)
+  – the R basics used in this workshop.
+- [Methods in R: The research workflow – 1. Question](https://r-heller.github.io/methods-in-r/sec-appendices-a-research-workflow.html#sec-appendices-a-research-workflow-1-question)
+  – from question to measurement and design.
+- [CTTIR Courses: Scientific process and research workflow](https://cttir.github.io/courses/course1_foundations/labs/lab_week1_session1.html)
+  – the first lab of the statistics curriculum this course builds on.
+- [CTTIR Tutorials: Population vs. Sample](https://cttir.github.io/tutorials/tutorials/statistical-foundations/population-vs-sample.html)
+  – what the denominator stands for.
+- [Strategy in R: R Refresher](https://r-heller.github.io/strategy-in-r/sec-r-refresher.html)
+  – a compact R introduction for newcomers.
