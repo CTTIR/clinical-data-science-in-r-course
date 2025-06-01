@@ -1,0 +1,276 @@
+---
+title: "Lab W4 · Spectra, image split and animal split"
+description: "Teaching units 13–15: a spectral index under changing light, an image split against an animal split, and two elective stations on gait angles and tissue phenotypes."
+---
+
+```{r}
+#| label: setup
+#| include: false
+source("../r/style.R")
+source("../r/course.R")
+knitr::read_chunk("../r/w4-spectra-animal-split.R")
+```
+
+::: {.callout-note appearance="simple" icon=false}
+**Workshop:** [W4 · What imaging, gait and tissue models measure](../lessons/w4-imaging-gait-tissue.qmd) ·
+**Teaching units:** 13–15 · **Data:** synthetic, generated below with fixed seeds (fictitious animals and persons) ·
+**Script:** [`r/w4-spectra-animal-split.R`](../r/w4-spectra-animal-split.R) (runs on its own in a fresh R session) ·
+**Tables:** [`w4-spectra-index.csv`](../data/w4-spectra-index.csv), [`w4-four-animals.csv`](../data/w4-four-animals.csv),
+[`w4-gait-steps.csv`](../data/w4-gait-steps.csv), [`w4-tissue-cells.csv`](../data/w4-tissue-cells.csv) ·
+**Run time:** under 10 seconds
+:::
+
+Everyone works through Parts A and B, the shared hyperspectral imaging lab. Part C offers two elective stations,
+gait and tissue; each group chooses one and presents its finding to a group from the other station in unit 16.
+Every part follows the same five steps: state the decision, look at the data, name the assumption, compute in R
+and write one sentence for the person who has to act.
+
+All animals, persons and tissue classes are fictitious and all numbers are *synthetic* or teaching *assumptions*.
+The classes A and B stand for any two tissue states a research group might want to separate; they describe no real
+tissue, device or study. If R is new to you, read the code and the printed output first and answer the questions
+on paper. If you are fluent in R, try the extra counter-checks.
+
+```{r w4-packages}
+#| message: false
+```
+
+## Part A · A spectral index under changing light (unit 13)
+
+**Decision.** A research group wants to use a simple spectral index as a baseline for separating tissue class A
+from class B in hyperspectral images of fictitious animals. Before anyone trains a learning model, the group has
+to know what else moves the index.
+
+**Look at the data.** Six animals (three per class) contribute five reflectance spectra each, from 500 to 1,000 nm
+in 10 nm steps. Reflectance is the share of light returned by the tissue, between 0 and 1.
+
+```{r w4-spectra}
+```
+
+```{r fig-w4-spectra}
+#| fig-cap: "Mean reflectance spectrum of each fictitious animal, 500–1,000 nm, coloured and dashed by tissue class. Reflectance is unitless (0–1). Synthetic data; n = 6 animals, 5 spectra per animal. Dashed vertical lines mark the two bands used by the index (560 and 800 nm)."
+#| fig-alt: "Line chart of six reflectance spectra. All rise from about 0.2 to 0.3 at 500 nm to a plateau of about 0.5 to 0.62 above 800 nm. Class A animals (solid blue) show a deeper dip at 560 nm, down to about 0.13 to 0.17; class B animals (dashed orange) dip only to about 0.2 to 0.23 and have a small dip near 760 nm."
+```
+
+The index compares the two marked bands: (R800 − R560) / (R800 + R560). In this synthetic set its mean is
+`r sprintf("%.3f", mean(index_a$nd_index[index_a$class == "A"]))` for class A and
+`r sprintf("%.3f", mean(index_a$nd_index[index_a$class == "B"]))` for class B.
+
+**Assumption.** The index measures tissue, not the lamp. We test this with two changes of illumination: a lamp
+that is 20% weaker at every wavelength, and a lamp with a different colour balance (a linear tilt that weakens
+green and strengthens near-infrared light). The proposed reference measurement is a white and a dark reference
+recorded under the same lamp: the camera records counts, and reflectance is computed as
+(counts − dark) / (white − dark).
+
+::: {.callout-tip title="Counter-check: predict first"}
+Will the weaker lamp change the index? Will the tilted lamp make class B look more like class A or less? Write down
+your guesses before you run the next chunk.
+:::
+
+```{r w4-illumination}
+```
+
+```{r fig-w4-illumination}
+#| fig-cap: "Spectral index of each fictitious animal under four conditions: original lamp, lamp 20% weaker, lamp with a colour tilt, and tilted lamp after white/dark reference correction. Each point is the mean of 5 spectra of one animal. Synthetic data; n = 6 animals."
+#| fig-alt: "Dot plot with four groups. With the original lamp, class A animals have index values of about 0.54 to 0.59 and class B animals about 0.45. A 20% weaker lamp gives identical values. With the tilted lamp all values rise; class B moves to about 0.57, close to class A under the original lamp. After white and dark reference correction the values are identical to the original lamp again."
+```
+
+**Report.** A uniformly weaker lamp leaves the index unchanged, because it cancels in the ratio. A change in the
+lamp's colour balance shifts the index by `r sprintf("%.3f", tilt_shift)` on average, about as much as the
+difference between the classes (`r sprintf("%.3f", abs(class_gap))`). If class B animals were imaged under a
+different lamp than class A animals, the lamp alone could create or erase the class difference: illumination is a
+**confounder** of the tissue comparison. The white/dark reference recorded under the same lamp removes the effect
+completely in this simulation; in practice it has to be recorded for every session and documented in the model
+passport.
+
+## Part B · Image split against animal split (unit 14)
+
+**Decision.** A reviewer asks whether the reported accuracy describes new spectra of known animals or new animals.
+These are two different target statements, and they need two different test plans.
+
+**Look at the data.** Four fictitious animals contribute three spectra each. Classes belong to animals: AN1 and AN2
+are class A, AN3 and AN4 class B.
+
+```{r w4-four-animals}
+```
+
+**Assumption.** To isolate the data leak, we use a deliberately trivial baseline instead of a real model: for a
+known animal it returns the class already seen for that animal; for an unknown animal it returns the default class
+A, fixed before the test.
+
+```{r w4-lookup}
+```
+
+**Report.** In the image split, every test animal also appears in training, and the lookup solves
+`r split_results$correct_spectra[1]`/`r split_results$test_spectra[1]` test spectra without knowing anything about
+tissue: it measures **recognition of animals**. In the animal split, the intersection of animal identifiers is
+empty, the default class solves `r split_results$correct_spectra[2]`/`r split_results$test_spectra[2]` spectra and
+`r split_results$correct_animals[2]`/`r split_results$test_animals[2]` animals. The independent denominator is two
+animals, not six spectra.
+
+::: {.callout-tip title="Counter-check: predict first"}
+The default class for unknown animals changes from A to B. How many spectra and how many animals will the lookup
+now classify correctly in the animal split?
+:::
+
+```{r w4-countercheck}
+```
+
+The count stays the same, but a different animal is now correct. With two test animals, any result is fragile.
+
+### Extension: a nearest-neighbour model on twelve animals
+
+The same leak affects real models. Twelve fictitious animals (six per class) contribute ten spectra each. In this
+simulation the differences between animals are larger than the difference between the classes. A 1-nearest-neighbour
+model is evaluated twice: once with spectra assigned to ten folds at random, once leaving one whole animal out at a
+time, using the same animal identifiers.
+
+```{r w4-knn}
+```
+
+```{r fig-w4-knn}
+#| fig-cap: "Share of each fictitious animal's 10 spectra classified correctly by a 1-nearest-neighbour model under a spectrum-wise and an animal-wise split; lines connect the same animal. Synthetic data; n = 12 animals (independent units), 10 spectra each."
+#| fig-alt: "Paired dot plot. Under the spectrum-wise split all 12 animals have 90 to 100% of their spectra correct. Under the animal-wise split, six animals stay at 80 to 100%, one is at 50%, one at 20% and four drop to 0%. Grey lines connect the two results for each animal."
+```
+
+**Report.** With spectra split at random, every fold shares animals with its training data and the model classifies
+`r knn_summary$correct_spectra[1]`/`r knn_summary$spectra[1]` spectra correctly. Leaving whole animals out, it
+manages `r knn_summary$correct_spectra[2]`/`r knn_summary$spectra[2]` spectra and a majority of spectra for
+`r knn_summary$animals_majority_correct[2]`/`r knn_summary$animals[2]` animals. The model has mostly learnt which
+animal a spectrum came from. Even the animal-wise result only supports a statement about **new animals of the same
+fictitious species under the same imaging set-up**; a statement about patients needs a new study in the target
+population.
+
+::: {.callout-warning title="Common mistake"}
+Reporting "120 test spectra" as the sample size. Spectra of one animal are not independent observations
+(pseudoreplication, see [Lazic 2010](https://doi.org/10.1186/1471-2202-11-5)). The unit that can be generalised is
+the animal; report the number of animals in training and test and check that the intersection of their identifiers
+is empty.
+:::
+
+::: {.callout-note title="Other implementation: Python/scikit-learn"}
+If an existing image model is written in Python, grouped folds can be built in the same pipeline with
+[scikit-learn GroupKFold](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GroupKFold.html),
+using the animal identifier as the group. The concrete advantage is that the split, pre-processing and model stay
+in one workflow and cannot drift apart. For a fair comparison with this lab, the input table, the animal
+identifiers, the metric and the unit of reporting must be identical; the shared target value is zero shared
+identifiers per fold, while the order of folds may differ. For image models with pretrained networks,
+[scikit-image](https://scikit-image.org/docs/stable/) and the
+[PyTorch transfer-learning tutorial](https://docs.pytorch.org/tutorials/beginner/transfer_learning_tutorial.html)
+document the pre-processing and weights that would have to be fixed as well. Status: conceptual comparison, not run.
+:::
+
+## Part C · Elective stations (unit 15)
+
+Choose one station. Both end with a figure that states its unit and the independent sample size, and with one
+realistic consequence of the measurement error you found.
+
+### Station gait: one angle, two cameras, two methods
+
+**Decision.** A rehabilitation team considers replacing a marker-based reference measurement of knee flexion with
+a video method. They need to know whether the two methods are similar enough for their decision.
+
+**Look at the data.** The knee angle is computed from three landmarks: hip, knee and ankle. For a single synthetic
+leg with a true knee flexion of 40 degrees, we turn the camera away from the side view.
+
+```{r w4-gait-angle}
+```
+
+```{r fig-w4-perspective}
+#| fig-cap: "Measured knee flexion (degrees) from a 2D projection when the camera is turned away from the side view, for one synthetic leg with a true flexion of 40 degrees (dashed line). Geometry only; n = 1 synthetic leg."
+#| fig-alt: "Line chart. Measured knee flexion is 40 degrees with a side view and falls slowly at first, then faster: 39.4 degrees at 10 degrees of camera rotation, 35.0 at 30 degrees and 28.9 at 45 degrees."
+```
+
+At a camera rotation of 30 degrees, the measured flexion is
+`r sprintf("%.1f", perspective$measured[perspective$camera_deg == 30])` degrees instead of 40: camera position is
+part of the measurement protocol.
+
+**Assumption.** For the method comparison, twenty fictitious persons walk five steps each, recorded with both
+methods from a side view. Before looking at the data, the team fixes a clinical tolerance of ±5 degrees
+(*assumption*; a real tolerance needs a clinical justification). Because each person contributes five steps, the
+steps are averaged per person first: the person is the independent unit.
+
+```{r w4-gait-agreement}
+```
+
+```{r fig-w4-bland-altman}
+#| fig-cap: "Bland–Altman plot comparing video and marker-based reference measurement of knee flexion (degrees), averaged over 5 steps per person. Solid line: mean difference (bias); dashed lines: 95% limits of agreement; shaded band: tolerance of ±5 degrees (assumption). Synthetic data; n = 20 persons."
+#| fig-alt: "Scatter plot of 20 points, one per person, with the mean of both methods (about 54 to 69 degrees) on the x axis and the difference video minus reference on the y axis. Most differences lie between −1 and 4 degrees; one person is at about −4 degrees. The bias line is at about 1.6 degrees; the limits of agreement are at about −2.2 and 5.3 degrees, so the upper limit lies just outside the shaded tolerance band of ±5 degrees."
+```
+
+**Report.** The video method reads on average `r sprintf("%.1f", ba[["bias"]])` degrees higher than the reference;
+95% of per-person differences are expected between `r sprintf("%.1f", loa[["lower"]])` and
+`r sprintf("%.1f", loa[["upper"]])` degrees. The upper limit exceeds the pre-set tolerance of `r tolerance` degrees,
+so the methods should not be used interchangeably for this decision without further work, for example a fixed
+camera protocol. Note that these limits describe averages of five steps; single steps agree less well.
+
+::: {.callout-tip title="Counter-check: predict first"}
+Would the 95% confidence interval for the bias be wider or narrower if all 100 steps were treated as independent?
+Compare the two rows printed above: persons (n = 20) give
+`r sprintf("%.2f to %.2f", bias_ci_person[1], bias_ci_person[2])` degrees, steps (n = 100) give
+`r sprintf("%.2f to %.2f", bias_ci_steps[1], bias_ci_steps[2])` degrees. The narrower interval is not more
+informative; it is falsely precise.
+:::
+
+### Station tissue: a threshold decides the phenotype
+
+**Decision.** A spatial-biology group reports that marker-positive cells lie close to blood vessels. The phenotype
+call "marker-positive" depends on an intensity threshold chosen during image analysis.
+
+**Look at the data.** Each of six fictitious persons contributes one tissue section of 500 × 500 µm with 250
+segmented cells and 15 vessels. Each cell has a marker intensity (0–1) and a distance to the nearest vessel.
+
+**Assumption.** The threshold of 0.5 is a convention, not a biological fact. We move it to 0.6 and summarise per
+person, because the person, not the cell, is the independent unit.
+
+```{r w4-tissue}
+```
+
+```{r fig-w4-tissue}
+#| fig-cap: "Share of marker-positive cells (%) and median distance of marker-positive cells to the nearest vessel (µm) per person at two intensity thresholds; one line per person. Synthetic data; n = 6 persons, one section of 250 cells each."
+#| fig-alt: "Two-panel slope chart. Left: the share of marker-positive cells per person falls from 36 to 50% at threshold 0.5 to 23 to 37% at threshold 0.6. Right: the median distance of positive cells to the nearest vessel falls from about 30 to 42 micrometres to about 27 to 37 micrometres. All six lines slope downwards."
+```
+
+**Report.** Raising the threshold from 0.5 to 0.6 lowers the share of marker-positive cells in every person (median
+across persons from `r sprintf("%.0f%%", 100 * median(low$share_positive))` to
+`r sprintf("%.0f%%", 100 * median(high$share_positive))`) and makes the remaining positive cells look closer to
+vessels. The biological conclusion "positive cells cluster near vessels" becomes stronger through an analysis
+choice. Summarising per person keeps the denominator honest (six persons), but it hides how cells are arranged
+within each section and how many cells each median rests on; report both.
+
+## Your record for the workshop
+
+1. The spectral index under the four conditions with the named confounder and the reference measurement you propose
+   (Part A).
+2. The split table with both target statements, the animal intersection (empty for the animal split) and the
+   independent denominator; one sentence on the limit of generalisation (Part B).
+3. One figure from your station with unit and independent sample size, and one realistic consequence of the
+   measurement error for a patient or an experiment (Part C).
+
+Download the tables linked at the top if you want to continue in a spreadsheet. The script writes the same files to
+`output/` when you run it on your own.
+
+```{r w4-save}
+#| include: false
+```
+
+## Further reading
+
+- Companion book: [B10 · Hyperspectral imaging](https://r-heller.github.io/clinical-data-science-in-r/chapters/b10-hyperspectral-imaging.html#sec-b10-core)
+  and [B19 · From one centre or species to the next](https://r-heller.github.io/clinical-data-science-in-r/chapters/b19-transfer-across-centres-and-species.html#sec-b19-core)
+  – required reading for this workshop.
+- Companion book: [B11 · Measuring gait from video](https://r-heller.github.io/clinical-data-science-in-r/chapters/b11-gait-from-video.html#sec-b11-core)
+  and [B12 · Spatial biology and image analysis](https://r-heller.github.io/clinical-data-science-in-r/chapters/b12-spatial-biology.html#sec-b12-core)
+  – background for the two stations.
+- [Methods in R: Cross-Validation](https://r-heller.github.io/methods-in-r/sec-ch-13-ml.html#sec-chapters-13-ml-cross-validation)
+  – fold construction and its pitfalls.
+- [Methods in R: Bland-Altman Limits of Agreement](https://r-heller.github.io/methods-in-r/sec-ch-14-clinical.html#sec-chapters-14-clinical-bland-altman-analysis)
+  – the agreement analysis behind the gait station.
+- [Methods in R: ARRIVE — animal research](https://r-heller.github.io/methods-in-r/sec-reporting-arrive.html)
+  – reporting animal studies, including the experimental unit; see also
+  [ARRIVE 2.0](https://doi.org/10.1371/journal.pbio.3000410).
+- [CTTIR Courses: Cross-validation, nested CV, bootstrap .632+](https://cttir.github.io/courses/course4_ml_highdim/labs/lab_week1_session1.html)
+  – resampling designs in a full lab.
+- [CTTIR Courses: Kappa, ICC, Bland–Altman](https://cttir.github.io/courses/course2_regression/labs/lab_week4_session2.html)
+  – agreement and reliability for measurement comparisons.
+- [CTTIR Tutorials: Spatial Transcriptomics](https://cttir.github.io/tutorials/tutorials/bioinformatics/spatial-transcriptomics.html)
+  – spatial data analysis beyond a single threshold.

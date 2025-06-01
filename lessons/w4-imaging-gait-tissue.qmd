@@ -1,0 +1,125 @@
+---
+title: "W4 · What imaging, gait and tissue models measure"
+description: "Workshop W4, teaching units 13–16: a spectral index under changing light, image split against animal split, elective stations on gait and tissue, and a first model passport with a decision on permissible exports."
+---
+
+::: {.callout-note appearance="simple" icon=false}
+**Part II · Testing and comparing models** · **Level:** application · **Teaching units:** 13–16 (4 × 45 min) ·
+**Required reading:** core readings of B10 and B19 (about 20 minutes) · **Lab:** [Lab W4](../exercises/lab-w4-spectra-animal-split.qmd)
+:::
+
+## Guiding question
+
+**Does our test measure the recognition of individuals the model has already seen, or generalisation to new ones,
+and which measurement error could change the conclusion?**
+
+## Learning objectives
+
+By the end of this workshop you can
+
+1. build a simple spectral index from synthetic hyperspectral data, show which change of illumination it is robust
+   to and propose a reference measurement;
+2. split repeated measurements once by image and once by animal, verify in R that the animal split shares no
+   identifiers, and state which target claim each split supports;
+3. report a performance figure with the independent denominator (animals or people, not spectra or steps);
+4. for one elective station, show how a change of camera perspective or of a segmentation threshold changes a
+   measured quantity, with unit and independent sample size;
+5. judge whether a gait video or a tissue export could identify a person, and decide which export is permissible
+   for the stated purpose.
+
+## Preparation
+
+- **Required reading** (about 20 minutes):
+  [B10 · Hyperspectral imaging – core reading](https://r-heller.github.io/clinical-data-science-in-r/chapters/b10-hyperspectral-imaging.html#sec-b10-core)
+  and
+  [B19 · From one centre or species to the next – core reading](https://r-heller.github.io/clinical-data-science-in-r/chapters/b19-transfer-across-centres-and-species.html#sec-b19-core).
+- **Before the session:** choose one measurement error shown in either reading (light, device, camera position,
+  segmentation boundary) and write one sentence on what it could change in a clinical or experimental decision.
+- **Choose a station** for unit 15: gait or tissue. Both lead to the same kind of evidence.
+
+## Teaching units
+
+| Unit | Task | Minutes | Observable evidence |
+|---|---|---:|---|
+| 13 | From synthetic hyperspectral data, build a simple spectral index, introduce a change of illumination and propose a reference measurement ([Lab W4, Part A](../exercises/lab-w4-spectra-animal-split.qmd)). | 45 | A spectral figure, a baseline and one clearly named confounder. |
+| 14 | Split several recordings per animal once by image and once by animal. Check the overlap of identifiers in R and compare the target claims ([Part B](../exercises/lab-w4-spectra-animal-split.qmd)). | 45 | A test protocol with genuinely new individuals, a comparison model and the limit of generalisation. |
+| 15 | Elective station gait: angle and method differences under a change of perspective. Elective station tissue: shift a segmentation threshold, measure cell distances and summarise per person ([Part C](../exercises/lab-w4-spectra-animal-split.qmd)). | 45 | One figure per station with unit, independent sample size and a realistic consequence of the measurement error. |
+| 16 | Teams review each other's findings. For gait video, discuss re-identification by movement or metadata; for tissue images, inference from rare combinations of features. | 45 | A first model passport, a counter-check and a reasoned decision on permissible exports. |
+
+### The animal split in four lines (unit 14)
+
+Four *synthetic* animals provide three spectra each; two animals belong to class A, two to class B. As a
+deliberately trivial comparison model, the class already seen for a known animal is returned; for an unknown animal
+the pre-specified default class A applies.
+
+| Test target | Split | Observation |
+|---|---|---|
+| Another spectrum of a known animal | Two spectra per animal in training, one in the test | Looking up the known class solves 4/4 cases. This measures recognition. |
+| Spectra of two new animals | Two animals in training; in the test one new A and one new B animal with three spectra each | The default class solves 3/6 spectra, or 1/2 animals. The independent denominator is two animals. |
+
+: Two splits of the same twelve synthetic spectra. {#tbl-w4-splits}
+
+In the lab you check with `intersect(unique(train$id), unique(test$id))` whether identifiers overlap. For the
+second split you expect an empty intersection.
+
+### Review questions for unit 16
+
+- **Gait video.** Could a person be recognised from their walking pattern, their clothing, the room or the file's
+  metadata (date, device, location)? Which derived quantity (for example joint angles per step) would answer the
+  clinical question without the raw video? Who decides how long the raw video is kept?
+- **Tissue images.** Could a rare combination of features (a rare diagnosis, an unusual age, a small centre)
+  point to a single person? Which aggregate (per person, per group) is enough for the research claim?
+- **Both.** Which export would you permit for the stated purpose, to whom, and with which deletion point?
+
+## Materials
+
+- [Lab W4 · Spectra, image split and animal split](../exercises/lab-w4-spectra-animal-split.qmd) with
+  [`r/w4-spectra-animal-split.R`](../r/w4-spectra-animal-split.R), including both elective stations.
+- The [model passport](../exercises/project-model-passport.qmd) template for unit 16.
+- Paper version: printed lab output; for the gait station, a protractor and two printed stick figures from the lab.
+
+## Four perspectives in this workshop
+
+- **Ethics.** All animals are fictitious. For a real experiment, the split decides how many animals a claim rests
+  on; an inflated denominator can justify further experiments that are not needed (3Rs: Replacement, Reduction,
+  Refinement; see [NC3Rs](https://nc3rs.org.uk/who-we-are/3rs)).
+- **Regulation.** A tool that is tested only on known animals has no evidence for a new species or for humans; a
+  claim about patients needs a study in the target population.
+- **Data protection.** Gait videos and tissue images can identify people even without names. Units 15 and 16
+  separate what the research question needs from what is merely available.
+- **Security.** An export that leaves the protected environment is a copy; fewer and smaller exports mean fewer
+  copies to protect.
+
+## Transition to W5
+
+You now have a comparison table, an error pattern and a first model passport. In W5 the question shifts from
+"does it work?" to "why does the pattern arise, and which assumption matters most?"
+
+## Further reading
+
+- [B11 · Measuring gait from video](https://r-heller.github.io/clinical-data-science-in-r/chapters/b11-gait-from-video.html)
+  and [B12 · Spatial biology and image analysis](https://r-heller.github.io/clinical-data-science-in-r/chapters/b12-spatial-biology.html)
+  – the two elective stations in depth.
+- [B27 · Model passport, study report and decision](https://r-heller.github.io/clinical-data-science-in-r/chapters/b27-model-passport-study-report.html)
+  – the template you start in unit 16.
+- [Methods in R: Cross-Validation](https://r-heller.github.io/methods-in-r/sec-ch-13-ml.html#sec-chapters-13-ml-cross-validation)
+  and [Nested Cross-Validation](https://r-heller.github.io/methods-in-r/sec-ch-13-ml.html#sec-chapters-13-ml-nested-cv)
+  – grouped resampling done properly.
+- [Methods in R: Bland-Altman Limits of Agreement](https://r-heller.github.io/methods-in-r/sec-ch-14-clinical.html#sec-chapters-14-clinical-bland-altman-analysis)
+  – the agreement analysis of the gait station.
+- [Methods in R: ARRIVE reporting template](https://r-heller.github.io/methods-in-r/sec-reporting-arrive.html)
+  – what an animal study must report.
+- [CTTIR Courses: Cross-validation, nested CV, bootstrap .632+](https://cttir.github.io/courses/course4_ml_highdim/labs/lab_week1_session1.html)
+  and [Imaging and sequence models intro](https://cttir.github.io/courses/course4_ml_highdim/labs/lab_week2_session4.html).
+- [CTTIR Courses: Kappa, ICC, Bland–Altman](https://cttir.github.io/courses/course2_regression/labs/lab_week4_session2.html)
+  – agreement between methods and readers.
+- [CTTIR Tutorials: Bland-Altman Plots](https://cttir.github.io/tutorials/tutorials/visualisation/bland-altman-plots.html).
+
+## Sources
+
+- Percie du Sert N, et al. The ARRIVE guidelines 2.0. *PLOS Biology*. 2020;18:e3000410.
+  [doi:10.1371/journal.pbio.3000410](https://doi.org/10.1371/journal.pbio.3000410)
+- Lazic SE. The problem of pseudoreplication in neuroscientific studies: is it affecting your analysis? *BMC
+  Neuroscience*. 2010;11:5. [doi:10.1186/1471-2202-11-5](https://doi.org/10.1186/1471-2202-11-5)
+- Bland JM, Altman DG. Statistical methods for assessing agreement between two methods of clinical measurement.
+  *Lancet*. 1986;327:307–310. [doi:10.1016/S0140-6736(86)90837-8](https://doi.org/10.1016/S0140-6736(86)90837-8)
