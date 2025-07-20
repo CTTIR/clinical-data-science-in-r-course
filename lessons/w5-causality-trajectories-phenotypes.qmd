@@ -1,0 +1,109 @@
+---
+title: "W5 · Causal questions, trajectories and phenotypes"
+description: "Workshop W5, teaching units 17–20: a collider created by selection on ICU admission, biomarker trajectories with informative dropout in a mixed model, clusters on a continuous gradient, and a 3Rs justification for the next experiment."
+---
+
+::: {.callout-note appearance="simple" icon=false}
+**Part III · Justifying complex models** · **Level:** advanced · **Teaching units:** 17–20 (4 × 45 min) ·
+**Required reading:** core readings of B02 and B13 (about 20 minutes) · **Lab:** [Lab W5](../exercises/lab-w5-causality-trajectories.qmd)
+:::
+
+## Guiding question
+
+**Which explanation of a pattern survives a plausible counter-assumption: a cause, a selection effect, a dropout
+mechanism or an artefact of the method?**
+
+## Learning objectives
+
+By the end of this workshop you can
+
+1. place injury severity, ICU admission, a biomarker and an outcome in a directed acyclic graph (DAG), state the
+   causal or prognostic target, and justify how each adjustment variable is handled;
+2. simulate how selection on a collider produces an association that does not exist in the full population;
+3. fit a linear mixed model for repeated measurements and report time unit, number of people, number of
+   observations and the time-by-group interaction;
+4. examine late, informative dropout with a sensitivity analysis under a stated counter-assumption;
+5. show for one model family (clusters or flexible time functions) a stability or diagnostic check and name an
+   alternative explanation;
+6. turn a preclinical finding into a justified next experiment using the 3Rs, with a criterion against doing it.
+
+## Preparation
+
+- **Required reading** (about 20 minutes):
+  [B02 · Describe, predict, explain – core reading](https://r-heller.github.io/clinical-data-science-in-r/chapters/b02-describe-predict-explain.html#sec-b02-core)
+  and
+  [B13 · Longitudinal biomarkers – core reading](https://r-heller.github.io/clinical-data-science-in-r/chapters/b13-longitudinal-biomarkers.html#sec-b13-core).
+- **Before the session:** look at the trajectory figure in the B13 core reading. Mark the measurement days, the
+  missing samples and the people who contribute to each time point.
+- **Organisation:** everyone computes Parts A and B. In Part C each group deepens one method and presents it to a
+  group that chose the other one. A clinical–methodological tandem leads the session.
+
+## Teaching units
+
+| Unit | Task | Minutes | Observable evidence |
+|---|---|---:|---|
+| 17 | Place severity, ICU admission and outcome in a DAG. Simulate a collider effect by selecting a subgroup ([Lab W5, Part A](../exercises/lab-w5-causality-trajectories.qmd)). | 45 | A causal estimand or prognostic target, and a reasoned treatment of every adjustment variable. |
+| 18 | Draw a spaghetti plot and fit a mixed model for repeated measurements. Examine the influence of late dropout under a plausible counter-assumption ([Part B](../exercises/lab-w5-causality-trajectories.qmd)). | 45 | A result with time unit, number of people, interaction and sensitivity finding. |
+| 19 | Elective station clusters: a continuous gradient is grouped artificially. Elective station longitudinal models: a flexible time function against a simple slope ([Part C](../exercises/lab-w5-causality-trajectories.qmd)). | 45 | An alternative explanation plus a stability or diagnostic figure. |
+| 20 | Turn a hypothesis from a preclinical finding into a next experiment, weighing the 3Rs (Replacement, Reduction, Refinement), sample size, species and the values of people affected. | 45 | A justification for the experiment with a testable alternative and a criterion against a further experiment. |
+
+## The setting
+
+A fictitious cohort of people with traumatic spinal cord injury has repeated measurements of a trace-element
+biomarker during the first four weeks. Severely injured people are admitted to intensive care more often, and
+people with complete lesions miss the late measurement more often. Each of these facts can create a pattern that
+looks like biology. All values are *synthetic*.
+
+## Materials
+
+- [Lab W5 · Collider, mixed model and clusters](../exercises/lab-w5-causality-trajectories.qmd) with
+  [`r/w5-causality-trajectories.R`](../r/w5-causality-trajectories.R).
+- Tables: [collider cohort](../data/w5-collider-cohort.csv), [trajectories](../data/w5-trajectories.csv),
+  [marker gradient](../data/w5-markers.csv).
+- The justification table for unit 20 is at the end of the lab page.
+- Paper version: printed lab output; the DAG can be drawn by hand and checked against the printed adjustment sets.
+
+## Four perspectives in this workshop
+
+- **Ethics.** A subtype label can change how people are treated. A cluster that is only a cut through a gradient
+  should not become a diagnosis. In unit 20, the people who would benefit and the animals that would be used are
+  weighed explicitly ([NC3Rs: the 3Rs](https://nc3rs.org.uk/who-we-are/3rs)).
+- **Regulation.** Indirect: a biomarker that later guides treatment would need evidence for that intended purpose,
+  not only an association in a selected cohort.
+- **Data protection.** Rare injury patterns and exact sampling dates can identify people; the shared tables carry
+  pseudonyms and study days only.
+- **Security.** Indirect: a result that cannot be reproduced from the script and the stored seed is not
+  trustworthy, whatever its cause.
+
+## Transition to W6
+
+You have a report with a baseline, a counter-check and a proposal for the next experiment. W6 moves from
+explanation to forecasting and simulation: which assumptions make a number good enough for planning?
+
+## Further reading
+
+- [B14 · Cluster, gradient or artefact](https://r-heller.github.io/clinical-data-science-in-r/chapters/b14-cluster-gradient-artefact.html)
+  and [B16 · Bayes, small samples and the 3Rs](https://r-heller.github.io/clinical-data-science-in-r/chapters/b16-bayes-small-samples-3rs.html)
+  – stability and uncertainty during the analysis.
+- [B03 · How data arise](https://r-heller.github.io/clinical-data-science-in-r/chapters/b03-how-data-arise.html)
+  – missingness mechanisms with clinical examples.
+- [CTTIR Courses: DAGs with dagitty and ggdag](https://cttir.github.io/courses/course3_design_causal/labs/lab_week3_session3.html)
+  and [MCAR, MAR, MNAR](https://cttir.github.io/courses/course3_design_causal/labs/lab_week2_session1.html).
+- [CTTIR Courses: Linear mixed models with lme4](https://cttir.github.io/courses/course3_design_causal/labs/lab_week2_session3.html)
+  and [Clustering: k-means, hierarchical, model-based](https://cttir.github.io/courses/course4_ml_highdim/labs/lab_week1_session4.html).
+- [CTTIR Courses: Bench and translational design](https://cttir.github.io/courses/course3_design_causal/labs/lab_week1_session4.html)
+  – design choices behind unit 20.
+- [Methods in R: Random-Slope Models](https://r-heller.github.io/methods-in-r/sec-ch-07-regression.html#sec-chapters-07-regression-random-slopes)
+  and [k-Means Clustering](https://r-heller.github.io/methods-in-r/sec-ch-08-multivariate.html#sec-chapters-08-multivariate-kmeans-clustering).
+- [CTTIR Tutorials: Cluster Validation: Silhouette](https://cttir.github.io/tutorials/tutorials/multivariate/cluster-validation-silhouette.html).
+- [Scientometrics in R: Causal Inference in Scientometrics](https://r-heller.github.io/scientometrics-in-r/causal-inference-in-scientometrics.html)
+  – the same selection problems in another field.
+
+## Sources
+
+- Hernán MA, Hernández-Díaz S, Robins JM. A structural approach to selection bias. *Epidemiology*.
+  2004;15:615–625. [doi:10.1097/01.ede.0000135174.63482.43](https://doi.org/10.1097/01.ede.0000135174.63482.43)
+- Bates D, Mächler M, Bolker B, Walker S. Fitting linear mixed-effects models using lme4. *Journal of Statistical
+  Software*. 2015;67(1):1–48. [doi:10.18637/jss.v067.i01](https://doi.org/10.18637/jss.v067.i01)
+- Percie du Sert N, et al. The ARRIVE guidelines 2.0. *PLOS Biology*. 2020;18:e3000410.
+  [doi:10.1371/journal.pbio.3000410](https://doi.org/10.1371/journal.pbio.3000410)

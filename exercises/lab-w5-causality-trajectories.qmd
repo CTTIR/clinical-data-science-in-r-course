@@ -1,0 +1,303 @@
+---
+title: "Lab W5 · Collider, mixed model and clusters"
+description: "Teaching units 17–19: selection on ICU admission as a collider, biomarker trajectories with informative late dropout in a mixed model, and two elective stations on clusters and flexible time functions."
+---
+
+```{r}
+#| label: setup
+#| include: false
+source("../r/style.R")
+source("../r/course.R")
+knitr::read_chunk("../r/w5-causality-trajectories.R")
+```
+
+::: {.callout-note appearance="simple" icon=false}
+**Workshop:** [W5 · Causal questions, trajectories and phenotypes](../lessons/w5-causality-trajectories-phenotypes.qmd) ·
+**Teaching units:** 17–19 (unit 20 builds on the results) · **Data:** synthetic, generated below with fixed seeds ·
+**Script:** [`r/w5-causality-trajectories.R`](../r/w5-causality-trajectories.R) (runs on its own in a fresh R session) ·
+**Tables:** [`w5-collider-cohort.csv`](../data/w5-collider-cohort.csv),
+[`w5-trajectories.csv`](../data/w5-trajectories.csv), [`w5-markers.csv`](../data/w5-markers.csv) ·
+**Run time:** under 15 seconds
+:::
+
+The setting is a fictitious cohort of people with traumatic spinal cord injury. Every number on this page is
+*synthetic* or a teaching *assumption*: the biomarker levels, the effect sizes and the reasons why samples are
+missing were chosen to make one methodological point at a time. None of them describes real patients, a real
+laboratory or a real intensive care unit.
+
+Each part follows the same five steps: state the decision, look at the data, name the assumption, compute in R and
+write one sentence for the person who has to act. Everyone works through Parts A and B. In Part C each group
+chooses one of two stations and presents its finding to the other group.
+
+If R is new to you, read the code and the printed output first and answer the questions on paper; the printed
+results are complete. If you are fluent in R, change the parameters named in the counter-checks and rerun the script.
+
+```{r w5-packages}
+#| message: false
+```
+
+## Part A · Selecting on ICU admission (unit 17)
+
+**Decision.** A research group holds a registry of patients admitted to intensive care after spinal cord injury.
+They see that patients with a higher serum biomarker on admission have lower motor scores at six months, and they
+ask whether a drug that lowers the biomarker would improve recovery. Before anyone plans a trial, the group has to
+say which question they are asking. A **prognostic** question asks whether the biomarker helps to
+predict the outcome among ICU patients. A **causal** question asks what would happen to the outcome if the
+biomarker were changed by an intervention. The second question needs a causal argument, not only an association.
+
+**Assumption.** The causal structure below is an *assumption* written down before looking at the data. Injury
+severity and a low biomarker both make ICU admission more likely; only severity affects the motor score. By
+construction there is no arrow from the biomarker to the outcome.
+
+```{r w5-dag}
+```
+
+```{r fig-w5-dag}
+#| fig-cap: "Assumed causal structure (directed acyclic graph) for the teaching case. ICU admission is a common effect of injury severity and the biomarker, which makes it a collider. Assumption, not a finding."
+#| fig-alt: "Diagram with four boxes. Arrows run from injury severity to ICU admission, from serum biomarker to ICU admission, and from injury severity to motor score at six months. ICU admission is highlighted as the selection variable. A note states that there is no arrow from biomarker to outcome, so any association between them is not causal."
+#| fig-height: 4.5
+```
+
+`adjustmentSets()` returns the empty set: in the whole population nothing needs to be adjusted for, because there is
+no open path from the biomarker to the outcome. `dseparated()` shows what changes when we condition on ICU
+admission. Restricting the analysis to ICU patients is exactly such a conditioning step.
+
+**Look at the data and compute.** We simulate 5,000 patients according to the graph and
+compare the association between biomarker and motor score in everyone, in ICU patients only, and in ICU patients
+with adjustment for severity.
+
+```{r w5-collider}
+```
+
+```{r fig-w5-collider}
+#| fig-cap: "Serum biomarker (µg/L) against motor score at six months (points, synthetic 0–100 scale), in all patients and in ICU patients only. Synthetic cohort; n = 5,000 patients, of whom 1,588 were admitted to ICU. Lines are linear fits with 95% confidence bands."
+#| fig-alt: "Two scatter plots side by side. In all patients the fitted line is flat at a motor score of about 55 points across biomarker values from 40 to 130 µg/L. In ICU patients only, the line falls from about 54 points at 30 µg/L to about 43 points at 130 µg/L."
+```
+
+```{r}
+#| label: tbl-w5-collider
+#| tbl-cap: "Change in motor score (points) per 10 µg/L higher biomarker. Synthetic cohort; the true causal effect is zero by construction."
+knitr::kable(collider_table, digits = 2,
+             col.names = c("Analysis", "Patients", "Change per 10 µg/L (points)"))
+```
+
+**Report.** In all `r cdsr_number(nrow(cohort))` patients the biomarker is unrelated to the motor score
+(`r sprintf("%+.2f", collider_table$slope_per_10[1])` points per 10 µg/L). Among the
+`r cdsr_number(nrow(icu_only))` ICU patients the same data show `r sprintf("%+.2f", collider_table$slope_per_10[2])`
+points per 10 µg/L, although the biomarker has no effect at all. Among ICU patients a high biomarker "signals" that
+admission must have been driven by severe injury, and severe injury lowers the motor score. Within the registry the
+association may still help to *predict* outcomes; it is no reason to expect benefit from lowering the biomarker.
+
+::: {.callout-tip title="Counter-check: predict first"}
+Suppose ICU admission depended on severity only, not on the biomarker. Does the association among ICU patients stay
+negative, vanish or turn positive? Write down your guess, then run the chunk.
+:::
+
+```{r w5-collider-countercheck}
+```
+
+With admission driven by severity alone, ICU admission is no longer a common effect of biomarker and severity, and
+the association among ICU patients is `r sprintf("%+.2f", slope_counter)` points per 10 µg/L.
+
+::: {.callout-warning title="Common mistake"}
+"We adjusted for everything we had." Adjusting for, or selecting on, a common effect of the exposure and of a
+cause of the outcome (here ICU admission) can create an association where none existed. Decide on adjustment variables from the assumed
+causal structure, not from availability or *p*-values.
+:::
+
+## Part B · Trajectories with late dropout (unit 18)
+
+**Decision.** Does the serum biomarker rise faster in the first four weeks after an incomplete lesion than after a
+complete lesion? The answer is to be reported as a difference in rise per week, with its uncertainty, the number
+of persons and a statement about missing samples.
+
+**Look at the data.** Forty persons (20 per group) are sampled on days 1, 3, 7, 14 and 28. Draw the trajectories
+before fitting any model: each line is one person.
+
+```{r w5-trajectories}
+```
+
+```{r fig-w5-spaghetti}
+#| fig-cap: "Serum selenium (µg/L) over the first 28 days after injury, one line per person, by lesion type. Synthetic data; n = 40 persons (20 per group), 188 observations; 12 persons have no day-28 sample (dashed)."
+#| fig-alt: "Two spaghetti plots. In both groups the lines start between about 51 and 72 µg/L on day 1 and rise by day 14. Lines of the incomplete lesion group rise further, reaching about 64 to 93 µg/L on day 28. Dashed lines of persons without a day-28 sample end on day 14; most of them are in the complete lesion group and lie in the lower part of the bundle."
+```
+
+The unit of analysis is the person, not the observation: there are `r nrow(obs)` observations but only
+`r length(unique(obs$id))` independent persons. No day-28 sample is available for `r length(missing_ids)` persons, most of them
+in the complete-lesion group.
+
+**Assumption.** In this synthetic cohort the day-28 sample is more likely to be missing when the person's day-28
+value would have been low, for example because people who are doing poorly are transferred before the last sample.
+Missingness that depends on the unobserved value itself is called *missing not at random* (MNAR). With real data
+this cannot be checked from the observed values; it can only be explored with a sensitivity analysis.
+
+**Compute, step 1: a simple summary per person.** Fit one straight line per person and compare the mean slopes of the
+two groups.
+
+```{r w5-summary-measure}
+```
+
+**Compute, step 2: a linear mixed model.** One model for all observations, with a random intercept and a random
+slope per person and an interaction between time and lesion type. The interaction is the difference in rise per
+week between the groups.
+
+```{r w5-mixed-model}
+```
+
+**Compute, step 3: what the dropout does to the day-28 mean.** Because the data are synthetic, we also know the
+day-28 values that would have been measured without dropout. A real study never has this column.
+
+```{r w5-dropout}
+```
+
+```{r}
+#| label: tbl-w5-day28
+#| tbl-cap: "Mean serum selenium on day 28 (µg/L) by lesion type. Synthetic data; n = 40 persons. 'Without dropout' is known only because the data are simulated."
+knitr::kable(day28_table, digits = 1, row.names = FALSE,
+             col.names = c("Lesion", "Without dropout (reference)", "Completers only", "Mixed model, one mean per day"))
+```
+
+**Compute, step 4: sensitivity analysis.** Fill the missing day-28 values with each person's own model prediction
+minus δ, for δ = 0, 5 and 10 µg/L, and refit. δ = 0 corresponds to "missing at random given the earlier values";
+larger δ means "those who were not sampled were doing worse than their earlier values suggest".
+
+```{r w5-sensitivity}
+```
+
+**Report.** In `r length(unique(obs$id))` persons with `r nrow(obs)` observations, serum selenium rose by
+`r sprintf("%.1f", interaction_est)` µg/L per week more after incomplete than after complete lesions (95% CI
+`r sprintf("%.1f", interaction_ci[1])` to `r sprintf("%.1f", interaction_ci[2])`; linear mixed model with random
+intercept and slope). The simple per-person slopes give a similar difference
+(`r sprintf("%.1f", summary_diff)` µg/L per week). No day-28 sample was available for `r length(missing_ids)` persons;
+completers alone overstate the day-28 mean of the complete-lesion group by
+`r sprintf("%.1f", bias_completers[1])` µg/L. If the missing values were 10 µg/L lower than predicted, the
+difference in rise would be `r sprintf("%.1f", sensitivity_table$interaction[3])` µg/L per week: the direction of
+the finding holds, its size depends on an assumption about the missing samples.
+
+::: {.callout-tip title="Counter-check: predict first"}
+Before you look at the sensitivity table: as δ grows, will the estimated difference between the groups shrink or
+grow? Which group loses more when δ increases, and why?
+:::
+
+::: {.callout-warning title="Common mistake"}
+Reporting the mean of the completers at day 28 as "the day-28 value". Here the completers are the persons who were
+doing better, so the mean is too high, and it is too high by different amounts in the two groups.
+:::
+
+## Part C · Elective stations (unit 19)
+
+Each group works on one station for about 30 minutes and then explains its result to the other group in five
+minutes: what was the alternative explanation, and which plot or number supports the conclusion?
+
+### Station 1 · Cluster, gradient or artefact
+
+**Decision.** A team proposes three "inflammatory subtypes" of patients based on four admission markers and wants to
+use them to stratify a future trial. Are there three groups, or one continuous gradient cut into three pieces?
+
+**Look at the data.** The synthetic markers of 300 patients are generated from a single continuous gradient
+(three markers) plus one unrelated marker on a large numerical scale. Compare the standard deviations of the raw
+markers.
+
+```{r w5-cluster-data}
+```
+
+**Assumption.** k-means always returns the requested number of clusters, whether or not groups exist. Distances
+on raw values are dominated by the marker with the largest numerical spread.
+
+```{r w5-cluster-kmeans}
+```
+
+```{r fig-w5-clusters}
+#| fig-cap: "k-means clusters (k = 3) on standardised and on raw markers, plotted against the true position on the gradient and the first principal component of the standardised markers. Synthetic data; n = 300 patients, four markers."
+#| fig-alt: "Two scatter plots with the same points. Left, standardised markers: the three clusters occupy three consecutive stretches of the gradient from 0 to 1, with overlap at the borders, along one continuous band of points. Right, raw markers: the three clusters are mixed along the whole gradient, because they follow the unrelated marker with the largest numerical spread."
+```
+
+**Report.** The partitions on raw and standardised markers are unrelated (adjusted Rand index
+`r sprintf("%.2f", ari_raw_scaled)`). The standardised clusters are slices of one gradient (rank correlation with the
+gradient `r sprintf("%.2f", rho_scaled)`), the separation is weak (mean silhouette width
+`r sprintf("%.2f", mean_silhouette)`) and the bootstrap gives a median adjusted Rand index of
+`r sprintf("%.2f", median(boot_ari))`. Even a perfectly stable split would not show that three distinct groups exist;
+a subtype label needs a consequence for patients and an external check, for example a different outcome or
+treatment response in an independent cohort.
+
+::: {.callout-tip title="Counter-check: predict first"}
+Remove the unrelated marker and cluster the three gradient markers only. Will the clusters follow the gradient more
+closely or less closely?
+:::
+
+```{r w5-cluster-countercheck}
+```
+
+### Station 2 · A straight line or a flexible time function
+
+**Decision.** The mixed model in Part B assumed a straight-line rise over 28 days. Is that good enough, or does the
+rise level off?
+
+**Assumption.** A natural spline with three degrees of freedom lets the mean curve bend; both models keep the same
+random intercept and slope per person and are fitted by maximum likelihood so that their AIC can be compared.
+
+```{r w5-spline}
+```
+
+```{r fig-w5-spline}
+#| fig-cap: "Mean trajectories of serum selenium (µg/L) estimated with a linear time term and with a natural spline (3 degrees of freedom), by lesion type. Points are observed means per day; on day 28 they include completers only. Synthetic data; n = 40 persons, 188 observations."
+#| fig-alt: "Two panels. In the complete lesion group the spline rises from about 61 µg/L on day 1 to about 65 µg/L by day 7 and then flattens to about 69 µg/L at day 28, while the straight line runs from about 62 to 71 µg/L. The observed day-28 mean of completers, about 72 µg/L, lies above both curves. In the incomplete lesion group the spline bends slightly, rising from about 60 to 77 µg/L; the straight line runs from about 62 to 78 µg/L."
+```
+
+**Report.** The spline model has a lower AIC (`r sprintf("%.0f", aic_table$AIC[2])` against
+`r sprintf("%.0f", aic_table$AIC[1])`), so the rise levels off within four weeks and a single slope in µg/L per
+week summarises the trajectory only roughly. Note that the observed day-28 mean of the complete-lesion group lies
+above both curves: those are the completers from Part B, not a lack of fit.
+
+## Unit 20 · From a preclinical finding to the next experiment
+
+Unit 20 is a reasoning task without code. Suppose a rodent model of spinal cord injury had shown a similar rise of
+the biomarker. Before proposing a further animal experiment, the group writes a one-page justification:
+
+| Element | Question to answer |
+|---|---|
+| Hypothesis | Which single, testable statement would the next experiment decide? |
+| Replacement | Could cell, tissue or in-silico models, or existing human data, answer it instead? |
+| Reduction | Which unit is independent (animal, not sample), and how many animals does the effect size of interest need? Which design (blocking, repeated measures) reduces that number? |
+| Refinement | Which procedures, endpoints and humane end points limit suffering? |
+| Species and transfer | Why this species, and what would still be *open* for people after a positive result? |
+| Criterion against a further experiment | Which result, or which existing evidence, would make the experiment unnecessary? |
+| People affected | Which patients would benefit if the hypothesis holds, and what would they need to know? |
+
+Use the [NC3Rs description of the 3Rs](https://nc3rs.org.uk/who-we-are/3rs) and the reporting items of the
+[ARRIVE guidelines 2.0](https://doi.org/10.1371/journal.pbio.3000410) as checklists.
+
+## Your record for the workshop
+
+1. One sentence that states the target of Part A as either a causal estimand or a prognostic target, and a reason
+   for every variable you would or would not adjust for.
+2. The Part B result with time unit, number of persons, number of observations, the interaction with its interval
+   and the sensitivity finding.
+3. From your station in Part C: the alternative explanation and the plot or number that supports your conclusion.
+4. A draft of the one-page justification for unit 20 with one checkable alternative and one criterion against a
+   further experiment.
+
+```{r w5-save}
+#| include: false
+```
+
+## Further reading
+
+- Companion book: [B02 · Describe, predict, explain](https://r-heller.github.io/clinical-data-science-in-r/chapters/b02-describe-predict-explain.html#sec-b02-core)
+  and [B13 · Longitudinal biomarkers](https://r-heller.github.io/clinical-data-science-in-r/chapters/b13-longitudinal-biomarkers.html#sec-b13-core)
+  – the required reading behind Parts A and B.
+- Companion book: [B14 · Cluster, gradient or artefact](https://r-heller.github.io/clinical-data-science-in-r/chapters/b14-cluster-gradient-artefact.html#sec-b14-core)
+  and [B16 · Bayes, small samples and the 3Rs](https://r-heller.github.io/clinical-data-science-in-r/chapters/b16-bayes-small-samples-3rs.html#sec-b16-core)
+  – background for station 1 and unit 20.
+- Hernán, Hernández-Díaz and Robins (2004), [A structural approach to selection bias](https://doi.org/10.1097/01.ede.0000135174.63482.43)
+  – the collider argument of Part A in general form.
+- [CTTIR Courses: DAGs with dagitty and ggdag](https://cttir.github.io/courses/course3_design_causal/labs/lab_week3_session3.html)
+  and [MCAR, MAR, MNAR](https://cttir.github.io/courses/course3_design_causal/labs/lab_week2_session1.html)
+  – drawing causal graphs and classifying missing data.
+- [CTTIR Courses: Linear mixed models with lme4](https://cttir.github.io/courses/course3_design_causal/labs/lab_week2_session3.html)
+  – random intercepts and slopes step by step.
+- [Methods in R: Random-Slope Models](https://r-heller.github.io/methods-in-r/sec-ch-07-regression.html#sec-chapters-07-regression-random-slopes)
+  – model specification, diagnostics and reporting.
+- [Methods in R: k-Means Clustering](https://r-heller.github.io/methods-in-r/sec-ch-08-multivariate.html#sec-chapters-08-multivariate-kmeans-clustering)
+  and [CTTIR Tutorials: Cluster Validation: Silhouette](https://cttir.github.io/tutorials/tutorials/multivariate/cluster-validation-silhouette.html)
+  – what k-means optimises and how to judge separation.
