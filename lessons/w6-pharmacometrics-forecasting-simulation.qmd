@@ -1,0 +1,106 @@
+---
+title: "W6 · Pharmacometrics, forecasting and simulation"
+description: "Workshop W6, teaching units 21–24: a forecast checked against a seasonal naive baseline in later time windows, a one-compartment model against its analytic solution or an operating-capacity simulation on common random numbers, two priors for a small binomial finding, and a project workshop."
+---
+
+::: {.callout-note appearance="simple" icon=false}
+**Part III · Justifying complex models** · **Level:** advanced · **Teaching units:** 21–24 (4 × 45 min) ·
+**Required reading:** core reading of B17, and of B15 or B18 depending on your station (about 20 minutes) ·
+**Lab:** [Lab W6](../exercises/lab-w6-forecast-pk-simulation.qmd)
+:::
+
+## Guiding question
+
+**Under which assumptions is a forecast or a simulation good enough to plan with, and how would we notice that it
+is not?**
+
+## Learning objectives
+
+By the end of this workshop you can
+
+1. evaluate a forecast against a seasonal naive baseline in temporally later windows only, and report horizon,
+   error measure, interval coverage and the shift in which an under-forecast could cause harm;
+2. state units and a numerical tolerance before solving a one-compartment model, and verify the solver against
+   the analytic solution, **or** compare two capacity scenarios on identical pre-generated events and report the
+   spread over replications;
+3. compute posterior intervals for a small binomial finding under two plausible priors and explain in plain
+   language what they do and do not say without a comparison group;
+4. have another group reproduce exactly one number of your project from a fresh R session.
+
+## Preparation
+
+- **Required reading** (about 20 minutes):
+  [B17 · Forecasting patient flow – core reading](https://r-heller.github.io/clinical-data-science-in-r/chapters/b17-forecasting-patient-flow.html#sec-b17-core),
+  and for your station either
+  [B15 · Mechanistic models and pharmacometrics – core reading](https://r-heller.github.io/clinical-data-science-in-r/chapters/b15-mechanistic-models-pharmacometrics.html#sec-b15-core)
+  or
+  [B18 · Mass casualty incidents, operating capacity and simulation – core reading](https://r-heller.github.io/clinical-data-science-in-r/chapters/b18-mass-casualty-capacity-simulation.html#sec-b18-core).
+- **Before the session:** compare the two kinds of simulation: a concentration over time and a queue in front of
+  the operating theatres. What is the input, what is random, and what would count as a wrong answer in each?
+- **Organisation:** each group runs one station analysis completely and reviews the other station from its
+  pre-computed curves. A clinical–methodological tandem leads the session.
+
+## Teaching units
+
+| Unit | Task | Minutes | Observable evidence |
+|---|---|---:|---|
+| 21 | Check forecast emergency department arrivals against "same hour of the previous week" in temporally later windows ([Lab W6, Part A](../exercises/lab-w6-forecast-pk-simulation.qmd)). | 45 | A table with horizon, error measure, interval coverage and one shift with possible harm. |
+| 22 | Elective station PK: vary clearance or volume one at a time and check against an analytic solution. Elective station mass casualty incident: simulate paired arrival sequences for two capacity scenarios ([Part B](../exercises/lab-w6-forecast-pk-simulation.qmd)). | 45 | A PK curve with units and test tolerance, or a waiting-time distribution with its spread over runs. |
+| 23 | Evaluate a small binomial teaching example with two plausible priors. Express the uncertainty and the missing comparison group in everyday language ([Part C](../exercises/lab-w6-forecast-pk-simulation.qmd)). | 45 | Two posterior intervals and a limited statement about the observed end point. |
+| 24 | Project workshop: run your model against baseline and counter-check. Another group reproduces exactly one number from a fresh R session. | 45 | A reproducible interim report with a reasoned next test on another cohort, time period or species. |
+
+::: {.callout-important title="Virtual parameters only"}
+The PK station uses virtual parameters for a fictitious substance. Nothing in this workshop is a dosing
+recommendation or describes a real medicine.
+:::
+
+## Materials
+
+- [Lab W6 · Forecast, PK, queue and priors](../exercises/lab-w6-forecast-pk-simulation.qmd) with
+  [`r/w6-forecast-pk-simulation.R`](../r/w6-forecast-pk-simulation.R).
+- Tables: [hourly arrivals](../data/w6-ed-arrivals.csv), [PK concentrations](../data/w6-pk-concentrations.csv),
+  [pre-generated incident events](../data/w6-mci-events.csv).
+- Paper version and peer review: the pre-computed curves and tables printed on the lab page.
+
+## Four perspectives in this workshop
+
+- **Ethics.** A forecast that is good on average can fail in the shift where under-staffing harms patients;
+  capacity simulations can shift waiting time onto lower-priority groups. Name who waits.
+- **Regulation.** Indirect: a planning forecast is usually not a medical device; a dose-individualising model with
+  a clinical intended purpose could be. The intended purpose decides ([W7](w7-regulation-data-protection-incident.qmd)).
+- **Data protection.** Hourly counts are aggregates; the incident events are synthetic. Real arrival logs would
+  contain times that, combined with other data, can point to individuals.
+- **Security.** The availability of a forecast or a planning tool is itself a safety question: what does the team
+  do when the number is missing on the morning of a busy day?
+
+## Transition to W7
+
+Your interim report is now an appendix to a decision. In W7 the decision itself moves into the foreground: who is
+responsible for what when a tool changes purpose, receives an update and leaks data.
+
+## Further reading
+
+- [B16 · Bayes, small samples and the 3Rs](https://r-heller.github.io/clinical-data-science-in-r/chapters/b16-bayes-small-samples-3rs.html)
+  – priors, small samples and the step from rate to experiment.
+- [B19 · From one centre or species to the next](https://r-heller.github.io/clinical-data-science-in-r/chapters/b19-transfer-across-centres-and-species.html)
+  – the next test on another cohort, time period or species.
+- [Methods in R: Rolling-Origin Cross-Validation](https://r-heller.github.io/methods-in-r/sec-ch-09-timeseries.html#sec-chapters-09-timeseries-rolling-origin-cv)
+  and [Forecast Accuracy Metrics](https://r-heller.github.io/methods-in-r/sec-ch-09-timeseries.html#sec-chapters-09-timeseries-forecast-accuracy-metrics).
+- [Methods in R: The Beta-Binomial Model](https://r-heller.github.io/methods-in-r/sec-ch-10-bayesian.html#sec-chapters-10-bayesian-beta-binomial-model)
+  – the conjugate model behind unit 23.
+- [CTTIR Courses: Time series basics](https://cttir.github.io/courses/course3_design_causal/labs/lab_week2_session5.html)
+  and [SIR and SEIR models with deSolve](https://cttir.github.io/courses/course3_design_causal/labs/lab_week4_session4.html).
+- [CTTIR Courses: Bayesian thinking; α control vs decision error](https://cttir.github.io/courses/course4_ml_highdim/labs/lab_week3_session1.html).
+- [CTTIR Tutorials: Credible Intervals](https://cttir.github.io/tutorials/tutorials/bayesian/credible-intervals.html).
+- [Strategy in R: Monte Carlo Methods for Games](https://r-heller.github.io/strategy-in-r/sec-monte-carlo.html)
+  and [Agent-Based Models for Strategic Interaction](https://r-heller.github.io/strategy-in-r/sec-agent-based-models.html)
+  – simulation with explicit assumptions.
+
+## Sources
+
+- Soetaert K, Petzoldt T, Setzer RW. Solving differential equations in R: package deSolve. *Journal of Statistical
+  Software*. 2010;33(9):1–25. [doi:10.18637/jss.v033.i09](https://doi.org/10.18637/jss.v033.i09)
+- Ucar I, Smeets B, Azcorra A. simmer: discrete-event simulation for R. *Journal of Statistical Software*.
+  2019;90(2):1–30. [doi:10.18637/jss.v090.i02](https://doi.org/10.18637/jss.v090.i02)
+- Hyndman RJ, Athanasopoulos G. *Forecasting: Principles and Practice*, 3rd edition (online).
+  [otexts.com/fpp3](https://otexts.com/fpp3/)

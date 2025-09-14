@@ -1,0 +1,322 @@
+---
+title: "Lab W6 · Forecast, PK, queue and priors"
+description: "Teaching units 21–23: a forecast of emergency department arrivals tested on later weeks, two elective simulation stations (pharmacokinetics or operating capacity in a mass casualty incident) and a small binomial result under two priors."
+---
+
+```{r}
+#| label: setup
+#| include: false
+source("../r/style.R")
+source("../r/course.R")
+knitr::read_chunk("../r/w6-forecast-pk-simulation.R")
+```
+
+::: {.callout-note appearance="simple" icon=false}
+**Workshop:** [W6 · Pharmacometrics, forecasting and simulation](../lessons/w6-pharmacometrics-forecasting-simulation.qmd) ·
+**Teaching units:** 21–23 (unit 24 is the project workshop) · **Data:** synthetic, generated below with fixed seeds;
+pharmacokinetic parameters are virtual ·
+**Script:** [`r/w6-forecast-pk-simulation.R`](../r/w6-forecast-pk-simulation.R) (runs on its own in a fresh R session) ·
+**Tables:** [`w6-ed-arrivals.csv`](../data/w6-ed-arrivals.csv), [`w6-pk-concentrations.csv`](../data/w6-pk-concentrations.csv),
+[`w6-mci-events.csv`](../data/w6-mci-events.csv) · **Run time:** under 10 seconds
+:::
+
+Every part of this lab follows the same five steps: state the decision, look at the data, name the assumption,
+compute in R and write one sentence for the person who has to act. All numbers are *synthetic* or teaching
+*assumptions*. The pharmacokinetic example uses virtual parameters for one virtual individual; it names no drug and
+contains **no dosing recommendation**.
+
+Part A is for everyone. In Part B each group works through **one** station (pharmacokinetics or operating capacity)
+completely and reviews the other station from its printed curves and tables. Part C is again for everyone. If R is
+new to you, read the code and the printed output first; the results on this page are complete. If you are fluent in
+R, run the counter-checks before reading their output.
+
+```{r w6-packages}
+#| message: false
+```
+
+## Part A · Is next week's forecast usable for staffing? (unit 21)
+
+**Decision.** A fictitious emergency department plans nursing staff per shift one week ahead. The team asks whether
+a simple forecast of hourly arrivals, with an interval, is good enough to plan the next week, and in which shift a
+wrong forecast would hurt patients most.
+
+**Look at the data.** The synthetic department records arrivals per hour for 16 weeks. There is a daily rhythm (quiet
+at night, busy in the early afternoon), a weekly rhythm (busier on Mondays, quieter at weekends) and, from week 13, a
+winter wave with 25% more arrivals (*assumption*). The forecasting rules below do not know about the wave.
+
+```{r w6-arrivals}
+```
+
+```{r fig-w6-arrivals}
+#| fig-cap: "Arrivals per day in the synthetic emergency department over 16 weeks; the dashed line marks the start of the winter wave in week 13. Unit: arrivals per day; n = 112 days (2,688 hours) from one fictitious department."
+#| fig-alt: "Line chart of daily arrivals over 112 days. Up to day 84 the daily totals vary between about 80 and 160 around a level of roughly 120. From day 85 onwards the level is higher, mostly between 110 and 190, with a dashed vertical line and a label marking the winter wave from week 13."
+```
+
+**Assumption.** Both rules assume that the coming week resembles the recent past. The **baseline** repeats the same
+hour of the previous week ("seasonal naive"); the **alternative** averages the same hour over the last four weeks.
+Each 80% interval is learnt from the rule's own errors in the four weeks before the forecast origin, so it assumes
+that future errors look like past errors.
+
+**Compute.** The forecasts are evaluated only on weeks that lie *after* the forecast origin (rolling origin): for
+week 9 the rules see weeks 1–8, for week 10 weeks 1–9, and so on up to week 16. The `stopifnot()` line checks that no
+forecast uses an hour at or after its own origin.
+
+```{r w6-forecast}
+```
+
+```{r w6-evaluation}
+```
+
+```{r w6-inline-a}
+#| include: false
+# Short names for numbers quoted in the text
+ep <- function(m, p, col) eval_period[eval_period$method == m & startsWith(eval_period$period, p), col]
+mae_m4_before <- ep("Mean of last 4 weeks", "Weeks 9-12", "mae")
+mae_ln_before <- ep("Same hour last week", "Weeks 9-12", "mae")
+me_m4_wave <- ep("Mean of last 4 weeks", "Weeks 13-16", "mean_error")
+me_ln_wave <- ep("Same hour last week", "Weeks 13-16", "mean_error")
+cov_m4_wave <- ep("Mean of last 4 weeks", "Weeks 13-16", "coverage_80")
+cov_m4_before <- ep("Mean of last 4 weeks", "Weeks 9-12", "coverage_80")
+late_gap <- gap_mean4$under_forecast_per_shift[gap_mean4$shift == "Late (14-22)"]
+night_gap <- gap_mean4$under_forecast_per_shift[gap_mean4$shift == "Night (22-06)"]
+```
+
+```{r}
+#| label: tbl-w6-forecast
+#| tbl-cap: "Forecast errors in the synthetic emergency department by rule and period. Each row is based on 672 forecast hours (4 forecast weeks × 168 hours). MAE = mean absolute error in arrivals per hour; mean error = observed minus forecast (positive = under-forecast); coverage = share of hours inside the 80% interval."
+knitr::kable(eval_period, digits = 2,
+             col.names = c("Rule", "Period", "Hours", "MAE (arrivals/h)", "Mean error (arrivals/h)",
+                           "80% interval coverage"))
+```
+
+```{r fig-w6-forecast-week}
+#| fig-cap: "Hourly forecasts for week 13, the first week of the winter wave, made at Monday 00:00 from weeks 1–12 only. Points: observed arrivals; band: 80% interval of the 4-week mean. Unit: arrivals per hour; n = 168 hours."
+#| fig-alt: "Line chart of one week of hourly arrivals with a clear daily rhythm peaking around 10 to 15 arrivals in the early afternoon. The solid line (4-week mean) is smooth, the dotted line (same hour last week) is more jagged. Many observed points lie above both lines in the afternoon peaks, and several lie above the shaded 80% band."
+```
+
+**Report.** Before the wave, the 4-week mean is the more precise rule (MAE `r sprintf("%.2f", mae_m4_before)` against
+`r sprintf("%.2f", mae_ln_before)` arrivals per hour) and its 80% interval covers
+`r cdsr_percent(cov_m4_before)` of hours. During the wave it under-forecasts by `r sprintf("%.2f", me_m4_wave)`
+arrivals per hour on average (the baseline by `r sprintf("%.2f", me_ln_wave)`), coverage falls to `r cdsr_percent(cov_m4_wave)`, and the gap concentrates in the late
+shift: about `r sprintf("%.1f", late_gap)` arrivals per late shift were not forecast, against
+`r sprintf("%.1f", night_gap)` per night shift. A sentence for the nurse manager: *"The forecast is usable for
+normal weeks; after a sudden rise it lags for several weeks, so a rise of this size should trigger a manual
+review of the late shift rather than rely on the interval."* The interval describes uncertainty only under the
+assumption that the process has not changed.
+
+The table by horizon shows a second point: for these weekly rules, the error barely grows from the first day to the
+seventh. What matters more is how long ago the level last changed.
+
+```{r}
+#| label: tbl-w6-horizon
+#| tbl-cap: "Forecast errors by forecast horizon, pooled over the eight forecast weeks 9–16. n = number of forecast hours per row."
+knitr::kable(eval_horizon, digits = 2,
+             col.names = c("Rule", "Horizon", "Hours", "MAE (arrivals/h)", "Mean error (arrivals/h)",
+                           "80% interval coverage"))
+```
+
+::: {.callout-tip title="Counter-check: predict first"}
+In week 14 the wave has been running for one week. Which rule will now have the smaller average under-forecast, and
+why? Write down your answer, then run the chunk.
+:::
+
+```{r w6-forecast-countercheck}
+```
+
+::: {.callout-warning title="Common mistake"}
+Evaluating a forecast on randomly chosen hours, or computing the "mean of the last four weeks" with weeks that lie
+after the hour to be forecast. Both let the future leak into the forecast and make it look better than it can be in
+practice. Time series are tested only on periods that come later than everything the rule has seen.
+:::
+
+## Part B · Two elective simulation stations (unit 22)
+
+### Station PK · Does the solver reproduce the known answer?
+
+**Decision.** A research group plans a pharmacokinetic sampling scheme and wants to use a numerical solver for more
+complex models later. Before trusting the solver, it must reproduce a case whose answer is known exactly.
+
+**Assumption.** One compartment, first-order elimination after an intravenous bolus, virtual parameters: clearance
+CL = 5 L/h, volume of distribution V = 50 L, virtual amount 100 mg (*assumption*; no drug, no dosing
+recommendation). The analytic solution is $C(t) = \frac{\text{Dose}}{V}\, e^{-\frac{CL}{V} t}$ in mg/L. **Units and
+tolerance are fixed before computing:** time in hours, concentration in mg/L, and the numerical and analytic
+concentrations at the same 49 time points (0 to 24 h every 30 minutes) may differ by at most a relative
+$10^{-6}$ (the value of `tolerance` in the code).
+
+```{r w6-pk}
+```
+
+```{r fig-w6-pk}
+#| fig-width: 7.5
+#| fig-cap: "Concentration after a virtual intravenous bolus of 100 mg in a one-compartment model, varying one parameter at a time. Lines: numerical solution (deSolve); points: analytic solution every 4 hours. Unit: mg/L on a logarithmic axis; one virtual individual, no data from real persons."
+#| fig-alt: "Two panels with straight declining lines on a logarithmic concentration axis. Left, clearance varied at a volume of 50 L: all three lines start at 2 mg/L; halving clearance makes the line flatter, doubling it makes the line steeper. Right, clearance fixed at 5 L/h: halving the volume doubles the starting concentration to 4 mg/L and steepens the decline, doubling the volume halves it to 1 mg/L and flattens the decline. The analytic points lie exactly on the numerical lines."
+```
+
+**Report.** The solver agrees with the analytic solution to a relative difference of
+`r format(signif(max_rel_diff, 2), scientific = TRUE)`, well inside the tolerance fixed in advance. The half-life is
+`r sprintf("%.2f", half_life)` h ($\ln 2 \cdot V / CL$). Changing clearance alters only the slope; changing the volume
+alters the starting concentration *and* the slope. Samples taken only late after the bolus show the slope, i.e. the
+ratio CL/V; an early sample is needed to separate the two parameters.
+
+::: {.callout-tip title="Counter-check: predict first"}
+Clearance and volume are both doubled (10 L/h and 100 L). What happens to the half-life, and what happens to the
+concentration at time zero? Would two samples at 12 and 24 hours tell you that anything changed?
+:::
+
+```{r w6-pk-countercheck}
+```
+
+::: {.callout-note title="Other implementation: Julia/SciML"}
+[DifferentialEquations.jl](https://docs.sciml.ai/DiffEqDocs/stable/) in Julia
+([Rackauckas and Nie 2017](https://doi.org/10.5334/jors.151)) offers a wide choice of solvers and built-in tools for
+parameter sensitivity; it is useful when solver choice itself becomes the question, for example in stiff
+multi-compartment models. For existing Python pipelines,
+[SciPy `solve_ivp`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.solve_ivp.html)
+([Virtanen et al. 2020](https://doi.org/10.1038/s41592-019-0686-2)) is the direct counterpart of the
+[deSolve](https://doi.org/10.18637/jss.v033.i09) call used here. A fair comparison needs identical parameters, units,
+initial amount and time points, the analytic solution as common reference and the same relative tolerance fixed in
+advance. Status: conceptual comparison, not run. A statement about speed would need a separate benchmark.
+:::
+
+### Station operating capacity · Does a third theatre change waiting times?
+
+**Decision.** The emergency plan of a fictitious hospital asks whether a third operating theatre should be opened
+during a mass casualty incident (MCI).
+
+**Assumption.** Twelve casualties need surgery; they arrive on average every 15 minutes, and an operation lasts on
+average 90 minutes (log-normal, *assumption*). Theatres work first come, first served, without triage priorities.
+The model describes this scenario only; it is not a prediction for a real incident. Both capacity scenarios are run
+on **the same** 200 pre-generated sequences of arrival and operating times (common random numbers), so that any
+difference comes from capacity and not from chance.
+
+```{r w6-mci-events}
+```
+
+The queue is written out in a few lines of base R so that every step can be followed. One replication is then
+re-run in the discrete-event package **simmer** ([Ucar et al. 2019](https://doi.org/10.18637/jss.v090.i02)); both
+must give identical waiting times. The last check confirms that, on identical event sequences, the extra theatre
+never makes any casualty wait longer.
+
+```{r w6-mci-queue}
+```
+
+```{r w6-mci-summary}
+```
+
+```{r fig-w6-mci}
+#| fig-cap: "Mean waiting time for surgery per casualty in each simulated incident, with two or three operating theatres. Box: median and interquartile range over replications. Unit: hours; n = 200 replications of 12 casualties per scenario, both scenarios on identical event sequences."
+#| fig-alt: "Box plot with jittered points for two scenarios. With two operating theatres the mean waiting time per incident lies mostly between about 1.7 and 3.3 hours, median about 2.4 hours. With three theatres it lies mostly between about 0.6 and 1.7 hours, median about 1.1 hours."
+```
+
+**Report.** In this scenario the median of the mean waiting time per casualty falls from
+`r sprintf("%.2f", median(per_rep$mean_wait_2_h))` h with two theatres to
+`r sprintf("%.2f", median(per_rep$mean_wait_3_h))` h with three; the paired difference is
+`r mci_summary$paired_difference[1]` h (median and 10th to 90th percentile over 200 replications). The spread over
+replications belongs in the report: it shows how much a single incident can deviate from the median. Whether the
+third theatre can be staffed at all, and who waits under triage rules, are questions this model does not answer.
+
+::: {.callout-tip title="Counter-check: predict first"}
+Operations take 20% longer than assumed, while arrivals stay the same. With three theatres, will the median waiting
+time end up closer to the original three-theatre value or to the two-theatre value?
+:::
+
+```{r w6-mci-countercheck}
+```
+
+::: {.callout-note title="Other implementation: Python/SimPy"}
+[SimPy](https://simpy.readthedocs.io/en/latest/) describes each casualty as a Python process; interruptions,
+priorities and shared staff can be traced line by line, which helps when the plan grows beyond a single queue. The
+R counterpart is [simmer](https://r-simmer.org/). For a fair comparison, both programs read the same file of arrival
+and operating times ([`w6-mci-events.csv`](../data/w6-mci-events.csv)); first compare the order of events for one
+replication, then the waiting times. The same seed number in R and Python does not produce the same random draws,
+so random numbers are never generated separately in each language. Status: conceptual comparison, not run.
+:::
+
+## Part C · Three events in twelve animals (unit 23)
+
+**Decision.** A fictitious preclinical group observed an adverse event (for example a wound infection) in 3 of 12
+animals after a new implant. Before planning another experiment, the group wants to state what this result says
+about the event probability, and what it cannot say.
+
+**Assumption.** The animals are independent and share one event probability. Two plausible priors are compared: a
+flat prior Beta(1, 1), and a sceptical prior Beta(2, 8) that expects about 20% events from earlier, similar work
+(*assumption*). With a binomial result the posterior is again a Beta distribution, so no sampling algorithm is
+needed: the 95% intervals come straight from `qbeta()`. A grid calculation checks the result independently.
+
+```{r w6-bayes}
+```
+
+```{r fig-w6-posterior}
+#| fig-width: 7.5
+#| fig-cap: "Prior (dashed) and posterior (solid) distribution of the event probability per animal for two priors. Orange line: observed share 3/12 = 25%. Unit: probability per animal; n = 12 fictitious animals, no control group."
+#| fig-alt: "Two panels. Left, flat prior: the prior is a horizontal line; the posterior peaks at 25% and spreads from about 5% to 55%. Right, sceptical prior: the prior peaks near 12% and is skewed to the right; the posterior is narrower and peaks near 20%, slightly left of the observed 25%."
+```
+
+**Report.** *"In 12 animals, 3 had the event. With a flat prior, an event probability between
+`r cdsr_percent(priors$lower_95[1])` and `r cdsr_percent(priors$upper_95[1])` is compatible with this result (95%
+interval); with a sceptical prior based on earlier work, between `r cdsr_percent(priors$lower_95[2])` and
+`r cdsr_percent(priors$upper_95[2])`. Without a control group, we cannot say whether the implant caused any of the
+events."* The event rate describes what happened in these animals; a treatment effect would need a comparison group
+under the same conditions.
+
+::: {.callout-tip title="Counter-check: predict first"}
+The same rate is observed in ten times as many animals (30 of 120). Will the two intervals become narrower, and will
+the choice of prior matter more or less?
+:::
+
+```{r w6-bayes-countercheck}
+```
+
+::: {.callout-warning title="Common mistake"}
+Reading the posterior as evidence that the implant is harmful or safe. Without a concurrent control group, the
+posterior describes the event probability under this protocol, not a treatment effect. Whether a further experiment
+is justified is a 3Rs decision (replacement, reduction, refinement): the next study should answer a question that
+this result cannot.
+:::
+
+## Unit 24 · Project workshop: reproduce one number
+
+Run your group's model against its baseline and its counter-check. Then hand your script to another group. That
+group starts a **fresh R session** (for this lab: `Rscript r/w6-forecast-pk-simulation.R` from the repository root)
+and reproduces exactly **one** number that you name in advance, for example the half-life of
+`r sprintf("%.2f", half_life)` h or the MAE of the 4-week mean before the wave
+(`r sprintf("%.2f", mae_m4_before)`). If the number differs, record why: missing file, different seed, different
+package version or a step that was only done by hand.
+
+## Your record for the workshop
+
+1. Part A: the error table with horizon, MAE, interval coverage and the shift with the largest under-forecast, plus
+   one sentence for the nurse manager.
+2. Part B: either the PK curve with units, tolerance and the result of the solver check, or the waiting-time
+   distribution with its spread over replications and the paired difference.
+3. Part C: both posterior intervals and a plain-language sentence that mentions the missing comparison group.
+4. Unit 24: the number another group reproduced, and the next test you propose on another cohort, period or
+   species.
+
+Download the tables linked at the top if you want to continue in a spreadsheet; `w6-mci-events.csv` is also the
+common input for a comparison with another simulation program. The script writes the same files to `output/` when
+you run it on your own.
+
+```{r w6-save}
+#| include: false
+```
+
+## Further reading
+
+- Companion book: [B17 · Forecasting patient flow](https://r-heller.github.io/clinical-data-science-in-r/chapters/b17-forecasting-patient-flow.html#sec-b17-core)
+  (required for W6), and either [B15 · Mechanistic models and pharmacometrics](https://r-heller.github.io/clinical-data-science-in-r/chapters/b15-mechanistic-models-pharmacometrics.html#sec-b15-core)
+  or [B18 · Mass casualty incidents, operating capacity and simulation](https://r-heller.github.io/clinical-data-science-in-r/chapters/b18-mass-casualty-capacity-simulation.html#sec-b18-core),
+  depending on your station; [B16 · Bayes, small samples and the 3Rs](https://r-heller.github.io/clinical-data-science-in-r/chapters/b16-bayes-small-samples-3rs.html#sec-b16-core)
+  for Part C.
+- [Methods in R: Rolling-Origin Cross-Validation](https://r-heller.github.io/methods-in-r/sec-ch-09-timeseries.html#sec-chapters-09-timeseries-rolling-origin-cv)
+  and [Forecast Accuracy Metrics](https://r-heller.github.io/methods-in-r/sec-ch-09-timeseries.html#sec-chapters-09-timeseries-forecast-accuracy-metrics)
+  – how to test forecasts on later periods and which error measure answers which question.
+- [Forecasting: Principles and Practice](https://otexts.com/fpp3/) by Hyndman and Athanasopoulos – the standard open
+  textbook on seasonal baselines and prediction intervals.
+- [CTTIR Courses: SIR and SEIR models with deSolve](https://cttir.github.io/courses/course3_design_causal/labs/lab_week4_session4.html)
+  – the same solver applied to a compartment model of infection.
+- [Strategy in R: Monte Carlo Methods for Games](https://r-heller.github.io/strategy-in-r/sec-monte-carlo.html)
+  – replications, random seeds and the spread of simulated outcomes.
+- [Methods in R: The Beta-Binomial Model](https://r-heller.github.io/methods-in-r/sec-ch-10-bayesian.html#sec-chapters-10-bayesian-beta-binomial-model)
+  and [CTTIR Tutorials: Prior Specification](https://cttir.github.io/tutorials/tutorials/bayesian/prior-specification.html)
+  – conjugate updating and how to justify a prior.
