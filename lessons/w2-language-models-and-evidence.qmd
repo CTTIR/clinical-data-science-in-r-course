@@ -1,0 +1,159 @@
+---
+title: "W2 · Language models and scientific evidence"
+description: "Workshop W2, teaching units 05–08: how generated text arises, how a claim is traced to its original passage, where a trust boundary lies, and how to explain uncertainty to a patient."
+---
+
+::: {.callout-note appearance="simple" icon=false}
+**Part I · Clinical questions and data** · **Level:** entry · **Teaching units:** 05–08 (4 × 45 min) ·
+**Required reading:** core readings of B07 and B08 (about 20 minutes) · **Lab:** [Lab W2](../exercises/lab-w2-next-word.qmd) ·
+**Case sheet:** [An instruction hidden in an attachment](../exercises/casebook-w2-untrusted-instruction.qmd) ·
+**No external AI account needed**
+:::
+
+## Guiding question
+
+**Which generated statement can be checked, against what, and who checks it before it reaches a patient?**
+
+## Learning objectives
+
+By the end of this workshop you can
+
+1. explain in your own words how a language model produces a fluent sentence that no source supports;
+2. trace a research claim from reference and DOI to the original passage and give a reasoned verdict;
+3. recognise when a real, thematically fitting source is used for a claim its study design cannot carry;
+4. mark the trust boundary in a data flow where external content meets an assistant with tool access, and name one
+   test that shows a blocked export stays blocked;
+5. rewrite an answer for a patient so that it states uncertainty in natural frequencies, offers a choice and checks
+   understanding with a teach-back question;
+6. document any use of an AI tool (tool, version, date, purpose, what you checked).
+
+## Preparation
+
+- **Required reading** (about 20 minutes):
+  [B07 · Reading an AI study critically – core reading](https://r-heller.github.io/clinical-data-science-in-r/chapters/b07-reading-an-ai-study.html#sec-b07-core)
+  and
+  [B08 · Language models in clinic and science – core reading](https://r-heller.github.io/clinical-data-science-in-r/chapters/b08-language-models.html#sec-b08-core).
+- **Before the session:** read the two stored answers below and underline the single most contentious sentence in
+  each.
+
+## Stored answers {#stored-answers}
+
+Both answers respond to the same *synthetic* patient question. They were written for this course to show patterns
+that are typical of generated text; they are not the output of any particular system.
+
+> **Patient question.** "I fell on my hand yesterday. The X-ray was checked by a computer program and it said
+> there is no fracture. Does that mean my wrist is definitely not broken? Do I still need the follow-up
+> appointment?"
+
+::: {.callout-note appearance="simple" icon=false collapse="false"}
+**Stored answer A**
+
+Good news: modern AI fracture detection is as accurate as specialist doctors. A large meta-analysis in *The Lancet
+Digital Health* (Liu et al., 2019, doi:10.1016/S2589-7500(19)30123-2) showed that AI improves outcomes for
+patients. A negative AI result can exclude a fracture, so the follow-up appointment is usually not necessary. If
+the pain continues, painkillers and rest are enough.
+:::
+
+::: {.callout-note appearance="simple" icon=false collapse="false"}
+**Stored answer B**
+
+A computer result is one piece of information, not a final answer. No test rules out a fracture with complete
+certainty; some wrist fractures, for example of the scaphoid bone, may not be visible on the first X-ray. The
+follow-up appointment is there to check exactly this. Tools that work well during development can perform worse
+in everyday use: in an external validation, a widely used hospital model for predicting sepsis reached an area
+under the ROC curve of only 0.63 (Wong et al., 2021, doi:10.1001/jamainternmed.2021.2626). Please keep your
+appointment and come back earlier if the pain or swelling gets worse.
+:::
+
+## Teaching units
+
+| Unit | Task | Minutes | Observable evidence |
+|---|---|---:|---|
+| 05 | In R, derive next-word frequencies from twelve short sentences ([Lab W2](../exercises/lab-w2-next-word.qmd)). Use the two stored answers to examine how a plausible but false sentence arises. | 45 | Your own explanation of the generation principle and a verification task for the contentious sentence. |
+| 06 | Trace a research claim from DOI and title to the original passage. In a second example the source fits the topic but the claim goes beyond its design. | 45 | An evidence card with reference, passage, verdict and documented AI use (if any). |
+| 07 | A synthetic attachment contains a foreign instruction. Teams mark the trust boundary and play through, without a network, how an unintended data transfer is prevented ([case sheet](../exercises/casebook-w2-untrusted-instruction.qmd)). | 45 | A data flow with a blocked export, minimal permissions and a test that shows the blocked access. |
+| 08 | Revise an answer for a patient conversation: make uncertainty understandable, name a choice and check understanding with a question. | 45 | A conversation card, plus the case card and evidence card as the first project milestone. |
+
+### Evidence card (unit 06)
+
+Check the two claims below. Use only the DOI resolver (`https://doi.org/` followed by the DOI), the publisher page
+and the abstract or full text. If you use an AI tool at any point, record it in the last row.
+
+| Field | Claim 1 (stored answer B) | Claim 2 (stored answer A) |
+|---|---|---|
+| Claim as written | "In an external validation, a widely used hospital model for predicting sepsis reached an area under the ROC curve of only 0.63." | "A large meta-analysis … showed that AI improves outcomes for patients." |
+| Reference as cited | Wong et al., 2021, doi:10.1001/jamainternmed.2021.2626 | Liu et al., 2019, doi:10.1016/S2589-7500(19)30123-2 |
+| Does the DOI resolve to that title, journal and year? | | |
+| Original passage (quote, with page or section) | | |
+| Study design and what it measured | | |
+| Verdict: supported / partly supported / not supported / source not found | | |
+| What the answer may say instead | | |
+| AI use: tool, version, date, purpose, what you checked | | |
+
+### Conversation card (unit 08)
+
+Rewrite one of the stored answers for the patient. The card has four lines:
+
+1. **What we know**, in natural frequencies (for example "out of 100 people with a wrist injury like yours …"),
+   labelled as an *assumption* if you do not have local figures.
+2. **What we do not know yet**, in one sentence.
+3. **A choice** the patient can make (for example: keep the follow-up appointment, or come back earlier if
+   symptoms change), with what each option means for them.
+4. **A teach-back question** that checks understanding without testing the patient, for example "So that I know I
+   explained it well: what will you do if the pain gets worse before your appointment?"
+
+## Materials
+
+- [Lab W2 · Next-word frequencies](../exercises/lab-w2-next-word.qmd) with [`r/w2-next-word.R`](../r/w2-next-word.R).
+- [Case sheet W2 · An instruction hidden in an attachment](../exercises/casebook-w2-untrusted-instruction.qmd)
+  (paper, no network, no code).
+- The two stored answers and the evidence card on this page; print both for groups working on paper.
+
+## Four perspectives in this workshop
+
+- **Ethics.** Stored answer A advises against the follow-up appointment. A wrong reassurance shifts the harm to
+  the patient, who cannot check the source. The conversation card restores a choice.
+- **Regulation.** If a generated text is used to inform an individual diagnostic or therapeutic decision, the
+  intended purpose of the tool, not the technology, decides whether medical device rules apply; see
+  [W7](w7-regulation-data-protection-incident.qmd).
+- **Data protection.** Pasting a patient's question with identifying details into an external service is a
+  transfer of health data to a recipient; unit 07 makes this visible.
+- **Security.** Content from outside (an attachment, a web page) can contain instructions. An assistant that may
+  read files and send messages must not treat such text as a command (indirect prompt injection; Greshake et al.,
+  2023, [doi:10.1145/3605764.3623985](https://doi.org/10.1145/3605764.3623985)).
+
+## Transition to W3
+
+Your case card and evidence card form the first project milestone. In W3 the claim on your evidence card becomes a
+number: what does an alert mean for the next patient, and how would you test it?
+
+## Further reading
+
+- [B07 · Reading an AI study critically](https://r-heller.github.io/clinical-data-science-in-r/chapters/b07-reading-an-ai-study.html)
+  and [B08 · Language models in clinic and science](https://r-heller.github.io/clinical-data-science-in-r/chapters/b08-language-models.html)
+  – the full chapters behind the required reading.
+- [B25 · Security risks of learning and generative systems](https://r-heller.github.io/clinical-data-science-in-r/chapters/b25-security-risks-ai-systems.html)
+  and [B23 · Data protection along the entire data flow](https://r-heller.github.io/clinical-data-science-in-r/chapters/b23-data-protection.html)
+  – background for unit 07.
+- [B21 · Ethics at the bedside and in study design](https://r-heller.github.io/clinical-data-science-in-r/chapters/b21-ethics.html)
+  – teach-back and shared decisions, for unit 08.
+- [Scientometrics in R: Working with Full Text](https://r-heller.github.io/scientometrics-in-r/working-with-full-text.html)
+  – retrieving and checking original passages at scale.
+- [Scientometrics in R: Retraction Analysis](https://r-heller.github.io/scientometrics-in-r/retraction-analysis.html)
+  – a source can exist and still be withdrawn.
+- [Methods in R: Writing a report – Reporting guidelines](https://r-heller.github.io/methods-in-r/sec-appendices-d-writing-a-report.html#sec-appendices-d-writing-a-report-reporting-guidelines)
+  – what a study must report before its claims can be checked.
+- [Strategy in R: LLM Agents and Strategic Reasoning](https://r-heller.github.io/strategy-in-r/sec-llm-agents.html)
+  – language models that act, not only write.
+
+## Sources
+
+- Liu X, Faes L, Kale AU, et al. A comparison of deep learning performance against health-care professionals in
+  detecting diseases from medical imaging: a systematic review and meta-analysis. *Lancet Digital Health*.
+  2019;1:e271–e297. [doi:10.1016/S2589-7500(19)30123-2](https://doi.org/10.1016/S2589-7500(19)30123-2)
+- Wong A, Otles E, Donnelly JP, et al. External validation of a widely implemented proprietary sepsis prediction
+  model in hospitalized patients. *JAMA Internal Medicine*. 2021;181:1065–1070.
+  [doi:10.1001/jamainternmed.2021.2626](https://doi.org/10.1001/jamainternmed.2021.2626)
+- Greshake K, Abdelnabi S, Mishra S, et al. Not what you've signed up for: compromising real-world LLM-integrated
+  applications with indirect prompt injection. *Proceedings of the 16th ACM Workshop on Artificial Intelligence and
+  Security*. 2023:79–90. [doi:10.1145/3605764.3623985](https://doi.org/10.1145/3605764.3623985)

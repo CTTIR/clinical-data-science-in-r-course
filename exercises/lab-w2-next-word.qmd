@@ -1,0 +1,123 @@
+---
+title: "Lab W2 · Next-word frequencies"
+description: "Teaching unit 05: a tiny next-word model built from twelve synthetic sentences shows how a fluent, plausible and false sentence can become the most probable output."
+---
+
+```{r}
+#| label: setup
+#| include: false
+source("../r/style.R")
+source("../r/course.R")
+knitr::read_chunk("../r/w2-next-word.R")
+```
+
+::: {.callout-note appearance="simple" icon=false}
+**Workshop:** [W2 · Language models and scientific evidence](../lessons/w2-language-models-and-evidence.qmd) ·
+**Teaching unit:** 05 · **Data:** twelve synthetic teaching sentences ·
+**Script:** [`r/w2-next-word.R`](../r/w2-next-word.R) (runs on its own in a fresh R session) ·
+**Tables:** [`w2-corpus.csv`](../data/w2-corpus.csv), [`w2-bigrams.csv`](../data/w2-bigrams.csv) ·
+**Run time:** about 1 second · **No external AI account needed**
+:::
+
+Large language models are trained on enormous text collections with neural networks, not with a table of word
+pairs. The principle of generation is nevertheless the same: given the text so far, the model assigns a probability
+to every possible next piece of text (a *token*) and picks one. Nothing in this step checks whether the resulting
+sentence is true. This lab makes that principle visible with a model small enough to count by hand.
+
+```{r w2-packages}
+```
+
+## Part A · Count which word follows which {#part-a}
+
+**Decision.** You will later judge a generated answer to a patient's question. First you need your own explanation
+of how such an answer comes about.
+
+**Look at the data.** The corpus has twelve short sentences. Each is correct in its own context: a CT scan *can*
+exclude a fracture, an alert *can* miss one, and a negative alert *does not* exclude one.
+
+```{r w2-corpus}
+```
+
+The model counts every pair of neighbouring words (a *bigram*). Before running the next chunk, find all words that
+follow "alert" and all words that follow "can" in the twelve sentences and count them.
+
+```{r w2-bigrams}
+```
+
+**Assumption.** The model knows nothing but these counts. The probability of the next word is its share among all
+words that followed the current word.
+
+```{r w2-next-prob}
+```
+
+## Part B · Temperature {#part-b}
+
+The *temperature* reshapes these probabilities before sampling. A low temperature makes the most frequent
+continuation even more likely; a high temperature gives rare continuations more chance. Temperature does not add
+knowledge; it only changes how often the model leaves the most frequent path.
+
+```{r fig-w2-temperature}
+#| fig-cap: "Probability of the word that follows \"alert\" in the synthetic bigram model at three temperatures. Counts: can 3, suggests 2, does 1 (6 occurrences in 12 sentences)."
+#| fig-alt: "Grouped bar chart. At temperature 0.5 the probabilities are 0.64 for 'can', 0.29 for 'suggests' and 0.07 for 'does'. At temperature 1 they are 0.50, 0.33 and 0.17. At temperature 2 they are 0.42, 0.34 and 0.24."
+```
+
+## Part C · A plausible sentence that is false {#part-c}
+
+Now compare two continuations of the start "a negative alert". The first is the sentence in the corpus; the second
+was never written by anyone.
+
+```{r w2-sentence-prob}
+```
+
+**Report.** Under this model the false continuation "`r false_sentence`" has a probability of
+`r sprintf("%.3f", probs[["false"]])`, the true one only `r sprintf("%.3f", probs[["true"]])`. Every single step of
+the false sentence is attested in the corpus ("alert can", "can exclude", "exclude a", "a fracture"); the sentence
+as a whole contradicts the corpus. Fluency is a property of word sequences, truth a property of claims.
+
+::: {.callout-tip title="Counter-check: predict first"}
+If you always choose the most probable next word (greedy decoding, roughly temperature close to zero), which of the
+two sentences will the model write? And how many of 20 random continuations at temperature 1 will reproduce the
+true corpus sentence word for word: none, about five, or about ten?
+:::
+
+```{r w2-generate}
+```
+
+The greedy continuation is the false sentence. Among 20 random continuations, the false sentence appears
+`r sum(samples == false_sentence)` times; the true sentence never appears in full, and several outputs drift into
+fluent nonsense.
+
+::: {.callout-warning title="Common mistake"}
+Concluding that a more confident (lower-temperature) answer is more likely to be correct. Lowering the temperature
+makes the model repeat its most probable path more reliably, including a wrong one.
+:::
+
+## Part D · Back to the two stored answers {#part-d}
+
+Return to the two stored answers to the patient's question on the [workshop page](../lessons/w2-language-models-and-evidence.qmd#stored-answers).
+For the sentence you underlined as most contentious:
+
+1. Write one sentence in your own words explaining how a language model could produce it without any source that
+   says so.
+2. Write a verification task for it: which source, which passage, and what would count as confirmation or
+   refutation? This becomes your evidence card in unit 06.
+
+## Your record for the workshop
+
+- Your explanation of the generation principle (two to three sentences, no jargon).
+- The verification task for the contentious sentence.
+
+```{r w2-save}
+#| include: false
+```
+
+## Further reading
+
+- Companion book: [B08 · Language models in clinic and science](https://r-heller.github.io/clinical-data-science-in-r/chapters/b08-language-models.html#sec-b08-core)
+  – tokens, temperature, retrieval and why generated references need checking.
+- [Scientometrics in R: Text Mining Bibliographic Corpora](https://r-heller.github.io/scientometrics-in-r/text-mining-bibliographic-corpora.html)
+  – counting words and word pairs in real literature collections.
+- [Scientometrics in R: Embeddings for Scientometrics](https://r-heller.github.io/scientometrics-in-r/embeddings-for-scientometrics.html)
+  – the step from counts to learnt representations of text.
+- [Strategy in R: LLM Agents and Strategic Reasoning](https://r-heller.github.io/strategy-in-r/sec-llm-agents.html)
+  – what changes when generated text triggers actions.
