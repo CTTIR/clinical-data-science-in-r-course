@@ -1,0 +1,133 @@
+---
+title: "W3 · Diagnostics, prediction and external evidence"
+description: "Workshop W3, teaching units 09–12: predictive values at two prevalences, a baseline against an alternative model, calibration and threshold with subgroup denominators, and a journal club on external validation."
+---
+
+::: {.callout-note appearance="simple" icon=false}
+**Part II · Testing and comparing models** · **Level:** application · **Teaching units:** 09–12 (4 × 45 min) ·
+**Required reading:** core readings of B06 and B09 (about 20 minutes) · **Lab:** [Lab W3](../exercises/lab-w3-diagnostic-accuracy.qmd)
+:::
+
+## Guiding question
+
+**What does an alert mean for the next patient when prevalence changes, and who carries the errors of the
+threshold we choose?**
+
+## Learning objectives
+
+By the end of this workshop you can
+
+1. fill in a two-by-two table for 1,000 examinations from prevalence, sensitivity and specificity and compute the
+   predictive values by hand and in R;
+2. compare a pre-specified logistic baseline with a tuned alternative on fixed test identifiers, keeping all
+   pre-processing and tuning inside the training data;
+3. read a calibration plot and explain why a good AUC does not guarantee usable risk estimates;
+4. propose a threshold and report errors by subgroup with denominators and confidence intervals, naming the group
+   that is disadvantaged and the information still missing;
+5. separate evidence on diagnostic accuracy from evidence on patient benefit when reading a published study.
+
+## Preparation
+
+- **Required reading** (about 20 minutes):
+  [B06 · Accuracy, calibration and clinical utility – core reading](https://r-heller.github.io/clinical-data-science-in-r/chapters/b06-accuracy-calibration-utility.html#sec-b06-core)
+  and
+  [B09 · A fracture alert in the emergency department – core reading](https://r-heller.github.io/clinical-data-science-in-r/chapters/b09-fracture-alert-emergency-department.html#sec-b09-core),
+  in B09 up to the first two-by-two table.
+- **Team assignment:** half of the teams take the low-prevalence setting (5%), the other half the higher-prevalence
+  setting (20%). Each team presents its table to a team with the other setting.
+- **For the journal club (unit 12):** skim the abstract of Wong et al. (2021), linked under Sources.
+
+## Teaching units
+
+| Unit | Task | Minutes | Observable evidence |
+|---|---|---:|---|
+| 09 | For 1,000 examinations with 5% or 20% prevalence and an assumed sensitivity and specificity of 90%, determine all frequencies by hand, then in R ([Lab W3, Part A](../exercises/lab-w3-diagnostic-accuracy.qmd#part-a)). | 45 | Two two-by-two tables. PPV 45/140 ≈ 32.1% and 180/260 ≈ 69.2%. All numbers are teaching assumptions. |
+| 10 | In R, compare a simple logistic baseline with an alternative model on synthetic admission data; pre-processing and tuning use training data only ([Part B](../exercises/lab-w3-diagnostic-accuracy.qmd#part-b)). | 45 | Fixed test identifiers, the baseline and a results table with the test denominator. |
+| 11 | Move a threshold. Discuss ranking, calibration and false alerts per shift. Report errors by group with denominators and uncertainty ([Part C](../exercises/lab-w3-diagnostic-accuracy.qmd#part-c)). | 45 | A decision for an example threshold, with the disadvantaged group named and the missing information stated. |
+| 12 | Journal club: examine a diagnostic accuracy study or an external model validation. Keep evidence on accuracy and evidence on patient benefit apart. | 45 | A critique naming reference standard and test population, and a proposal for the next type of study. |
+
+### Two-by-two tables for the room (unit 09)
+
+The instructor first covers the right-hand column. Explain to the person next to you who belongs in the
+denominator, then reproduce the numbers in R.
+
+| Per 1,000 examined | Fracture present | No fracture | Positive predictive value |
+|---|---:|---:|---:|
+| 5% prevalence, alert positive | 45 | 95 | 45/140 = 32.1% |
+| 5% prevalence, alert negative | 5 | 855 | — |
+| 20% prevalence, alert positive | 180 | 80 | 180/260 = 69.2% |
+| 20% prevalence, alert negative | 20 | 720 | — |
+
+: Two referral settings with the same assumed sensitivity and specificity of 90%. *Assumption*; no product is described. {#tbl-w3-room}
+
+### Journal club card (unit 12)
+
+Work in pairs on one study: the external validation by Wong et al. (2021) or a diagnostic accuracy study of your
+choice. Use the reporting guideline that fits the study type: STARD-AI for diagnostic accuracy, TRIPOD+AI for
+prediction models, PROBAST+AI for risk of bias and applicability, DECIDE-AI for early clinical evaluation.
+
+| Question | Your notes |
+|---|---|
+| Recruitment: who was included, where, when, and who was left out? | |
+| Reference standard: how was the true condition defined, and was it applied to everyone? | |
+| Analysis: unit of analysis, denominators, handling of missing data, calibration reported? | |
+| Generalisation: which population, setting and time does the result transfer to? | |
+| Decision: what does the study show about accuracy, and what about patient benefit? | |
+| One missing reporting item and the question you would ask the authors | |
+| The next type of study you would propose | |
+
+## Materials
+
+- [Lab W3 · Two-by-two tables, baseline and threshold](../exercises/lab-w3-diagnostic-accuracy.qmd) with
+  [`r/w3-diagnostic-accuracy.R`](../r/w3-diagnostic-accuracy.R).
+- Tables: [two-by-two scenarios](../data/w3-two-by-two.csv), [synthetic admissions](../data/w3-admissions.csv)
+  (2,000 rows, the column `split` marks the 600 fixed test admissions).
+- Paper version: the two-by-two table above and the printed lab output.
+
+## Four perspectives in this workshop
+
+- **Ethics.** A threshold distributes errors. In the synthetic cohort, older patients receive both more missed
+  fractures and more unnecessary follow-up at the same threshold. Name them, with denominators, before choosing.
+- **Regulation.** A lower PPV alone is no reason to reject a tool, and a higher AUC is no proof of benefit.
+  Regulatory evaluation asks for clinical evidence related to the intended purpose ([W7](w7-regulation-data-protection-incident.qmd)).
+- **Data protection.** The test identifiers are stored with the data so that results can be reproduced without
+  sharing more data than needed.
+- **Security.** A model that is silently replaced by another version would invalidate the results table; the
+  model version belongs in the model passport.
+
+## Transition to W4
+
+You now have a reproducible comparison table and an error pattern. W4 asks whether such a table measures what it
+claims to measure when images, animals and measurement devices are involved.
+
+## Further reading
+
+- [B05 · From baseline to learning model](https://r-heller.github.io/clinical-data-science-in-r/chapters/b05-from-baseline-to-learning-model.html)
+  – null model, regression, regularisation and nested validation.
+- [B07 · Reading an AI study critically](https://r-heller.github.io/clinical-data-science-in-r/chapters/b07-reading-an-ai-study.html)
+  – reporting guidelines for the journal club.
+- [B17 · Forecasting patient flow](https://r-heller.github.io/clinical-data-science-in-r/chapters/b17-forecasting-patient-flow.html)
+  – the same evaluation logic for time series; returns in W6.
+- [Methods in R: Diagnostic Test Accuracy](https://r-heller.github.io/methods-in-r/sec-ch-14-clinical.html#sec-chapters-14-clinical-diagnostic-accuracy)
+  and [Predictive Values and Prevalence](https://r-heller.github.io/methods-in-r/sec-ch-14-clinical.html#sec-chapters-14-clinical-predictive-values-prevalence).
+- [CTTIR Courses: Diagnostic testing: Se, Sp, PPV, NPV, LR](https://cttir.github.io/courses/course1_foundations/labs/lab_week2_session3.html)
+  – the foundations lab behind unit 09.
+- [CTTIR Courses: Calibration, discrimination, ROC/AUC, Brier score](https://cttir.github.io/courses/course2_regression/labs/lab_week3_session5.html)
+  and [Decision curves, NRI, IDI](https://cttir.github.io/courses/course2_regression/labs/lab_week4_session4.html)
+  – the next steps after units 10 and 11.
+- [CTTIR Tutorials: Calibration Plots](https://cttir.github.io/tutorials/tutorials/machine-learning/calibration-plots.html)
+  – variants of the calibration plot.
+- [Strategy in R: Fairness in Machine Learning](https://r-heller.github.io/strategy-in-r/sec-fairness-ml.html)
+  – formal fairness criteria and why they conflict.
+
+## Sources
+
+- Sounderajah V, et al. The STARD-AI reporting guideline for diagnostic accuracy studies using artificial
+  intelligence. *Nature Medicine*. 2025;31:3283–3289. [doi:10.1038/s41591-025-03953-8](https://doi.org/10.1038/s41591-025-03953-8)
+- Collins GS, et al. TRIPOD+AI statement. *BMJ*. 2024;385:e078378. [doi:10.1136/bmj-2023-078378](https://doi.org/10.1136/bmj-2023-078378)
+- Moons KGM, et al. PROBAST+AI. *BMJ*. 2025;388:e082505. [doi:10.1136/bmj-2024-082505](https://doi.org/10.1136/bmj-2024-082505)
+- Vasey B, et al. DECIDE-AI. *BMJ*. 2022;377:e070904. [doi:10.1136/bmj-2022-070904](https://doi.org/10.1136/bmj-2022-070904)
+- Wong A, et al. External validation of a widely implemented proprietary sepsis prediction model in hospitalized
+  patients. *JAMA Internal Medicine*. 2021;181:1065–1070. [doi:10.1001/jamainternmed.2021.2626](https://doi.org/10.1001/jamainternmed.2021.2626)
+- Van Calster B, et al. Calibration: the Achilles heel of predictive analytics. *BMC Medicine*. 2019;17:230.
+  [doi:10.1186/s12916-019-1466-7](https://doi.org/10.1186/s12916-019-1466-7)

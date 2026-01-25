@@ -1,0 +1,3 @@
+"setting","n","prevalence","sensitivity","specificity","fracture","no_fracture","tp","fn","tn","fp","alerts","ppv","npv"
+"Low prevalence (5%)",1000,0.05,0.9,0.9,50,950,45,5,855,95,140,0.321428571428571,0.994186046511628
+"Higher prevalence (20%)",1000,0.2,0.9,0.9,200,800,180,20,720,80,260,0.692307692307692,0.972972972972973

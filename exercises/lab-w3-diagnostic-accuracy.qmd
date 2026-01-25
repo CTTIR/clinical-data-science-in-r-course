@@ -1,0 +1,171 @@
+---
+title: "Lab W3 · Two-by-two tables, baseline and threshold"
+description: "Teaching units 09–11: predictive values at two prevalences, a logistic baseline against a tuned alternative, calibration, threshold and errors by subgroup."
+---
+
+```{r}
+#| label: setup
+#| include: false
+source("../r/style.R")
+source("../r/course.R")
+knitr::read_chunk("../r/w3-diagnostic-accuracy.R")
+```
+
+::: {.callout-note appearance="simple" icon=false}
+**Workshop:** [W3 · Diagnostics, prediction and external evidence](../lessons/w3-diagnostics-prediction-evidence.qmd) ·
+**Teaching units:** 09–11 · **Data:** synthetic, generated below with a fixed seed ·
+**Script:** [`r/w3-diagnostic-accuracy.R`](../r/w3-diagnostic-accuracy.R) (runs on its own in a fresh R session) ·
+**Tables:** [`w3-two-by-two.csv`](../data/w3-two-by-two.csv), [`w3-admissions.csv`](../data/w3-admissions.csv) ·
+**Run time:** under 10 seconds
+:::
+
+Every part of this lab follows the same five steps: state the decision, look at the data, name the assumption,
+compute in R and write one sentence for the person who has to act. All numbers are *synthetic* or teaching
+*assumptions*; none describes a commercial product or a real emergency department.
+
+If R is new to you, read the code and the printed output first and answer the questions on paper; the printed
+results are complete. If you are fluent in R, try the extra counter-check at the end of each part.
+
+```{r w3-packages}
+#| message: false
+```
+
+## Part A · The same alert in two referral settings (unit 09) {#part-a}
+
+**Decision.** A fictitious emergency department considers a tool that suggests a second look at a wrist
+radiograph when it flags a possible fracture. Clinicians want to know how many alerts per shift will turn out to
+be fractures.
+
+**Assumption.** In both settings the tool has a sensitivity and a specificity of 90% (*assumption*). In the first
+setting 5 of 100 people examined have a fracture, in the second 20 of 100. Whether the tool really reaches 90% in
+either setting is *open* and would need a local study.
+
+Before you run the code, cover the right-hand columns of the printed table and fill in a two-by-two table for
+1,000 examinations by hand. Who belongs in the denominator of the positive predictive value?
+
+```{r w3-two-by-two}
+```
+
+```{r fig-w3-alerts}
+#| fig-cap: "Alerts per 1,000 examinations in two referral settings, split into true alerts (fracture present) and false alerts (no fracture). Synthetic teaching case; sensitivity and specificity are assumptions; n = 1,000 examinations per setting."
+#| fig-alt: "Stacked bar chart with two bars. Low prevalence setting: 140 alerts, of which 45 are fractures (blue) and 95 are not (grey). Higher prevalence setting: 260 alerts, of which 180 are fractures and 80 are not."
+```
+
+**Report.** In the low-prevalence setting, `r scenarios$tp[1]` of `r scenarios$alerts[1]` alerts concern a fracture
+(PPV `r cdsr_percent(scenarios$ppv[1])`); in the higher-prevalence setting it is `r scenarios$tp[2]` of
+`r scenarios$alerts[2]` (`r cdsr_percent(scenarios$ppv[2])`). A defensible handover sentence for the first setting
+reads: *"In our teaching scenario about one in three alerts was a fracture; the image is re-read in its clinical
+context."* The lower PPV alone is no reason to reject a tool. Whether the second look improves treatment is a
+different question that needs a comparison group and patient-relevant outcomes.
+
+::: {.callout-tip title="Counter-check: predict first"}
+Specificity improves from 90% to 95% in the low-prevalence setting, sensitivity stays at 90%. Will the PPV rise to
+about 40%, 50% or 60%? Write down your guess, then run the chunk.
+:::
+
+```{r w3-countercheck}
+```
+
+## Part B · A baseline and an alternative on the same test patients (unit 10) {#part-b}
+
+**Decision.** The team wants to know whether a more complex model ranks patients better than a simple logistic
+regression with four predictors chosen in advance. Both are judged on the same, fixed test patients.
+
+**Look at the data.** The synthetic cohort has 2,000 admissions with suspected wrist fracture. The reference
+standard (fracture yes or no) is known for everyone. 600 admissions are drawn once as the test set; their
+identifiers are stored with the data, so another group can reproduce exactly the same split.
+
+```{r w3-cohort}
+```
+
+**Assumption.** Grip strength is missing for 5% of admissions. Any pre-processing step, here the median used to
+fill in missing grip strength, is learnt from the training data only and then applied unchanged to the test set.
+Using the median of all 2,000 admissions would leak information from the test set into the model.
+
+```{r w3-preprocess}
+```
+
+The alternative model is an elastic net with all variables and all pairwise interactions. Its penalty is tuned by
+five-fold cross-validation **inside the training data**; the test set is touched once, at the end.
+
+```{r w3-models}
+#| message: false
+```
+
+```{r}
+#| label: tbl-w3-results
+#| tbl-cap: "Performance on the fixed synthetic test set (n = 600 admissions, 84 fractures). AUC = area under the ROC curve; Brier score = mean squared difference between predicted risk and outcome (lower is better); calibration slope 1 = ideal."
+knitr::kable(results[, c("model", "n_test", "fractures_test", "auc", "brier", "calib_slope")],
+             digits = 3, col.names = c("Model", "Test admissions", "Fractures", "AUC", "Brier score",
+                                       "Calibration slope"))
+```
+
+**Report.** On the same `r nrow(test)` test admissions, the baseline reaches an AUC of
+`r sprintf("%.3f", results$auc[2])` and the elastic net `r sprintf("%.3f", results$auc[3])`. The difference in
+ranking is small compared with the additional effort for tuning, documentation and maintenance; whether it matters
+depends on the decision the score is meant to support, which Part C makes concrete.
+
+## Part C · Calibration, threshold and who carries the errors (unit 11) {#part-c}
+
+**Decision.** At which predicted risk should the tool raise an alert, and which group pays for that choice in missed
+fractures or unnecessary extra imaging?
+
+```{r fig-w3-calibration}
+#| fig-cap: "Calibration of both models in the synthetic test set: mean predicted risk against the observed share of fractures in five groups of equal size per model, with exact 95% confidence intervals. n = 600 admissions."
+#| fig-alt: "Calibration plot. Both models follow the diagonal for low predicted risks. In the highest risk group the baseline predicts about 56% but observes about 45%, so it overestimates risk there; the elastic net lies close to the diagonal. Confidence intervals are wide, about plus or minus 9 percentage points in the top group."
+```
+
+A good AUC says that patients with fractures tend to receive higher scores. It does not say that a predicted risk of
+50% means that half of these patients have a fracture. The calibration plot answers that second question.
+
+Now move the threshold. The shift size of 30 wrist examinations is an *assumption* used to translate rates into a
+workload that clinicians recognise.
+
+```{r w3-thresholds}
+```
+
+Finally, look at errors by age group at an example threshold of 20%. Every rate is given with its denominator and
+an exact 95% confidence interval.
+
+```{r w3-subgroups}
+```
+
+**Report.** At a threshold of 20%, the tool detects `r subgroup_table$detected[1]` of fractures in people aged 18 to
+74 but only `r subgroup_table$detected[2]` in people aged 75 and older, and it raises false alerts for
+`r subgroup_table$false_alerts[2]` of older people without a fracture. In this synthetic cohort, older patients
+carry both more missed fractures and more unnecessary follow-up. The intervals overlap for sensitivity, so the
+difference needs confirmation; the information missing to decide is the size and direction of this gap in real
+local data.
+
+::: {.callout-warning title="Common mistake"}
+Reporting "sensitivity 71%" without the number of fractures behind it. With 38 fractures in a subgroup the 95%
+interval spans more than 30 percentage points. Always give *x/n*.
+:::
+
+## Your record for the workshop
+
+1. Two two-by-two tables (Part A) with all eight cells and both PPVs.
+2. The results table (Part B) with the test denominator and a sentence on whether the extra effort is justified.
+3. A threshold you would propose for the pilot, the group that is disadvantaged by it, and the one piece of
+   information you would need before deciding (Part C).
+
+Download the tables linked at the top if you want to continue in a spreadsheet. The script writes the same files
+to `output/` when you run it on your own.
+
+```{r w3-save}
+#| include: false
+```
+
+## Further reading
+
+- Companion book: [B06 · Accuracy, calibration and clinical utility](https://r-heller.github.io/clinical-data-science-in-r/chapters/b06-accuracy-calibration-utility.html#sec-b06-core)
+  and [B09 · A fracture alert in the emergency department](https://r-heller.github.io/clinical-data-science-in-r/chapters/b09-fracture-alert-emergency-department.html#sec-b09-core)
+  – the case behind Part A.
+- [Methods in R: Predictive Values and Prevalence](https://r-heller.github.io/methods-in-r/sec-ch-14-clinical.html#sec-chapters-14-clinical-predictive-values-prevalence)
+  – the general formulae and their pitfalls.
+- [Methods in R: Calibration Plots](https://r-heller.github.io/methods-in-r/sec-ch-13-ml.html#sec-chapters-13-ml-calibration-plots)
+  – more ways to draw and test calibration.
+- [CTTIR Courses: Logistic regression (binomial GLM)](https://cttir.github.io/courses/course2_regression/labs/lab_week3_session1.html)
+  – the baseline model step by step.
+- [CTTIR Tutorials: Cutpoint Selection](https://cttir.github.io/tutorials/tutorials/clinical-biostatistics/cutpoint-selection.html)
+  – why a threshold is a decision, not a property of the model.
