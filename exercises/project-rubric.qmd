@@ -1,0 +1,105 @@
+---
+title: "Project rubric and scoring rule"
+description: "Seven criteria with weights, four levels from 0 to 3, the scoring rule and a worked, fictitious scoring example."
+---
+
+```{r}
+#| label: setup
+#| include: false
+source("../r/style.R")
+source("../r/course.R")
+```
+
+The group project is assessed with the rubric below. The same rubric is used for feedback on the interim report
+in W6 and on the defence in W8, so you know at every point what is expected. Assessment and participation
+conditions for a particular run of the course are announced by the course team before the course starts.
+
+## Criteria and weights
+
+| Criterion | Weight | Observable anchor for a strong project |
+|---|---:|---|
+| Question, data unit and comparison | 15% | Purpose, time zero, population and baseline fit the decision. |
+| R analysis, validation and uncertainty | 25% | Someone outside the group can reproduce a figure and identify the independent test data set. |
+| Ethical weighing and communication | 15% | One affected person, one conflict of goals and the reasoned consequence are concrete. |
+| Regulatory classification | 10% | Intended purpose, role, relevant source and open classification are traceable. |
+| Data protection | 10% | Data flow, legal or review question, recipients and deletion point are consistent. |
+| Information security | 10% | A plausible threat receives an effective control, a test and a responsible role. |
+| Recommendation, defence and revision | 15% | The recommendation states conditions, a named counter-position and a verifiable next step. |
+
+: Assessment criteria of the group project. The weights add up to 100%. {#tbl-rubric-weights}
+
+## Levels
+
+Every criterion is scored on the same four levels.
+
+| Level | Meaning | Example for "data protection" |
+|---:|---|---|
+| 0 | **Missing.** The criterion is not addressed. | No data flow. |
+| 1 | **Named.** The relevant point is mentioned in general terms. | "Patient data are pseudonymised." |
+| 2 | **Evidenced in the case.** The point is worked out for this project with its specific facts. | A data flow with recipients, purpose and a deletion point for the gait videos. |
+| 3 | **Evidenced, tested against an alternative and translated into the decision.** | As level 2, plus a comparison with keeping only joint angles, and the recommendation to delete raw videos after 30 days. |
+
+: The four levels of the rubric. {#tbl-rubric-levels}
+
+## Scoring rule
+
+$$
+\text{project percentage} = \sum_{k=1}^{7} \text{weight}_k \times \frac{\text{level}_k}{3}
+$$
+
+For runs with a grade, the course proposes 60% for the individual examination and 40% for the group project:
+
+$$
+\text{course percentage} = 0.6 \times \text{examination percentage} + 0.4 \times \text{project percentage}
+$$
+
+The split is a proposal; the course team states the conditions that apply before the course starts. Self-assessment
+and peer feedback serve as feedback only and never enter a grade.
+
+## Worked example (fictitious)
+
+A fictitious group receives the following levels. The calculation is done in R so that every step can be checked.
+
+```{r}
+#| label: rubric-example
+rubric <- data.frame(
+  criterion = c("Question, data unit and comparison", "R analysis, validation and uncertainty",
+                "Ethical weighing and communication", "Regulatory classification", "Data protection",
+                "Information security", "Recommendation, defence and revision"),
+  weight = c(15, 25, 15, 10, 10, 10, 15),   # percent
+  level  = c(2, 3, 2, 1, 2, 2, 3)           # fictitious levels 0-3
+)
+rubric$points <- rubric$weight * rubric$level / 3
+project_percent <- sum(rubric$points)
+
+exam_correct <- 15                           # fictitious: 15 of 20 questions correct
+exam_percent <- 100 * exam_correct / 20
+course_percent <- 0.6 * exam_percent + 0.4 * project_percent
+
+rubric
+c(project = project_percent, examination = exam_percent, course = course_percent)
+
+# Checks: the weights add up to 100 and the example is reproduced exactly
+stopifnot(sum(rubric$weight) == 100, all(rubric$level %in% 0:3),
+          isTRUE(all.equal(project_percent, 230 / 3)),
+          isTRUE(all.equal(course_percent, 0.6 * 75 + 0.4 * 230 / 3)))
+```
+
+The fictitious group reaches `r cdsr_number(project_percent, 1)`% in the project. With 15 of 20 examination questions
+correct (`r cdsr_number(exam_percent, 0)`%), the proposed weighting gives `r cdsr_number(course_percent, 1)`% for the
+course. Use the example to calibrate assessors: two assessors score the same project independently, compare their
+levels criterion by criterion and agree on the reasons before scoring further projects.
+
+## Common mistakes the rubric catches
+
+- An AUC without the number of independent test units (criterion 2 stays at level 1).
+- "Data are anonymised" without a data flow (data protection stays at level 1).
+- A control without a test ("we use encryption") stays at level 1 for information security.
+- A recommendation without a condition for stopping is at most level 2.
+
+## Further reading
+
+- [B27 · Model passport, study report and decision](https://r-heller.github.io/clinical-data-science-in-r/chapters/b27-model-passport-study-report.html#sec-b27-core)
+  – the documents the rubric is applied to.
+- [Methods in R: Writing a report – Effect sizes and intervals](https://r-heller.github.io/methods-in-r/sec-appendices-d-writing-a-report.html#sec-appendices-d-writing-a-report-effect-sizes-and-intervals)
+  – what "uncertainty" means in criterion 2.

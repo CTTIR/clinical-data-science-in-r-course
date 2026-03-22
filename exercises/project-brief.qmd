@@ -1,0 +1,63 @@
+---
+title: "Project brief and cases"
+description: "The group project that runs through all four parts: deliverables, milestones, six selectable cases with a minimum requirement each, and rules for data and tools."
+---
+
+One project accompanies the whole course. Each group develops the same case from an evidence card in W2 to a
+defended recommendation in W8. The project is assessed with the [rubric](project-rubric.qmd) and counts 40% in runs
+of the course that are graded (proposal; the course team announces the conditions before the course starts).
+
+## What you hand in
+
+| Document | Length | Content |
+|---|---|---|
+| **Decision sheet** | one page | People affected, the decision and its conditions, regulatory questions, data flow, threat and control, responsibility and the next review date. Template: [decision sheet](project-decision-sheet.qmd). |
+| **Model passport** | one page | Purpose, population, data unit, comparison, validation, uncertainty and limits. Template and worked example: [model passport](project-model-passport.qmd). |
+| **R script** | as needed | A commented script with a start command (for example `Rscript r/project.R`) that runs in a fresh R session and reproduces every number in the passport. |
+
+The scope allows one baseline and one meaningful counter-check. For a research case, a reasoned proposal for a
+further experiment, or against one, is a complete result.
+
+## Milestones
+
+| After | Milestone | Feedback |
+|---|---|---|
+| W2 | Case card (W1) and evidence card (W2) | Peer feedback in unit 08 |
+| W4 | First model passport with a counter-check and a decision on permissible exports | Peer review in unit 16 |
+| W6 | Reproducible interim report: another group reproduces one number from a fresh R session | Course team, unit 24 |
+| W7 | Regulatory note, data flow and control matrix for the decision sheet | Role-based feedback in the tabletop exercise |
+| W8 | Defence, change request, revision note | Assessment with the rubric |
+
+## Six cases to choose from
+
+Each case builds on one of the labs, so that every group starts from working code and synthetic data. Groups may
+propose their own case if it meets the same minimum requirement and uses only synthetic or explicitly released
+teaching data.
+
+| Case | Starting lab | Decision to support | Minimum requirement |
+|---|---|---|---|
+| 1 · Fracture alert | [Lab W3](lab-w3-diagnostic-accuracy.qmd) | Should the alert be piloted in the emergency department, and at which threshold? | Baseline and one alternative on fixed test identifiers; errors at one threshold by subgroup with denominators and intervals. |
+| 2 · Hyperspectral tissue characterisation | [Lab W4](lab-w4-spectra-animal-split.qmd) | Is the spectral classifier ready for a study in a new species or in people? | Animal-wise split with zero shared identifiers; an illumination counter-check; the limit of generalisation stated. |
+| 3 · Gait measurement from video | [Lab W4, gait station](lab-w4-spectra-animal-split.qmd) | Can the video method replace the reference measurement for a rehabilitation decision? | Agreement per person with a pre-specified tolerance; a decision on keeping or deleting raw video. |
+| 4 · Spinal cord injury biomarker | [Lab W5](lab-w5-causality-trajectories.qmd) | Is the biomarker trajectory a reason for a new study or a further animal experiment? | Mixed model with time unit, number of people and interaction; one sensitivity analysis for dropout. |
+| 5 · Cell typing in tissue images | [Lab W4, tissue station](lab-w4-spectra-animal-split.qmd) and [Lab W5, cluster station](lab-w5-causality-trajectories.qmd) | Does a proposed cell subtype justify a change in how samples are reported? | A threshold or scaling counter-check; results summarised per person; a check for rare feature combinations before any export. |
+| 6 · Operating capacity in a mass casualty incident | [Lab W6, capacity station](lab-w6-forecast-pk-simulation.qmd) | Is a third operating theatre on standby worth its cost for the scenario studied? | Two scenarios on identical pre-generated events; waiting time with its spread over replications; who waits longest. |
+
+## Rules for data and tools
+
+- Use only synthetic data or data that are explicitly released for teaching. No patient data, no unpublished
+  project results, no real hospitals or products as the subject of the case.
+- Label every number as *synthetic*, *published*, *assumption* or *open*.
+- If you use an AI tool (for code, text or literature), document tool, version, date, purpose and what you
+  checked. You are responsible for every sentence and every line of code you hand in.
+- Every claim about a source needs the passage it rests on (see the evidence card in
+  [W2](../lessons/w2-language-models-and-evidence.qmd)).
+
+## Further reading
+
+- [B27 · Model passport, study report and decision](https://r-heller.github.io/clinical-data-science-in-r/chapters/b27-model-passport-study-report.html#sec-b27-core)
+  and [B28 · Case atlas, glossary and transfer](https://r-heller.github.io/clinical-data-science-in-r/chapters/b28-case-atlas-glossary.html#sec-b28-core).
+- [CTTIR Courses: Pre-registration and statistical analysis plans](https://cttir.github.io/courses/course3_design_causal/labs/lab_week4_session5.html)
+  – fixing the analysis before seeing the results.
+- [Scientometrics in R: Reproducible Pipelines](https://r-heller.github.io/scientometrics-in-r/reproducible-pipelines.html)
+  – from one script to a pipeline another group can rerun.

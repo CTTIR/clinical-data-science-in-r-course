@@ -1,0 +1,250 @@
+---
+title: "Formative self-test"
+description: "Eleven newly developed practice cases across all four parts of the course, each with a single best answer and an explanation that opens on demand."
+---
+
+These cases were written for practice. They are **not** questions from the course examination and do not count
+towards any grade. Each case has one best answer. Decide first, write down why, then open the explanation. If your
+reason differs from the explanation, the reason matters more than the letter.
+
+All cases are fictitious; numbers are *synthetic* or *assumptions* unless a source is given.
+
+## Part I · Clinical questions and sources
+
+### Case 1 · Radiographs or patients?
+
+An audit of ankle injuries in a fictitious emergency department includes 240 radiographs from 150 patients. A
+fracture is visible on 60 radiographs; these belong to 45 patients.
+
+**What proportion of patients had a fracture?**
+
+A. 18.8% · B. 25.0% · C. 30.0% · D. 40.0% · E. It cannot be determined from these data.
+
+::: {.callout-tip collapse="true" title="Answer"}
+**C. 30.0%** (45/150). The question is about patients, so the denominator is the 150 patients and the numerator the
+45 patients with at least one fracture. A (45/240) mixes patients and radiographs; B (60/240) answers a question
+about radiographs; D (60/150) counts radiographs in the numerator and patients in the denominator. E would be right
+only if the radiographs could not be linked to patients.
+:::
+
+### Case 2 · A summary that says more than its source
+
+A generated summary of the literature states: "A randomised trial showed that the triage algorithm reduced
+mortality by 20%." The cited article exists and its DOI resolves correctly. It is a retrospective cohort study that
+reports how well the algorithm's score discriminated between patients who died and those who survived.
+
+**Which verdict on the evidence card is most appropriate?**
+
+A. Supported, because the DOI resolves to the cited article.
+B. Partly supported, because the article is about the same algorithm.
+C. Not supported, because the study design cannot show an effect on mortality.
+D. Source not found.
+E. Supported, if the reported discrimination is high.
+
+::: {.callout-tip collapse="true" title="Answer"}
+**C.** The source exists and fits the topic, but a retrospective study of discrimination says nothing about whether
+using the algorithm changes mortality; that would need a comparison of patients managed with and without it,
+ideally randomised. A and E confuse the existence or quality of a source with support for the specific claim. B is
+too generous: the claim is about an effect the design cannot measure. D is wrong because the source was found.
+:::
+
+## Part II · Testing and comparing models
+
+### Case 3 · The same test in a screening clinic
+
+A test with an assumed sensitivity and specificity of 95% each is used in a screening clinic where 2% of the people
+examined have the condition.
+
+**Which value is closest to the positive predictive value?**
+
+A. 2% · B. 28% · C. 50% · D. 72% · E. 95%
+
+::: {.callout-tip collapse="true" title="Answer"}
+**B. 28%.** Out of 10,000 people, 200 have the condition and 190 of them test positive; of the 9,800 without it,
+5% = 490 test positive. The PPV is 190/680 = 27.9%. E confuses PPV with sensitivity, D is the share of false alerts
+among all alerts, A is the prevalence. Natural frequencies make the calculation and the explanation to patients
+easier.
+:::
+
+### Case 4 · Excellent inside, mediocre outside
+
+A model classifies skin lesions from 5,000 images of 800 patients. The images were split at random into training
+and test sets; test accuracy was 0.93. In a second hospital, accuracy was 0.78.
+
+**What is the best next step to understand the gap?**
+
+A. Train for more epochs to increase accuracy further.
+B. Repeat the internal evaluation with a split by patient and report the number of test patients.
+C. Report the mean of 0.93 and 0.78 as the expected accuracy.
+D. Exclude the second hospital because its images look different.
+E. Increase the number of test images by adding more images of the same patients.
+
+::: {.callout-tip collapse="true" title="Answer"}
+**B.** With a random image split, images of the same patient can appear in training and test, so the 0.93 partly
+measures recognition of known patients. A patient-level split shows how much of the gap is leakage and how much is
+a genuine difference between hospitals. A and E make the leakage worse or hide it; C averages two different
+questions; D removes exactly the evidence about transfer that is needed.
+:::
+
+### Case 5 · Good ranking, wrong level
+
+A prediction model is applied in a new hospital. Its AUC there is 0.85. The mean predicted risk is 10%, but 20% of
+patients have the outcome.
+
+**Which statement is correct?**
+
+A. The model is unusable because its predictions are wrong.
+B. The model ranks patients well but underestimates absolute risk; thresholds based on predicted risk would miss
+   patients until it is recalibrated with local data.
+C. An AUC of 0.85 guarantees that the predicted risks are correct.
+D. The difference is explained by chance and can be ignored.
+E. The model should be retrained from scratch on the new hospital's data without any comparison.
+
+::: {.callout-tip collapse="true" title="Answer"}
+**B.** Discrimination (ranking) and calibration (level) are different properties. A shift in calibration-in-the-large
+is common when prevalence differs; updating the intercept with local data is often the first step. C confuses the
+two properties; A overstates the problem; D ignores a doubling of the observed risk; E discards a model that still
+ranks well and skips the comparison.
+:::
+
+## Part III · Justifying complex models
+
+### Case 6 · A surprising protective factor
+
+In a registry of patients admitted to a trauma intensive care unit, people with a certain chronic condition have
+lower in-hospital mortality than people without it. In the general population of injured people, the condition is
+not associated with lower mortality.
+
+**What is the most likely explanation?**
+
+A. The condition protects against death after injury.
+B. Selection on intensive care admission: admission depends on both injury severity and the condition, so within
+   the registry the condition is associated with less severe injuries.
+C. Random error in a large registry.
+D. Reverse causation: dying causes the condition.
+E. Measurement error in the mortality outcome.
+
+::: {.callout-tip collapse="true" title="Answer"}
+**B.** Intensive care admission is a collider when both severity and the chronic condition lead to admission.
+Restricting the analysis to admitted patients creates an association between the condition and severity, and
+therefore with mortality, that does not exist in all injured people. A draws a causal conclusion from a selected
+sample; C, D and E do not explain why the pattern appears only in the registry.
+:::
+
+### Case 7 · A biomarker that seems to recover
+
+A biomarker is measured on days 1, 7, 14 and 28 after injury in 30 patients. By day 28 only 18 patients are still
+measured; the others were transferred or died, mostly the most severely injured. The mean of the measured values is
+higher on day 28 than on day 1, which the authors describe as recovery.
+
+**Which response is most appropriate?**
+
+A. Accept the conclusion because the day-28 mean is higher.
+B. Report the number of patients per day, analyse the trajectories with a mixed model and add a sensitivity
+   analysis that assumes the missing patients would have had lower values.
+C. Exclude all patients with missing values and analyse only the 18 complete cases.
+D. Replace missing day-28 values with the day-28 mean of the other patients.
+E. Report only the day-1 values, because they are complete.
+
+::: {.callout-tip collapse="true" title="Answer"}
+**B.** The dropout is informative: the sickest patients leave the sample, so the later means describe a different,
+healthier group. A mixed model uses all available measurements and is valid if dropout depends only on observed
+values; a sensitivity analysis shows how far the conclusion depends on that assumption. C and D bake the bias into
+the result; A ignores it; E discards the question.
+:::
+
+## Part IV · Translating models into practice
+
+### Case 8 · Who carries the errors? (ethics)
+
+At the proposed threshold, a fracture alert detects 81% of fractures in younger adults but 68% in people aged 75
+and older, and it raises more false alerts in the older group. The intervals for sensitivity overlap.
+
+**What is the most defensible next step?**
+
+A. Use the threshold, because the intervals overlap and the difference may be chance.
+B. Report errors for both groups with denominators, discuss the trade-off with clinicians and patient
+   representatives, and plan a local evaluation that is large enough for the older group before deciding.
+C. Exclude older patients from the alert.
+D. Choose a separate threshold for older patients based on these numbers alone.
+E. Stop the project, because any difference between groups is unacceptable.
+
+::: {.callout-tip collapse="true" title="Answer"}
+**B.** The data suggest that one group carries more of both kinds of error, but they are too uncertain to settle
+the question. Making the trade-off visible and collecting enough local evidence is the defensible step. A treats
+uncertainty as reassurance; C withholds a possible benefit from the group most at risk; D over-fits a threshold to
+small numbers; E ignores that usual care also distributes errors.
+:::
+
+### Case 9 · Same software, new purpose (regulation)
+
+A hospital's research dashboard shows aggregated statistics about an alert model. It is now proposed that the
+dashboard show an alert for each patient in the emergency department, prompting a second review of the image.
+
+**Which statement is correct?**
+
+A. Because the code is unchanged, the regulatory situation is unchanged.
+B. Research software can never be a medical device.
+C. Whether the software is a medical device depends on its intended purpose; the new purpose supports individual
+   diagnostic decisions and must be assessed under the MDR, where Rule 11 points to class IIa or higher.
+D. Because the software uses AI, only the AI Act applies, not the MDR.
+E. MDCG guidance is binding law and decides the class on its own.
+
+::: {.callout-tip collapse="true" title="Answer"}
+**C.** The MDR defines a medical device by its intended purpose (Article 2(1) and (12)), and Rule 11 in Annex VIII
+classifies software that provides information used for diagnostic decisions as class IIa unless the possible
+consequences are more serious. A and B ignore the role of the intended purpose; D is wrong because the AI Act
+applies alongside sectoral law, which it lists in Annex I; E is wrong because MDCG documents are guidance, not law.
+:::
+
+### Case 10 · A name in the support log (data protection)
+
+On Monday at 09:00 a hospital (the controller) learns from its software provider (the processor) that a support
+ticket contained a patient's name and a short clinical note. The hospital's assessment is that the breach is likely
+to result in a risk, but not a high risk, to the person concerned.
+
+**Which course of action matches the GDPR?**
+
+A. Notify the supervisory authority without undue delay and, where feasible, within 72 hours of becoming aware,
+   that is, by Thursday 09:00; communication to the patient is not mandatory at this risk level; document the
+   assessment.
+B. Notify the supervisory authority within 72 hours of the ticket being created.
+C. Inform the patient within 72 hours; the authority does not need to be notified.
+D. No action is needed because the provider, not the hospital, made the mistake.
+E. Notify only if the patient complains.
+
+::: {.callout-tip collapse="true" title="Answer"}
+**A.** Article 33 GDPR requires notification to the supervisory authority without undue delay and, where feasible,
+not later than 72 hours after the controller became aware, unless the breach is unlikely to result in a risk.
+Communication to the person (Article 34) is required when a high risk is likely. Both assessments are documented.
+B starts the clock at the wrong moment; C reverses the two thresholds; D ignores that the hospital remains the
+controller; E has no basis in the regulation. Real cases also need the institution's own procedures.
+:::
+
+### Case 11 · The model that runs is not the model you validated (security)
+
+After a weekend update, a dashboard shows a model version that was never approved. Alert rates have doubled.
+
+**Which control, with its test, best addresses this threat in future?**
+
+A. A note in the operating manual asking the provider to inform the hospital about updates.
+B. The service compares the checksum of the model file with a list of approved versions at start-up and refuses to
+   run otherwise; a test installs a modified file on a test system and shows that the service does not start.
+C. Weekly manual review of the alert rate.
+D. Encryption of the model file at rest.
+E. Stronger passwords for the support accounts.
+
+::: {.callout-tip collapse="true" title="Answer"}
+**B.** The threat is to integrity: an unapproved model runs. An automated check against approved versions prevents
+it, and the test shows that the check works. A depends on goodwill and cannot be tested; C detects the problem only
+after harm; D protects confidentiality, not integrity; E addresses access, not which version is running.
+:::
+
+## Further reading
+
+- [B28 · Case atlas, glossary and transfer](https://r-heller.github.io/clinical-data-science-in-r/chapters/b28-case-atlas-glossary.html#sec-b28-core)
+  – the case atlas from which these practice cases draw their themes.
+- [CTTIR Courses: Common errors](https://cttir.github.io/courses/appendices/common_errors.html)
+  – frequent statistical mistakes with explanations.
+- [Methods in R: Common errors](https://r-heller.github.io/methods-in-r/sec-appendices-c-common-errors.html)
+  – mistakes in R, Quarto and reproducible workflows.

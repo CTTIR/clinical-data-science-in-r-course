@@ -1,0 +1,116 @@
+---
+title: "Colloquium, feedback and evaluation"
+description: "Material for W8: the presentation brief, the critical perspectives, feedback cards and change requests, the transfer question and the anonymous course evaluation."
+---
+
+## Presentation brief (units 29 and 30)
+
+Each group has **ten minutes** to present and **four minutes** for questions. Use at most six slides or one printed
+page per section.
+
+| Minutes | Content | The audience should be able to say afterwards … |
+|---:|---|---|
+| 1 | The decision and the people affected | … what decision this is about and for whom. |
+| 3 | Data, unit, baseline and validation, with one figure | … what was compared on which independent test data. |
+| 2 | Uncertainty, errors by group and the counter-check | … how sure the result is and who carries the errors. |
+| 2 | Ethics, regulation, data protection and security | … what the decision depends on beyond the numbers. |
+| 2 | Recommendation, conditions, stop condition and next step | … what should happen now and when it will be reviewed. |
+
+## Critical perspectives
+
+Before unit 29 the course team draws which group holds which perspective for each presentation. Every project is
+questioned from at least four perspectives.
+
+| Perspective | Typical first question |
+|---|---|
+| Clinical use | "What does the team do differently on Monday morning, and what if the tool is down?" |
+| Patients | "Who carries the errors, and how would they find out?" |
+| Methods | "Which number would change most if the test set came from another hospital or species?" |
+| Regulation | "Which sentence in your intended purpose decides the regulatory question?" |
+| Data protection | "Which data leave the protected environment, to whom, and when are they deleted?" |
+| Information security | "How would you notice that the model running is not the one you validated?" |
+
+## Feedback card
+
+One card per question asked. The presenting group receives all cards after the session.
+
+| Field | Entry |
+|---|---|
+| Project and perspective | |
+| Question asked | |
+| Answer given (short) | |
+| Was the answer supported by the passport or the decision sheet? (yes / partly / no) | |
+| **Change request** (one concrete change, or "none") | |
+
+## Comparing wrong decisions (unit 30)
+
+After all six presentations, compare the projects in one table: what happens if the recommendation is wrong?
+
+| Project | Wrong in which direction? | Who is harmed, how soon, how reversibly? | How would anyone notice? | Override or stop condition |
+|---|---|---|---|---|
+| | | | | |
+
+## Revision note (unit 32)
+
+A peer from another group checks your revised recommendation and its evidence.
+
+| Field | Entry |
+|---|---|
+| Change requests received | |
+| What we changed and why | |
+| What we did not change and why | |
+| Evidence for the revised recommendation (passport row, figure or script output) | |
+| Peer's check: is the revision supported? (yes / partly / no, with one sentence) | |
+
+## Transfer question (unit 32)
+
+Choose a research or care problem from your own work or studies and answer in at most half a page:
+
+1. Which decision would data support, and who would act differently?
+2. What is the independent unit, and which comparison would you need?
+3. Which of the four perspectives (ethics, regulation, data protection, security) is most critical, and why?
+4. What is the first step you could take in the next four weeks?
+
+## Anonymous course evaluation
+
+The evaluation is anonymous and separate from all assessment. It is collected on paper or with a form that stores
+no names, and the course team reports only aggregated results.
+
+**A. Self-assessment (same statements as in W1; 1 = not at all, 5 = fully)**
+
+1. I can tell which number is the denominator of a percentage in a clinical study.
+2. I can explain why images from the same patient in training and test data are a problem.
+3. I can check whether a cited source actually supports a sentence.
+4. I know who has to be informed, and by when, if patient data reach the wrong recipient.
+
+**B. Course (1 = strongly disagree, 5 = strongly agree)**
+
+5. The workshops built on each other in a way I could follow.
+6. The required readings prepared me for the workshops.
+7. The R labs were manageable with the help available.
+8. The project helped me to connect the four parts.
+9. The workload matched the stated hours.
+
+**C. Technology**
+
+10. Did technical problems (installation, packages, rendering) cost you time? (no / up to 1 hour / more than
+    1 hour) What would have helped?
+
+**D. Open feedback**
+
+11. What should stay as it is?
+12. What should change first?
+
+The course team compares the anonymous answers to the two short cases from W1 and W8 together with this
+evaluation to revise the course. A difference between before and after does not show that the course caused it;
+that would need a suitable study design.
+
+## Further reading
+
+- [B28 · Case atlas, glossary and transfer](https://r-heller.github.io/clinical-data-science-in-r/chapters/b28-case-atlas-glossary.html#sec-b28-core)
+  – six project cases and a navigator for new problems.
+- Laupichler MC, Aster A, Haverkamp N, Raupach T. Development of the "Scale for the assessment of non-experts' AI
+  literacy" – an exploratory factor analysis. *Computers in Human Behavior Reports*. 2023;12:100338.
+  [doi:10.1016/j.chbr.2023.100338](https://doi.org/10.1016/j.chbr.2023.100338)
+  – a published scale (SNAIL) that could complement the evaluation once language version and permission to use
+  are clarified.

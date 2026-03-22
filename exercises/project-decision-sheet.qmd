@@ -1,0 +1,42 @@
+---
+title: "Decision sheet"
+description: "A one-page decision sheet that turns the model passport into a recommendation with conditions, responsibilities and a review date, with guidance and example entries for the fracture-alert case."
+---
+
+The model passport describes what the model can do. The decision sheet states what should happen now, for whom,
+under which conditions and who is responsible. Keep the two documents separate: a good model can still lead to the
+recommendation "not yet", and a modest model can be worth piloting under clear conditions.
+
+## Template
+
+| Section | Your entry | Guidance and example entry (fracture alert, fictitious) |
+|---|---|---|
+| **Decision** | | One sentence that someone can act on. *"Pilot the alert in shadow mode for three months; do not show it to clinicians yet."* |
+| **People affected** | | Who gains, who carries the errors, who has to do extra work. *Older patients with subtle signs; ED clinicians; radiology.* |
+| **Options considered** | | Including doing nothing. *Usual care; alert shown to clinicians; shadow mode only.* |
+| **Recommendation and conditions** | | What must hold for the recommendation to stand. *Local sensitivity in people aged 75 and older measured on at least the number of fractures agreed in advance.* |
+| **Counter-position** | | The strongest argument against, stated fairly. *"Shadow mode delays any benefit for patients by months."* |
+| **Ethics** | | The conflict of goals and how it is resolved; how patients are informed. |
+| **Regulation** | | Intended purpose, role (manufacturer, deployer), relevant source, classification status (*open* if not confirmed), missing document. |
+| **Data protection** | | Data flow with purpose, legal basis question, recipients, deletion point; DPIA pre-check. |
+| **Information security** | | One threat, its control, the test that shows it works, the responsible role. |
+| **Responsibility** | | Who decides, who monitors, who can switch the tool off. Functional roles, not names. |
+| **Stop or override condition** | | A measurable trigger. *"Switch off if the weekly false-alert rate exceeds the agreed limit, or if an unapproved model version is detected."* |
+| **Next review date** | | A date and what will be reviewed then. |
+| **Open points** | | Each with the information that would close it and the responsible role. |
+
+## Checks before you hand it in
+
+- Can someone who has not seen your presentation act on the first line?
+- Is every number on the sheet also in the model passport, with its denominator?
+- Are ethics, regulation, data protection and security each addressed with a fact from your case, not with a
+  general statement?
+- Does the sheet say who can stop the tool, and on which observation?
+
+## Further reading
+
+- [B27 · Model passport, study report and decision](https://r-heller.github.io/clinical-data-science-in-r/chapters/b27-model-passport-study-report.html#sec-b27-core).
+- [B20 · Pilot operation, impact and monitoring](https://r-heller.github.io/clinical-data-science-in-r/chapters/b20-pilot-operation-monitoring.html#sec-b20-core)
+  – shadow mode, monitoring and stop criteria.
+- [B21 · Ethics at the bedside and in study design](https://r-heller.github.io/clinical-data-science-in-r/chapters/b21-ethics.html#sec-b21-core)
+  – conflicts of goals and the perspective of people affected.

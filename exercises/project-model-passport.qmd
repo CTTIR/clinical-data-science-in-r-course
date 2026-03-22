@@ -1,0 +1,111 @@
+---
+title: "Model passport"
+description: "A one-page model passport: the empty template and a completed teaching example for the fracture-alert baseline from Lab W3."
+---
+
+```{r}
+#| label: setup
+#| include: false
+source("../r/style.R")
+source("../r/course.R")
+knitr::read_chunk("../r/w3-diagnostic-accuracy.R")
+```
+
+```{r w3-packages}
+#| include: false
+```
+
+```{r w3-cohort}
+#| include: false
+```
+
+```{r w3-preprocess}
+#| include: false
+```
+
+```{r w3-models}
+#| include: false
+```
+
+```{r w3-thresholds}
+#| include: false
+```
+
+```{r w3-subgroups}
+#| include: false
+```
+
+A model passport is one page that lets a person outside the group judge what a model was built for, on which data
+it was tested and where its evidence ends. It travels with the model: every new version gets an updated passport.
+Every entry is either a fact with its source, a number with its denominator, or an *open* point together with the
+information that would close it.
+
+## Template
+
+Copy the table into your project and fill in every row. Leave nothing blank: write *open* and what is missing.
+
+| Field | Entry |
+|---|---|
+| **Name and version** | |
+| **Intended purpose** (one sentence: who uses it, for whom, to do what) | |
+| **Decision supported** and what happens without the model | |
+| **Target population and setting** | |
+| **Data source and status** (*synthetic*, *published*, released for teaching) | |
+| **Unit of analysis and independent denominator** | |
+| **Time zero and prediction horizon** | |
+| **Outcome and reference standard** | |
+| **Predictors** (available at time zero?) | |
+| **Baseline** for comparison | |
+| **Model** and tuning (on which data?) | |
+| **Validation design** (split, test identifiers, external data?) | |
+| **Performance with uncertainty** (discrimination, calibration, errors at the threshold as *x*/*n*) | |
+| **Errors by subgroup** (with denominators) | |
+| **Counter-check** (what was changed, what was predicted, what happened) | |
+| **Not tested** (populations, devices, time periods) | |
+| **Limits of the claim** | |
+| **Reproducibility** (script, start command, seed, R version) | |
+| **Open points**, the information that would close each, and the responsible role | |
+
+## Worked teaching example: fracture-alert baseline
+
+All numbers come from the *synthetic* data of [Lab W3](lab-w3-diagnostic-accuracy.qmd) and are computed when this
+page is rendered.
+
+| Field | Entry |
+|---|---|
+| **Name and version** | Fracture-alert baseline, teaching version 1.0 (logistic regression, four predictors). |
+| **Intended purpose** | For adults with a suspected wrist fracture in the emergency department, prompt a second review of the radiograph before discharge. *Teaching purpose only; not authorised for use in care.* |
+| **Decision supported** | Second review of the radiograph yes/no. Without the model: usual single reading and routine follow-up. |
+| **Target population and setting** | Adults (18–95 years) presenting with wrist pain after a fall; one fictitious emergency department. |
+| **Data source and status** | *Synthetic* cohort of `r cdsr_number(nrow(cohort))` admissions generated in `r/w3-diagnostic-accuracy.R` with seed 20260309. |
+| **Unit of analysis and independent denominator** | One admission per person; test set `r nrow(test)` admissions with `r sum(test$fracture)` fractures. |
+| **Time zero and prediction horizon** | Time zero: clinical examination before imaging. Outcome: fracture according to the reference standard. |
+| **Outcome and reference standard** | Fracture yes/no; reference standard assumed complete for everyone (*assumption*; in practice follow-up imaging). |
+| **Predictors** | Age, fall on outstretched hand, snuffbox tenderness, swelling; all available at time zero. |
+| **Baseline** | Null model with the training prevalence (Brier score `r sprintf("%.3f", results$brier[1])`). |
+| **Model** and tuning | Logistic regression, no tuning. Alternative for comparison: elastic net with interactions, penalty tuned by five-fold cross-validation inside the `r nrow(train)` training admissions. |
+| **Validation design** | One fixed random split (`r nrow(train)` training, `r nrow(test)` test); test identifiers stored with the data; zero shared identifiers. Internal validation only. |
+| **Performance with uncertainty** | AUC `r sprintf("%.3f", results$auc[2])`; Brier score `r sprintf("%.3f", results$brier[2])`; calibration slope `r sprintf("%.2f", results$calib_slope[2])` (overestimates risk in the highest risk group). At a threshold of 20%: detects `r format_prop(threshold_table$tp[2], threshold_table$tp[2] + threshold_table$fn[2])` of fractures; false alerts in `r format_prop(threshold_table$fp[2], sum(test$fracture == 0))` of people without fracture. |
+| **Errors by subgroup** | Detected fractures, age 18–74: `r subgroup_table$detected[1]`; age 75 and older: `r subgroup_table$detected[2]`. False alerts, age 75 and older: `r subgroup_table$false_alerts[2]`. |
+| **Counter-check** | The elastic net, predicted to rank clearly better, improved the AUC by only `r sprintf("%.3f", results$auc[3] - results$auc[2])` on the same test admissions. |
+| **Not tested** | Other hospitals, other imaging devices, children, time periods after development, effect on patient outcomes. |
+| **Limits of the claim** | Internal, synthetic validation of discrimination and calibration. No statement about benefit for patients or workload. |
+| **Reproducibility** | `Rscript r/w3-diagnostic-accuracy.R` in a fresh session; target values checked with `stopifnot()`; R `r paste(R.version$major, R.version$minor, sep = ".")`. |
+| **Open points** | (1) Performance in the target hospital: needs a local, prospective accuracy study (research lead). (2) Lower sensitivity in older patients: needs real local data on this subgroup (clinical lead). (3) Intended purpose for care: needs regulatory classification (manufacturer's regulatory affairs; see W7). |
+
+## How the passport is used in the course
+
+- **W4, unit 16:** first version for your own project; the other group checks whether every number has its
+  denominator.
+- **W6, unit 24:** another group reproduces one number of the passport from a fresh R session.
+- **W8:** the passport is one of the three documents you defend; the rubric criterion "R analysis, validation and
+  uncertainty" is scored mainly from it.
+
+## Further reading
+
+- [B27 · Model passport, study report and decision](https://r-heller.github.io/clinical-data-science-in-r/chapters/b27-model-passport-study-report.html#sec-b27-core)
+  – the passport, the study report and the separate decision sheet.
+- [Methods in R: TRIPOD-AI reporting template](https://r-heller.github.io/methods-in-r/sec-reporting-tripod-ai.html)
+  – the reporting items behind several rows of the passport.
+- Collins GS, et al. TRIPOD+AI statement. *BMJ*. 2024;385:e078378.
+  [doi:10.1136/bmj-2023-078378](https://doi.org/10.1136/bmj-2023-078378)
