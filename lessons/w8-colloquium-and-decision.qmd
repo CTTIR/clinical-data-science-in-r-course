@@ -1,0 +1,109 @@
+---
+title: "W8 · Model colloquium, decision and review"
+description: "Workshop W8, teaching units 29–32: six project defences with critical perspectives, a comparison of the consequences of wrong decisions, the individual examination, peer revision and anonymous evaluation."
+---
+
+::: {.callout-note appearance="simple" icon=false}
+**Part IV · Translating models into practice** · **Level:** independent application · **Teaching units:** 29–32
+(4 × 45 min) · **Required reading:** core readings of B27 and B28 (about 20 minutes) ·
+**Project material:** [colloquium, feedback and evaluation](../exercises/project-colloquium.qmd)
+:::
+
+## Guiding question
+
+**Which recommendation can we defend today, under which conditions, against which counter-position, and what will
+we check next?**
+
+## Learning objectives
+
+By the end of this workshop you can
+
+1. defend a model and a recommendation in ten minutes and answer critical questions in four;
+2. take a critical perspective (clinic, patients, regulation, data protection, security, methods) on another
+   group's project and formulate a concrete change request;
+3. compare the consequences of a wrong decision across clinic, laboratory and care system and state an override or
+   stop condition;
+4. revise your recommendation after peer review and document what changed and why;
+5. transfer the approach to a new research or care problem of your own choice.
+
+## Preparation
+
+- **Required reading** (about 20 minutes):
+  [B27 · Model passport, study report and decision – core reading](https://r-heller.github.io/clinical-data-science-in-r/chapters/b27-model-passport-study-report.html#sec-b27-core)
+  and
+  [B28 · Case atlas, glossary and transfer – core reading](https://r-heller.github.io/clinical-data-science-in-r/chapters/b28-case-atlas-glossary.html#sec-b28-core).
+- **Submit before W8** (deadline set by the course team): decision sheet (one page), model passport (one page) and
+  the commented R script with its start command. See the [project brief](../exercises/project-brief.qmd).
+- **Prepare** a ten-minute presentation following the [colloquium format](../exercises/project-colloquium.qmd).
+
+## Teaching units
+
+| Unit | Task | Minutes | Observable evidence |
+|---|---|---:|---|
+| 29 | Groups 1–3 each defend their model for ten minutes and answer questions for four minutes. The other groups each represent one critical perspective. | 45 | Three assessable presentations and one recorded change request each. |
+| 30 | Groups 4–6 present in the same format. Everyone compares the consequences of a wrong decision across clinic, laboratory and care system. | 45 | A criteria-based comparison and a reasoned override or stop condition. |
+| 31 | Individual examination with 20 case-based single-best-answer questions in 25 minutes, including briefing, distribution and collection. | 45 | Individual examination performance. The public course offers specially developed practice cases instead ([self-test](../exercises/self-test.qmd)). |
+| 32 | A peer checks each revised recommendation and its evidence. Anonymous evaluation, review of W1 and choice of a next research or care problem. | 45 | A revision note and an individual transfer task. |
+
+### Time plan for units 29 and 30
+
+Three groups fit into 45 minutes: 3 × (10 minutes presentation + 4 minutes questions) = 42 minutes, plus
+3 minutes for changing over. The course team keeps time strictly; the questions are asked by the groups holding
+the critical perspectives, in an order drawn at the start.
+
+### About the examination (unit 31)
+
+The examination covers all four parts with the distribution shown in the [syllabus](../syllabus.qmd#assessment).
+Questions are new cases; none of them is published. The [formative self-test](../exercises/self-test.qmd) shows
+the type of reasoning expected, with explained answers. Assessment and participation conditions for a particular
+run of the course are announced by the course team before the course starts.
+
+### Review and short case B (unit 32)
+
+Rate the four statements from the [entry self-assessment in W1](w1-from-clinical-case-to-question.qmd#self-assessment)
+again, anonymously. Then work on **short case B** for five minutes, on paper and without help:
+
+> A clinical team reports "0.91 AUC on 3,000 video frames" for a model that detects an abnormal gait pattern in
+> videos from 15 patients. Frames from every patient were used both for training and for testing. A week later a
+> colleague notices that a screenshot from one of the videos, showing a patient's face and the ward's name board,
+> was posted in a group chat that includes an external collaborator.
+>
+> (a) What is the independent number of units in the test? (b) What does the 0.91 measure? (c) Name the first two
+> steps after the screenshot is discovered.
+
+The course team compares the anonymous answers to short cases A and B. The comparison is used to revise the
+course; it is not a measure of individual performance, and a difference between before and after is not proof
+that the course caused it.
+
+## Materials
+
+- [Colloquium, feedback and evaluation](../exercises/project-colloquium.qmd): presentation brief, feedback
+  cards, change request, transfer question and the anonymous evaluation form.
+- [Project rubric](../exercises/project-rubric.qmd) with the scoring rule.
+
+## Four perspectives in this workshop
+
+The critical perspectives in units 29 and 30 are assigned so that every project is questioned on ethics,
+regulation, data protection and security, plus clinical use and methods. Each question is recorded with the answer
+and, where needed, a change request.
+
+## After the course
+
+The transfer task from unit 32 is yours. The [case atlas in B28](https://r-heller.github.io/clinical-data-science-in-r/chapters/b28-case-atlas-glossary.html)
+helps you find the method that fits a new problem, starting from the decision rather than from the data type.
+
+## Further reading
+
+- [B19 · From one centre or species to the next](https://r-heller.github.io/clinical-data-science-in-r/chapters/b19-transfer-across-centres-and-species.html)
+  and [B20 · Pilot operation, impact and monitoring](https://r-heller.github.io/clinical-data-science-in-r/chapters/b20-pilot-operation-monitoring.html)
+  – the next steps after a defended recommendation.
+- [Methods in R: Writing a report](https://r-heller.github.io/methods-in-r/sec-appendices-d-writing-a-report.html)
+  and [TRIPOD-AI reporting template](https://r-heller.github.io/methods-in-r/sec-reporting-tripod-ai.html).
+- [Methods in R: Shared reviewer checklist](https://r-heller.github.io/methods-in-r/sec-how-to-use.html#sec-reviewer-checklist)
+  – for the critical perspectives.
+- [CTTIR Courses: Explanation vs prediction; reporting](https://cttir.github.io/courses/course2_regression/labs/lab_week4_session5.html)
+  and [Writing a report](https://cttir.github.io/courses/appendices/writing_a_report.html).
+- [CTTIR Courses: Common errors](https://cttir.github.io/courses/appendices/common_errors.html)
+  – a checklist before submission.
+- [Scientometrics in R: Reproducibility, RRIDs, and Badges](https://r-heller.github.io/scientometrics-in-r/reproducibility-rrids-and-badges.html)
+  and [Parameterized Quarto Reports](https://r-heller.github.io/scientometrics-in-r/parameterized-quarto-reports.html).
