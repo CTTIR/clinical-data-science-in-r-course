@@ -1,0 +1,154 @@
+---
+title: "Syllabus"
+description: "Learners, entry requirements, workload, the four parts with their competences, assessment, teaching organisation, evaluation, R as the common language and the professional anchors in ethics, regulation, data protection and security."
+---
+
+## Intended learners
+
+Medical students, clinical researchers and doctoral researchers who want to judge data from clinical care and
+translational research and carry out their own analyses in R. Part I is the entry point; Parts III and IV deepen
+modelling and translation. Teaching teams can adopt single workshops, for example W3 on diagnostic accuracy or W7
+on data protection and security; the workshop identifiers W1–W8 and the unit numbers 01–32 stay citable.
+
+## Entry requirements
+
+Basic clinical concepts are enough. A first R session with a data table, a figure and four expressions is part of
+the first workshop. Prior experience with Python, Julia or machine learning is not needed. A laptop with a local R
+installation is recommended; every task can also be completed with the printed outputs on paper.
+
+## Scope and workload
+
+| Component | Hours |
+|---|---:|
+| Contact time: 8 workshops × 4 teaching units of 45 minutes = 32 units | 24 |
+| Preparatory reading (core readings of the companion book) | 8 |
+| Guided R tasks | 8 |
+| Group project | 16 |
+| Individual revision | 4 |
+| **Total** | **60** |
+
+: Planned workload. Breaks are added to the contact time. Self-study is a planning value of 36 hours. {#tbl-workload}
+
+## Four parts
+
+| Part | Level and guiding question | By the end, learners can … | Product and transition |
+|---|---|---|---|
+| I · Clinical questions and data (W1–W2) | **Entry.** What exactly is being claimed here? | explain purpose, target population, reference, independent unit and permissible data flow; check a generated claim against its original source. | A case card, a small data dictionary and an evidence card. These determine the test in Part II. |
+| II · Testing and comparing models (W3–W4) | **Application.** Does the evidence hold in my setting? | build a baseline, split data by group, explain performance and uncertainty, and design a counter-check for imaging or movement data. | A reproducible comparison table, an error pattern and a first model passport. Part III examines which assumption matters most. |
+| III · Justifying complex models (W5–W6) | **Advanced.** Which biology or process lies behind the data? | distinguish repeated measurements, subtypes and mechanisms; run a sensitivity analysis for one model family and name the limit of transfer. | An R report with baseline, counter-check and next experiment. Part IV uses it as an appendix to the decision. |
+| IV · Translating models into practice (W7–W8) | **Independent application.** Which decision is defensible today? | work through legal and ethical questions for a case, check data protection and security separately, handle an incident and defend the project. | A model passport, evidence of reproducibility and a decision with conditions, responsibility and review date. |
+
+: The four parts build on each other. {#tbl-parts}
+
+### Workshops and required reading
+
+| Workshop | Teaching units | Required reading (core readings of the companion book) | Lab or case sheet |
+|---|---|---|---|
+| [W1 · From clinical case to testable question](lessons/w1-from-clinical-case-to-question.qmd) | 01–04 | [B01](https://r-heller.github.io/clinical-data-science-in-r/chapters/b01-clinical-decision.html#sec-b01-core), [B03](https://r-heller.github.io/clinical-data-science-in-r/chapters/b03-how-data-arise.html#sec-b03-core) | [Lab W1](exercises/lab-w1-case-table.qmd) |
+| [W2 · Language models and scientific evidence](lessons/w2-language-models-and-evidence.qmd) | 05–08 | [B07](https://r-heller.github.io/clinical-data-science-in-r/chapters/b07-reading-an-ai-study.html#sec-b07-core), [B08](https://r-heller.github.io/clinical-data-science-in-r/chapters/b08-language-models.html#sec-b08-core) | [Lab W2](exercises/lab-w2-next-word.qmd), [case sheet](exercises/casebook-w2-untrusted-instruction.qmd) |
+| [W3 · Diagnostics, prediction and external evidence](lessons/w3-diagnostics-prediction-evidence.qmd) | 09–12 | [B06](https://r-heller.github.io/clinical-data-science-in-r/chapters/b06-accuracy-calibration-utility.html#sec-b06-core), [B09](https://r-heller.github.io/clinical-data-science-in-r/chapters/b09-fracture-alert-emergency-department.html#sec-b09-core) | [Lab W3](exercises/lab-w3-diagnostic-accuracy.qmd) |
+| [W4 · What imaging, gait and tissue models measure](lessons/w4-imaging-gait-tissue.qmd) | 13–16 | [B10](https://r-heller.github.io/clinical-data-science-in-r/chapters/b10-hyperspectral-imaging.html#sec-b10-core), [B19](https://r-heller.github.io/clinical-data-science-in-r/chapters/b19-transfer-across-centres-and-species.html#sec-b19-core) | [Lab W4](exercises/lab-w4-spectra-animal-split.qmd) |
+| [W5 · Causal questions, trajectories and phenotypes](lessons/w5-causality-trajectories-phenotypes.qmd) | 17–20 | [B02](https://r-heller.github.io/clinical-data-science-in-r/chapters/b02-describe-predict-explain.html#sec-b02-core), [B13](https://r-heller.github.io/clinical-data-science-in-r/chapters/b13-longitudinal-biomarkers.html#sec-b13-core) | [Lab W5](exercises/lab-w5-causality-trajectories.qmd) |
+| [W6 · Pharmacometrics, forecasting and simulation](lessons/w6-pharmacometrics-forecasting-simulation.qmd) | 21–24 | [B17](https://r-heller.github.io/clinical-data-science-in-r/chapters/b17-forecasting-patient-flow.html#sec-b17-core) and [B15](https://r-heller.github.io/clinical-data-science-in-r/chapters/b15-mechanistic-models-pharmacometrics.html#sec-b15-core) or [B18](https://r-heller.github.io/clinical-data-science-in-r/chapters/b18-mass-casualty-capacity-simulation.html#sec-b18-core) | [Lab W6](exercises/lab-w6-forecast-pk-simulation.qmd) |
+| [W7 · Regulation, data protection and a security incident](lessons/w7-regulation-data-protection-incident.qmd) | 25–28 | [B22](https://r-heller.github.io/clinical-data-science-in-r/chapters/b22-regulation.html#sec-b22-core), [B23](https://r-heller.github.io/clinical-data-science-in-r/chapters/b23-data-protection.html#sec-b23-core) | [Case sheets W7](exercises/casebook-w7-tabletop.qmd) |
+| [W8 · Model colloquium, decision and review](lessons/w8-colloquium-and-decision.qmd) | 29–32 | [B27](https://r-heller.github.io/clinical-data-science-in-r/chapters/b27-model-passport-study-report.html#sec-b27-core), [B28](https://r-heller.github.io/clinical-data-science-in-r/chapters/b28-case-atlas-glossary.html#sec-b28-core) | [Colloquium material](exercises/project-colloquium.qmd) |
+
+: Workshops, teaching units, required reading and materials. {#tbl-workshops}
+
+## Assessment {#assessment}
+
+**One project accompanies all four parts.** Each group hands in a one-page decision sheet, a one-page model
+passport and a commented R script with a start command ([project brief](exercises/project-brief.qmd)). The project
+is assessed with a published [rubric](exercises/project-rubric.qmd): seven criteria with weights of 15, 25, 15, 10,
+10, 10 and 15%, each scored from 0 to 3.
+
+**Individual examination.** In unit 31, 20 case-based single-best-answer questions in 25 minutes.
+
+**Weighting.** For graded runs, the course proposes 60% for the individual examination and 40% for the group
+project. In a stand-alone run, the course team announces the assessment and participation conditions before the
+course starts. Institutions that recognise single workshops set their own rules for credit. Peer feedback and
+self-assessment serve as feedback only.
+
+**Examination blueprint.** The 20 questions are distributed as follows. The questions themselves are kept outside
+this public repository; the [self-test](exercises/self-test.qmd) offers newly developed practice cases instead.
+
+| Area | Questions |
+|---|---:|
+| Foundations and source criticism | 4 |
+| Testing models | 5 |
+| Complex modelling | 4 |
+| Ethics | 2 |
+| Regulation | 2 |
+| Data protection | 1 |
+| Information security | 2 |
+| **Total** | **20** |
+
+: Distribution of examination questions across areas. {#tbl-blueprint}
+
+## Teaching organisation
+
+- **Group size.** The plan assumes six teams of three to four learners.
+- **Per workshop:** an R script, a synthetic data file or generator, pre-computed outputs on the lab page,
+  instructor notes and links to the companion book.
+- **Technical hurdles.** Learners who cannot run R start with the figure and the printed output and then move to a
+  partner's computer. No task requires an external AI account or any software other than R.
+- **Team teaching.** Clinical–methodological tandems lead W5 and W6. W7 benefits from contributions from data
+  protection, medical device regulation and information security. These roles are suggestions.
+- **Material status.** The editorial team documents permission for any external figure. Real case histories and
+  confidential examination questions are kept only in environments intended for them; the public course uses new
+  cases.
+
+## Evaluation
+
+W1 and W8 address the same competence dimensions with two short cases of equal difficulty, developed for this
+course. The course team reports the share of correct denominators, recognised group leakage and reasoned incident
+decisions, alongside an anonymous self-assessment and open feedback
+([evaluation form](exercises/project-colloquium.qmd#anonymous-course-evaluation)). A published scale for
+non-experts' AI literacy (SNAIL; Laupichler et al., 2023,
+[doi:10.1016/j.chbr.2023.100338](https://doi.org/10.1016/j.chbr.2023.100338)) is an option once the language
+version and permission to use are clarified. A difference between before and after is used to revise the course; a
+causal claim about the course's effect would need a suitable study design.
+
+## R as the common language
+
+The required path is in R. Base R covers the two-by-two table, identifiers, simulation and beta quantiles; packages
+are used where they add something concrete: **glmnet** for penalised regression, **lme4** for mixed models,
+**deSolve** for differential equations and **simmer** for discrete-event simulation. All labs share one figure style
+with the companion book (`r/style.R`).
+
+Where a Python or Julia implementation offers a concrete advantage, a box on the lab page names the original
+implementation, the advantage, and what must be identical for a fair comparison (input table, split, unit, metric,
+tolerance). These comparisons are conceptual unless stated otherwise; no task requires them.
+
+| Situation | Second implementation | Advantage and limit of the comparison |
+|---|---|---|
+| Grouped split, W3/W4 | [scikit-learn GroupKFold](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GroupKFold.html) | Folds can be checked within an existing Python image pipeline. Shared target: zero shared identifiers; fold order may differ. |
+| Image models, W4 | [scikit-image](https://scikit-image.org/docs/stable/) and [PyTorch transfer learning](https://docs.pytorch.org/tutorials/beginner/transfer_learning_tutorial.html) | Connects to pre-trained networks and documented image operators. Pre-processing and weights must match. |
+| Pharmacometrics, W6 | [Julia SciML](https://docs.sciml.ai/DiffEqDocs/stable/) and [SciPy solve_ivp](https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.solve_ivp.html) | Choice of solver and parameter sensitivity; concentrations at identical time points checked against the analytic solution. |
+| Event simulation, W6 | [SimPy](https://simpy.readthedocs.io/en/latest/) alongside [simmer](https://r-simmer.org/) | Process generators make single events traceable. With identical arrivals and service times, compare the event order first. |
+
+: Optional second implementations. {#tbl-languages}
+
+## Professional anchors
+
+| Dimension | What the course asks learners to do | Primary source or professional orientation |
+|---|---|---|
+| Ethics | Record who is affected, avoidable harm and autonomy. Show errors for clinical subgroups with their denominators. Justify the 3Rs and transferability in preclinical projects. | [WHO guidance on large multi-modal models (2024)](https://www.who.int/publications/i/item/9789240084759) · [NC3Rs: the 3Rs](https://nc3rs.org.uk/who-we-are/3rs) · [ARRIVE guidelines 2.0](https://arriveguidelines.org/arrive-guidelines) |
+| Regulation | Determine intended purpose and actors for the case. Article 4 of the AI Act, as amended by Regulation (EU) 2026/1744, requires measures to support AI literacy. Look up dates of application and specific obligations separately. | [AI Act, Regulation (EU) 2024/1689](https://eur-lex.europa.eu/eli/reg/2024/1689/oj) · [Regulation (EU) 2026/1744](https://eur-lex.europa.eu/eli/reg/2026/1744/oj) · [MDR](https://eur-lex.europa.eu/eli/reg/2017/745/oj) · [MDCG 2019-11 Rev. 1 (guidance)](https://health.ec.europa.eu/system/files/2025-06/mdcg_2019_11_en.pdf) |
+| Data protection | For health data, work out the legal basis under Article 6 and the exception under Article 9 GDPR separately. Check Articles 5, 25, 28, 32 and 35 along the data flow and Chapter V for third countries. Document national and institutional rules for research. | [GDPR, Regulation (EU) 2016/679](https://eur-lex.europa.eu/eli/reg/2016/679/oj) · [§ 27 Federal Data Protection Act (Bundesdatenschutzgesetz, BDSG)](https://www.gesetze-im-internet.de/bdsg_2018/__27.html) |
+| Information security | Examine clinical harm from manipulated outputs or missing availability as well as breaches of confidentiality. Test measures in the tabletop exercise and document residual risk. | [BSI: Generative KI-Modelle, version 2.0 (2025)](https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/KI/Generative_KI-Modelle.pdf?__blob=publicationFile&v=7) · [NIST AI 100-2e2025](https://csrc.nist.gov/pubs/ai/100/2/e2025/final) |
+
+: Professional anchors; legal status November 2026. {#tbl-anchors}
+
+## Accessibility and paper alternative
+
+Every figure has a text description. Every lab page prints its complete results, so all tasks can be done on paper;
+the case sheets for W2 and W7 need no computer at all. The site uses a light and a dark theme and can be printed
+from the browser. Please tell the course team early if you need other formats or adjustments.
+
+## Data and licence
+
+All examples use synthetic data generated with a fixed seed, or explicitly cited published figures. No number
+describes a commercial product, a real hospital or unpublished project results. Texts are licensed under
+[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), code under the
+[MIT licence](https://opensource.org/licenses/MIT).

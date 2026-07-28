@@ -1,0 +1,137 @@
+---
+title: "W7 · Regulation, data protection and a security incident"
+description: "Workshop W7, teaching units 25–28: two intended purposes under the AI Act and the MDR, data flows for care and research under the GDPR, a threat model with tested controls, and a tabletop exercise on an incident."
+---
+
+::: {.callout-note appearance="simple" icon=false}
+**Part IV · Translating models into practice** · **Level:** independent application · **Teaching units:** 25–28
+(4 × 45 min) · **Required reading:** core readings of B22 and B23 (about 20 minutes) ·
+**Case sheets:** [Tabletop exercise: a dashboard changes purpose](../exercises/casebook-w7-tabletop.qmd) ·
+**Legal status:** November 2026
+:::
+
+## Guiding question
+
+**When a research dashboard is to be used in care, receives an update and leaks case text, who has to decide what,
+on which legal basis, and by when?**
+
+## Learning objectives
+
+By the end of this workshop you can
+
+1. compare two intended purposes of the same software and derive roles and questions under the AI Act, the MDR and,
+   where relevant, the IVDR, citing the primary source and marking what is a case assumption and what is *open*;
+2. draw separate data flows for care and for later research use and check purpose, legal basis under Article 6
+   and exception under Article 9 GDPR, processor contract, retention, rights of the people affected and the DPIA
+   threshold;
+3. complete a threat model and propose for confidentiality, integrity and availability one control each, a test
+   that shows it works and a recovery step;
+4. run an incident from containment to restart, deciding notification to the authority (Article 33 GDPR) and
+   communication to the people affected (Article 34 GDPR) separately;
+5. write a short, honest message to affected patients with a reachable contact.
+
+## Preparation
+
+- **Required reading** (about 20 minutes):
+  [B22 · Regulating research software and clinical AI – core reading](https://r-heller.github.io/clinical-data-science-in-r/chapters/b22-regulation.html#sec-b22-core)
+  and
+  [B23 · Data protection along the entire data flow – core reading](https://r-heller.github.io/clinical-data-science-in-r/chapters/b23-data-protection.html#sec-b23-core).
+- **On the table during the exercise:** [B24 · Information security and recovery](https://r-heller.github.io/clinical-data-science-in-r/chapters/b24-information-security-recovery.html)
+  and [B25 · Security risks of learning and generative systems](https://r-heller.github.io/clinical-data-science-in-r/chapters/b25-security-risks-ai-systems.html);
+  [B21 · Ethics](https://r-heller.github.io/clinical-data-science-in-r/chapters/b21-ethics.html) for the patient
+  perspective and [B20 · Pilot operation, impact and monitoring](https://r-heller.github.io/clinical-data-science-in-r/chapters/b20-pilot-operation-monitoring.html)
+  for the restart.
+- **Guests (proposal):** contributions from data protection, medical device regulation and information security.
+  The roles are suggestions; any of them can be played by course participants.
+
+## Teaching units
+
+| Unit | Task | Minutes | Observable evidence |
+|---|---|---:|---|
+| 25 | Compare two intended purposes and determine roles and questions under the EU AI Act, the MDR or, where relevant, the IVDR. Name one missing manufacturer document ([starting situation](../exercises/casebook-w7-tabletop.qmd#start)). | 45 | A dated regulatory note with primary source, case assumption and open next step. |
+| 26 | Design one data flow for care and one for later research use. Check legal basis, health data, processing on behalf, retention, rights of the people affected and the DPIA threshold ([card 1](../exercises/casebook-w7-tabletop.qmd#card-1)). | 45 | A data flow with recipient, purpose, access roles, deletion point and a reasoned DPIA pre-check. |
+| 27 | Complete a threat model. For data leaving the system, a manipulated model version and an outage, design one protection, one detection test and one recovery measure each ([card 2](../exercises/casebook-w7-tabletop.qmd#card-2)). | 45 | A control matrix for confidentiality, integrity and availability and a fall-back option tested in the exercise. |
+| 28 | Tabletop: synthetic case text is visible in a support log. Contain, secure evidence, alert roles, assess consequences and decide on the restart ([card 3](../exercises/casebook-w7-tabletop.qmd#card-3)). | 45 | An incident log, a reasoned assessment of notification and of communication, the patient perspective and a release criterion. |
+
+## Legal status, November 2026
+
+::: {.callout-important appearance="simple" icon=false}
+**Checked against the primary texts on 8 November 2026.** Publication, entry into force and date of application are
+kept apart.
+
+- **AI Act**, Regulation (EU) 2024/1689: in force since 1 August 2024. Chapters I and II (including Article 4 on AI
+  literacy and the prohibitions in Article 5) have applied since 2 February 2025.
+- **Digital Omnibus on AI**, Regulation (EU) 2026/1744 of 8 July 2026: published in the Official Journal on
+  24 July 2026, in force since 27 July 2026. It amends, among other things,
+  - **Article 4**: providers and deployers now *take measures to support* the AI literacy of their staff and of
+    other persons operating AI systems on their behalf; the obligation does not require a specific level of AI
+    literacy to be guaranteed;
+  - **Article 113**: the requirements of Chapter III Sections 1–3 apply from **2 December 2027** to high-risk
+    systems under Article 6(2) and Annex III, and from **2 August 2028** to high-risk systems under Article 6(1)
+    and Annex I, which lists the MDR and the IVDR.
+- **MDR**, Regulation (EU) 2017/745, and **IVDR**, Regulation (EU) 2017/746: classification of software by intended
+  purpose, Rule 11 in Annex VIII of the MDR. MDCG 2019-11 Rev. 1 (June 2025) is guidance and not binding.
+- **GDPR**, Regulation (EU) 2016/679: Articles 5, 6, 9, 25, 28, 32, 33, 34 and 35, and Chapter V for transfers to
+  third countries. Amendment proposals by the Commission were pending, not in force.
+- **European Health Data Space**, Regulation (EU) 2025/327: applies from 26 March 2027 in general; the chapter on
+  secondary use (Chapter IV) from 26 March 2029, with staggered exceptions. Not yet applicable to the case.
+
+The exercise uses a fictitious case. Which national rules, institutional policies and authorities apply in a real
+setting is *open* and belongs to the data protection officer, regulatory affairs and legal counsel of the
+institution.
+:::
+
+## Materials
+
+- [Case sheets W7](../exercises/casebook-w7-tabletop.qmd): starting situation, two intended purposes, data flow,
+  role sheets, three case cards, threat model, empty control matrix, event log and legal anchors.
+- One printed set per team; the course team keeps cards 1–3 until the start of units 26, 27 and 28.
+
+## Four perspectives in this workshop
+
+All four are central here and are assessed separately in the project rubric.
+
+- **Ethics.** Who is affected by a wrong alert, a silent update and a leak, and what do they need to know?
+  The patient representative's text is part of the result.
+- **Regulation.** The change from purpose A to purpose B changes the regulatory question, not the code.
+- **Data protection.** Care and research are different purposes with different legal bases; notification and
+  communication are different decisions.
+- **Security.** Each control comes with a test that someone can watch: a refused access, a refused model version,
+  a working fall-back.
+
+## Transition to W8
+
+Your regulatory note, data flow and control matrix complete the decision sheet of your project. In W8 you defend
+the whole package.
+
+## Further reading
+
+- [B24 · Information security and recovery](https://r-heller.github.io/clinical-data-science-in-r/chapters/b24-information-security-recovery.html#sec-b24-core)
+  and [B26 · Secondary use and responsible open science](https://r-heller.github.io/clinical-data-science-in-r/chapters/b26-secondary-use-open-science.html#sec-b26-core)
+  – recovery tests and research use without exporting raw data.
+- [CTTIR Courses: TRIPOD-AI, fairness auditing, reproducibility at scale](https://cttir.github.io/courses/course4_ml_highdim/labs/lab_week4_session5.html)
+  – documentation that a regulator or reviewer can check.
+- [Methods in R: Shared reviewer checklist](https://r-heller.github.io/methods-in-r/sec-how-to-use.html#sec-reviewer-checklist)
+  – questions a reviewer asks before trusting a model.
+- [Strategy in R: Ethical Frameworks for Strategic AI](https://r-heller.github.io/strategy-in-r/sec-ethics-frameworks.html)
+  – competing ethical frameworks made explicit.
+- [Scientometrics in R: Ethics and Responsible Metrics](https://r-heller.github.io/scientometrics-in-r/ethics-and-responsible-metrics.html)
+  – responsible use of indicators in another domain.
+
+## Sources
+
+- Regulation (EU) 2024/1689 (AI Act): [EUR-Lex](https://eur-lex.europa.eu/eli/reg/2024/1689/oj)
+- Regulation (EU) 2026/1744 (Digital Omnibus on AI): [EUR-Lex](https://eur-lex.europa.eu/eli/reg/2026/1744/oj)
+- Regulation (EU) 2017/745 (MDR): [EUR-Lex](https://eur-lex.europa.eu/eli/reg/2017/745/oj);
+  Regulation (EU) 2017/746 (IVDR): [EUR-Lex](https://eur-lex.europa.eu/eli/reg/2017/746/oj)
+- MDCG 2019-11 Rev. 1 (June 2025): [PDF](https://health.ec.europa.eu/system/files/2025-06/mdcg_2019_11_en.pdf)
+- Regulation (EU) 2016/679 (GDPR): [EUR-Lex](https://eur-lex.europa.eu/eli/reg/2016/679/oj)
+- Federal Data Protection Act (Bundesdatenschutzgesetz, BDSG), § 27:
+  [gesetze-im-internet.de](https://www.gesetze-im-internet.de/bdsg_2018/__27.html)
+- Regulation (EU) 2025/327 (European Health Data Space): [EUR-Lex](https://eur-lex.europa.eu/eli/reg/2025/327/oj)
+- World Health Organization. Ethics and governance of artificial intelligence for health: guidance on large
+  multi-modal models. 2024. [who.int](https://www.who.int/publications/i/item/9789240084759)
+- Federal Office for Information Security (BSI). Generative KI-Modelle, version 2.0, January 2025 (German):
+  [PDF](https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/KI/Generative_KI-Modelle.pdf?__blob=publicationFile&v=7)
+- NIST AI 100-2e2025. Adversarial machine learning: a taxonomy and terminology of attacks and mitigations.
+  [doi:10.6028/NIST.AI.100-2e2025](https://doi.org/10.6028/NIST.AI.100-2e2025)

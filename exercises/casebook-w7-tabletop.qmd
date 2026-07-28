@@ -1,0 +1,236 @@
+---
+title: "Case sheets W7 · Tabletop exercise: a dashboard changes purpose"
+description: "Teaching units 25–28: one continuous, fictitious scenario with role sheets, two intended purposes, a data flow, an event log, an empty control matrix and four case cards that each require a decision by a named role at a stated time."
+---
+
+::: {.callout-note appearance="simple" icon=false}
+**Workshop:** [W7 · Regulation, data protection and a security incident](../lessons/w7-regulation-data-protection-incident.qmd) ·
+**Teaching units:** 25–28 (4 × 45 min) · **Format:** six roles per team; the course team hands out one card at a
+time · **No code** · **Legal status:** November 2026, checked against the primary texts linked below
+:::
+
+::: {.callout-warning title="Everything here is fictitious"}
+The hospital, the software company, the dashboard, the people and all case text are invented for teaching. No real
+product, organisation or patient is described. Local contacts are functional roles, not names. The legal notes
+show how to approach the questions; they are not legal advice, and the course team marks every point that would
+need checking locally as *open*.
+:::
+
+## How the exercise runs
+
+The course team acts as game master and keeps the **game clock**. At the start each team receives only the
+starting situation and the role sheets. Cards 1 to 3 are handed out at the start of units 26, 27 and 28. Every card
+ends with a decision that must be written down with three entries: **what** is decided, **who** decides (role),
+and **when** (game clock time). A decision without a role and a time does not count.
+
+## Starting situation (unit 25) {#start}
+
+A university hospital's trauma research group has worked with a small software company to build a research
+dashboard. The company develops the software, hosts it in its own data centre in the EU and provides support. The
+dashboard shows, for a retrospective research cohort, how often a fracture-alert model flagged wrist radiographs
+and how often a fracture was later confirmed. Model version **2.2.0** was approved by the project's steering board
+for research use.
+
+The clinical lead of the emergency department proposes to use the same dashboard in daily care.
+
+### Two intended purposes
+
+| | Purpose A (current) | Purpose B (proposed) |
+|---|---|---|
+| Wording | "The research dashboard displays aggregated, retrospective statistics on fracture alerts and confirmed fractures for a research project on model performance. It is not used for decisions about individual patients." | "For every adult patient with a wrist radiograph in the emergency department, the dashboard displays a fracture alert that prompts the treating clinician to review the image a second time before discharge." |
+| Users | Research team | Emergency department clinicians |
+| Data | Pseudonymised research extract, monthly | Live images and worklist entries of current patients |
+| Output | Tables and figures per month | One alert per patient, in real time |
+
+### Data flow (short version)
+
+```
+ Radiology system ──images──▶ Model service (company data centre, EU) ──alert──▶ ED worklist (purpose B)
+        │                                │
+        │ monthly pseudonymised extract  │ technical logs (errors, requests)
+        ▼                                ▼
+ Research database (hospital) ──▶ Research dashboard (purpose A)        Company support desk
+```
+
+### Event log (filled in during the exercise)
+
+| Game clock | Event | Source | Decision | Role |
+|---|---|---|---|---|
+| Day 1, 08:00 | Proposal to use the dashboard for purpose B | Clinical lead, ED | | |
+| | | | | |
+
+## Role sheets
+
+Each person takes one role. Read only your own sheet first.
+
+::: {.panel-tabset}
+
+### Clinical lead, emergency department
+
+**Goal:** fewer missed fractures and a workflow that still works when the tool is not available.
+**You know:** the ED sees about 30 wrist radiographs per shift (*assumption*). Missed scaphoid fractures are a
+known problem. **You decide:** whether the alert may be shown to clinicians, and what the team does if it is
+switched off. **Good evidence:** a written fall-back procedure that has been tried in a drill.
+
+### Principal investigator, research group
+
+**Goal:** a well-documented research project and, later, a study of the alert in care.
+**You know:** the model was developed and tested on retrospective data from one centre. There is no study of
+patient outcomes. **You decide:** what the research data may be used for and which evidence a step into care
+would need. **Good evidence:** a study plan that separates accuracy from patient benefit.
+
+### Product owner, software company (manufacturer)
+
+**Goal:** a product that works and can be supported efficiently.
+**You know:** your support desk receives technical logs; your team released version 2.3.1 with "performance
+improvements". **You decide:** what the logs contain, how updates are approved and installed, and what you tell
+the hospital. **Good evidence:** a release procedure that the hospital can verify.
+
+### Data protection officer (hospital)
+
+**Goal:** lawful, minimal and transparent processing of patient data.
+**You know:** the contract with the company is a draft; nobody has asked you about purpose B yet. **You advise
+on:** legal basis, processor contract, deletion, the data protection impact assessment (DPIA) and, in an incident,
+notification and communication. The decisions themselves are taken by the hospital as controller. **Good
+evidence:** a documented assessment with the facts it rests on.
+
+### Information security officer (hospital)
+
+**Goal:** confidentiality, integrity and availability of systems and data.
+**You know:** the company's support staff have remote access "for troubleshooting". **You decide:** access rights,
+logging, the incident response steps and the technical criteria for a restart. **Good evidence:** one tested
+control each for confidentiality, integrity and availability.
+
+### Patient representative
+
+**Goal:** that patients are protected, informed and can object where they have the right to.
+**You know:** patients in the ED are in pain and in a hurry; many do not read long information sheets. **You ask:**
+what a patient would need to know, from whom, and in which words. **Good evidence:** a short text a patient would
+understand, with a contact who can actually be reached.
+
+:::
+
+## Card 1 · Contract and data flows (unit 26) {#card-1}
+
+> **Day 2, 09:00.** The company sends its contract draft. Section 7 reads: "To provide support, the provider
+> receives anonymised technical logs." The logs include the request text sent to the model service, which in
+> purpose B contains the worklist entry: pseudonym, age, time of arrival and the triage note. The research group
+> adds that it would like to reuse purpose-B data for a later study.
+
+**Tasks.**
+
+1. Draw two data flows: one for care (purpose B) and one for the later research use. For each: purpose,
+   recipients, access roles, retention and deletion point.
+2. For each flow, name the legal basis under Article 6 GDPR and, separately, the exception under Article 9(2) GDPR
+   for health data. Mark what depends on national or institutional rules as *open*, with the role that clarifies it.
+3. Is "anonymised" in section 7 correct? What would the logs need to look like for the claim to hold?
+4. DPIA pre-check: is the threshold of Article 35 GDPR likely to be met? Note the reasons. (A pre-check is not the
+   DPIA itself.)
+
+**Decision by Day 2, 12:00:** may the contract be signed in this form? Role and conditions.
+
+## Card 2 · An update changes the output (unit 27) {#card-2}
+
+> **Day 30 (Monday), 07:30.** Over the weekend the company installed version 2.3.1. The night shift reports that
+> the dashboard raised about twice as many alerts as usual. The version field shows 2.3.1; the steering board
+> approved 2.2.0. Nobody at the hospital was told about the update.
+
+**Tasks.**
+
+1. Complete the threat model below for three threats: data leaving through logs, an unapproved or manipulated model
+   version, and an outage of the model service.
+2. For each threat fill in the control matrix: one preventive control, one test that shows the control works, one
+   recovery step and the responsible role.
+3. Play the fall-back: the alert is switched off for the rest of the shift. What exactly does the ED team do
+   instead, and how does it know that the regular process is working?
+
+### Threat model
+
+| Asset | Threat | Entry point | Possible harm to patients or operations |
+|---|---|---|---|
+| Logs with worklist entries | | | |
+| Model artefact and version | | | |
+| Model service availability | | | |
+
+### Control matrix (empty)
+
+| Protection goal | Preventive control | Test that shows it works | Recovery step | Responsible role |
+|---|---|---|---|---|
+| Confidentiality | | | | |
+| Integrity | | | | |
+| Availability | | | | |
+
+**Decision by Day 30, 08:30:** does the alert stay on, go back to 2.2.0, or go off? Role and criterion.
+
+## Card 3 · Case text in a support ticket (unit 28) {#card-3}
+
+> **Day 30, 10:15.** While investigating the update, a support engineer at the company finds a ticket opened three
+> weeks ago (Day 9). Attached is a copy of a request log with 40 worklist entries (pseudonym, age, arrival time,
+> triage note). One triage note contains a patient's full name and date of birth, typed into the free-text field
+> by mistake. The ticket was visible to all twelve members of the support team.
+>
+> **Day 30, 10:40.** The company's product owner informs the hospital's information security officer by phone.
+
+**Tasks (tabletop, 45 minutes).**
+
+1. **Contain.** Which accesses are closed now, by whom? What must not be deleted?
+2. **Preserve evidence.** Which logs, tickets and version records are secured, and how is their integrity shown?
+3. **Alert.** Which roles are informed, in which order, by when? (Write times on the event log.)
+4. **Assess.** Which personal data were accessible to whom, for how long? What could follow for the people affected?
+5. **Two separate decisions.**
+   - Notification to the supervisory authority (Article 33 GDPR): is it required? From when does the time limit run?
+   - Communication to the people affected (Article 34 GDPR): is the high-risk threshold met? If yes, what do they
+     need to be told, and by whom?
+6. **Patient perspective.** The patient representative drafts three sentences a patient would understand.
+7. **Restart.** Which criteria must be met before the alert is switched on again, and who signs off?
+
+**Decision by Day 30, 12:00:** a written decision for each of the two data protection questions and for the restart,
+each with role and time.
+
+::: {.callout-tip title="What a good result shows"}
+- Containment and evidence preservation come before analysis; nothing is deleted to "clean up".
+- The technical restart and the data protection assessment are separate decisions with different triggers,
+  different responsible roles and different end points.
+- Notification and communication are assessed separately, each with the facts it rests on.
+- The update problem is handled as its own question: which version is approved, how is it verified, who decides
+  whether a regulatory report is needed.
+- The patient text is short, honest about what is known, and names a reachable contact.
+:::
+
+## Legal anchors for the exercise
+
+Status November 2026. Binding legal text, non-binding guidance and local questions are kept apart.
+
+| Question | Binding text | What to check in the case |
+|---|---|---|
+| Is purpose B medical device software? | Regulation (EU) 2017/745 (Medical Device Regulation, MDR), Article 2(1) and (12): definitions of medical device and intended purpose | The wording of purpose B, not the technology, is decisive. Guidance (not binding): MDCG 2019-11 Rev. 1 (June 2025). |
+| Which risk class would follow? | MDR Annex VIII, Rule 11 | Software that provides information used to take decisions with diagnostic purposes is class IIa unless the decisions can lead to serious deterioration or surgery (IIb) or death or irreversible deterioration (III). *Case assumption:* class IIa; final classification *open* (manufacturer's regulatory affairs). |
+| Is the AI system high-risk under the AI Act? | Regulation (EU) 2024/1689 (AI Act), Article 6(1) with Annex I (the MDR is listed), as amended by Regulation (EU) 2026/1744 | High-risk if it is a product covered by the MDR **and** must undergo third-party conformity assessment. Requirements of Chapter III Sections 1–3 apply to such systems from 2 August 2028 (Article 113 as amended). |
+| What applies already? | AI Act Article 4 (AI literacy), in the version of Regulation (EU) 2026/1744 | Providers and deployers take measures to support the AI literacy of their staff; Chapters I and II have applied since 2 February 2025. |
+| Who is processor, who controller? | GDPR Articles 4, 28 | The hospital decides on purposes and means; the company processes on its behalf and needs a contract under Article 28. |
+| Legal basis for health data | GDPR Article 6(1) and Article 9(2)(h) (care) or (j) (research, based on Union or Member State law), Article 89 | For research in Germany, for example, § 27 of the Federal Data Protection Act (Bundesdatenschutzgesetz, BDSG) or a state hospital or data protection act may apply; which one is *open* (data protection officer). |
+| DPIA | GDPR Article 35(1) and (3)(b) | Large-scale processing of health data is a listed example; the pre-check documents why. |
+| Incident: authority | GDPR Article 33 | Without undue delay and, where feasible, within 72 hours after the controller became aware, unless the breach is unlikely to result in a risk. The processor informs the controller without undue delay (Article 33(2)). |
+| Incident: people affected | GDPR Article 34 | Only if the breach is likely to result in a high risk; exceptions in Article 34(3). |
+| Update and vigilance | MDR Article 87 (for devices made available on the Union market) | Whether a report is needed depends on the classification of the product and the event; *open* in the case because purpose B is not yet authorised. |
+
+Proposals by the European Commission to amend the GDPR were pending on EUR-Lex on 8 November 2026 but were not in
+force; the articles above are cited in their current version.
+
+## Sources
+
+- Regulation (EU) 2024/1689 (AI Act): [EUR-Lex](https://eur-lex.europa.eu/eli/reg/2024/1689/oj)
+- Regulation (EU) 2026/1744 (Digital Omnibus on AI), published 24 July 2026, in force since 27 July 2026:
+  [EUR-Lex](https://eur-lex.europa.eu/eli/reg/2026/1744/oj)
+- Regulation (EU) 2017/745 (MDR): [EUR-Lex](https://eur-lex.europa.eu/eli/reg/2017/745/oj)
+- MDCG 2019-11 Rev. 1, Qualification and classification of software (June 2025, guidance, not binding):
+  [PDF](https://health.ec.europa.eu/system/files/2025-06/mdcg_2019_11_en.pdf)
+- Regulation (EU) 2016/679 (GDPR): [EUR-Lex](https://eur-lex.europa.eu/eli/reg/2016/679/oj)
+- Federal Data Protection Act (Bundesdatenschutzgesetz, BDSG), § 27:
+  [gesetze-im-internet.de](https://www.gesetze-im-internet.de/bdsg_2018/__27.html) (German) ·
+  [English translation](https://www.gesetze-im-internet.de/englisch_bdsg/englisch_bdsg.html)
+- Federal Office for Information Security (BSI). Generative KI-Modelle: Chancen und Risiken für Industrie und
+  Behörden, version 2.0, January 2025 (German):
+  [PDF](https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/KI/Generative_KI-Modelle.pdf?__blob=publicationFile&v=7)
+- Vassilev A, et al. Adversarial machine learning: a taxonomy and terminology of attacks and mitigations. NIST AI
+  100-2e2025. [doi:10.6028/NIST.AI.100-2e2025](https://doi.org/10.6028/NIST.AI.100-2e2025)
