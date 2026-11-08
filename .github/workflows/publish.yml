@@ -1,0 +1,42 @@
+name: Render and publish course
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: quarto-dev/quarto-actions/setup@8a96df13519ee81fd526f2dfca5962811136661b
+        with:
+          version: '1.10.19'
+      # R results come from the committed _freeze/ directory; a changed page without an
+      # updated _freeze/ makes this build fail on purpose (no R installed here).
+      - run: quarto render
+      - name: Check output
+        run: |
+          test -f _site/index.html
+          test -f _site/lessons/w3-diagnostics-prediction-evidence.html
+          test ! -e _site/instructor
+          if grep -rl '?@sec\|?@tbl\|?@fig' _site --include=*.html; then exit 1; fi
+      - uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b
+      - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa
+        with:
+          path: _site
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e

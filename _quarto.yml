@@ -1,0 +1,205 @@
+{
+  "project": {
+    "type": "website",
+    "output-dir": "_site",
+    "render": [
+      "index.qmd",
+      "syllabus.qmd",
+      "lessons/*.qmd",
+      "exercises/*.qmd"
+    ],
+    "resources": [
+      "data/*.csv",
+      "r/*.R"
+    ]
+  },
+  "website": {
+    "title": "Clinical Data Science in R · Course",
+    "site-url": "https://r-heller.github.io/clinical-data-science-in-r-course/",
+    "repo-url": "https://github.com/r-heller/clinical-data-science-in-r-course",
+    "repo-actions": [
+      "issue",
+      "source"
+    ],
+    "navbar": {
+      "left": [
+        {
+          "href": "index.qmd",
+          "text": "Home"
+        },
+        {
+          "href": "syllabus.qmd",
+          "text": "Syllabus"
+        },
+        {
+          "text": "Workshops",
+          "menu": [
+            {
+              "text": "Part I · Clinical questions and data"
+            },
+            {
+              "href": "lessons/w1-from-clinical-case-to-question.qmd",
+              "text": "W1 · From clinical case to testable question"
+            },
+            {
+              "href": "lessons/w2-language-models-and-evidence.qmd",
+              "text": "W2 · Language models and scientific evidence"
+            },
+            {
+              "text": "---"
+            },
+            {
+              "text": "Part II · Testing and comparing models"
+            },
+            {
+              "href": "lessons/w3-diagnostics-prediction-evidence.qmd",
+              "text": "W3 · Diagnostics, prediction and external evidence"
+            },
+            {
+              "href": "lessons/w4-imaging-gait-tissue.qmd",
+              "text": "W4 · What imaging, gait and tissue models measure"
+            },
+            {
+              "text": "---"
+            },
+            {
+              "text": "Part III · Justifying complex models"
+            },
+            {
+              "href": "lessons/w5-causality-trajectories-phenotypes.qmd",
+              "text": "W5 · Causal questions, trajectories and phenotypes"
+            },
+            {
+              "href": "lessons/w6-pharmacometrics-forecasting-simulation.qmd",
+              "text": "W6 · Pharmacometrics, forecasting and simulation"
+            },
+            {
+              "text": "---"
+            },
+            {
+              "text": "Part IV · Translating models into practice"
+            },
+            {
+              "href": "lessons/w7-regulation-data-protection-incident.qmd",
+              "text": "W7 · Regulation, data protection and a security incident"
+            },
+            {
+              "href": "lessons/w8-colloquium-and-decision.qmd",
+              "text": "W8 · Model colloquium, decision and review"
+            }
+          ]
+        },
+        {
+          "text": "Labs",
+          "menu": [
+            {
+              "text": "R labs"
+            },
+            {
+              "href": "exercises/lab-w1-case-table.qmd",
+              "text": "W1 · Counting people, images and readings"
+            },
+            {
+              "href": "exercises/lab-w2-next-word.qmd",
+              "text": "W2 · Next-word frequencies"
+            },
+            {
+              "href": "exercises/lab-w3-diagnostic-accuracy.qmd",
+              "text": "W3 · Two-by-two tables, baseline and threshold"
+            },
+            {
+              "href": "exercises/lab-w4-spectra-animal-split.qmd",
+              "text": "W4 · Spectra, image split and animal split"
+            },
+            {
+              "href": "exercises/lab-w5-causality-trajectories.qmd",
+              "text": "W5 · Collider, mixed model and clusters"
+            },
+            {
+              "href": "exercises/lab-w6-forecast-pk-simulation.qmd",
+              "text": "W6 · Forecast, PK, queue and priors"
+            },
+            {
+              "text": "---"
+            },
+            {
+              "text": "Case and role sheets"
+            },
+            {
+              "href": "exercises/casebook-w2-untrusted-instruction.qmd",
+              "text": "W2 · An instruction hidden in an attachment"
+            },
+            {
+              "href": "exercises/casebook-w7-tabletop.qmd",
+              "text": "W7 · Tabletop exercise: dashboard incident"
+            }
+          ]
+        },
+        {
+          "text": "Project",
+          "menu": [
+            {
+              "href": "exercises/project-brief.qmd",
+              "text": "Project brief and cases"
+            },
+            {
+              "href": "exercises/project-model-passport.qmd",
+              "text": "Model passport"
+            },
+            {
+              "href": "exercises/project-decision-sheet.qmd",
+              "text": "Decision sheet"
+            },
+            {
+              "href": "exercises/project-rubric.qmd",
+              "text": "Assessment rubric"
+            },
+            {
+              "href": "exercises/project-colloquium.qmd",
+              "text": "Colloquium, feedback and evaluation"
+            },
+            {
+              "text": "---"
+            },
+            {
+              "href": "exercises/self-test.qmd",
+              "text": "Formative self-test"
+            }
+          ]
+        }
+      ],
+      "right": [
+        {
+          "href": "https://r-heller.github.io/clinical-data-science-in-r/",
+          "text": "Companion book"
+        }
+      ]
+    },
+    "search": true
+  },
+  "author": "R. Heller",
+  "lang": "en",
+  "format": {
+    "html": {
+      "theme": {
+        "light": "cosmo",
+        "dark": "darkly"
+      },
+      "toc": true,
+      "code-copy": true,
+      "fig-width": 7,
+      "fig-height": 4.5,
+      "fig-dpi": 150
+    }
+  },
+  "execute": {
+    "error": false,
+    "warning": true,
+    "freeze": "auto"
+  },
+  "knitr": {
+    "opts_chunk": {
+      "comment": "#>"
+    }
+  }
+}
