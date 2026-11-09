@@ -2,7 +2,20 @@
 title: "Clinical Data Science in R · Course"
 subtitle: "Clinical AI and translational trauma research in four parts"
 description: "A course in eight workshops (32 teaching units) on reading clinical data, testing models in R and defending a limited recommendation."
+toc: false
+title-block-style: none
 ---
+
+::: {.hero}
+::: {.kicker}
+EIGHT WORKSHOPS · CLINICAL DATA · R
+:::
+# Clinical Data Science in R
+::: {.lead}
+Clinical AI and translational trauma research in four parts. Read the evidence, test a model and defend a clinical decision.
+:::
+:::
+
 
 A fracture alert can perform well on a test data set and still help little in the emergency department. A model can
 reliably recognise further images of the same laboratory animal and fail on a new one. This course starts from
@@ -18,14 +31,45 @@ limited recommendation to patients, researchers or hospital management.
 | **Completion** | An individual examination and a group project with an executable R analysis, a model passport and a reasoned decision. |
 | **Companion book** | [Clinical Data Science in R](https://r-heller.github.io/clinical-data-science-in-r/). Chapters B01–B28 are fixed identifiers; each workshop requires the core readings of two chapters. |
 
+[Explore the workshop and exercise network](overview.qmd) to browse by part, method or search term.
+
 ## Four parts, eight workshops
 
-| Part | Workshops | Guiding question |
-|---|---|---|
-| **I · Clinical questions and data** (entry) | [W1 · From clinical case to testable question](lessons/w1-from-clinical-case-to-question.qmd) · [W2 · Language models and scientific evidence](lessons/w2-language-models-and-evidence.qmd) | What exactly is being claimed here? |
-| **II · Testing and comparing models** (application) | [W3 · Diagnostics, prediction and external evidence](lessons/w3-diagnostics-prediction-evidence.qmd) · [W4 · What imaging, gait and tissue models measure](lessons/w4-imaging-gait-tissue.qmd) | Does the evidence hold in my setting? |
-| **III · Justifying complex models** (advanced) | [W5 · Causal questions, trajectories and phenotypes](lessons/w5-causality-trajectories-phenotypes.qmd) · [W6 · Pharmacometrics, forecasting and simulation](lessons/w6-pharmacometrics-forecasting-simulation.qmd) | Which biology or process lies behind the data? |
-| **IV · Translating models into practice** (independent application) | [W7 · Regulation, data protection and a security incident](lessons/w7-regulation-data-protection-incident.qmd) · [W8 · Model colloquium, decision and review](lessons/w8-colloquium-and-decision.qmd) | Which decision is defensible today? |
+::: {.card-grid}
+
+::: {.card}
+::: {.kicker}
+I · Clinical questions and data (entry)
+:::
+### What exactly is being claimed here?
+[W1 · From clinical case to testable question](lessons/w1-from-clinical-case-to-question.qmd) · [W2 · Language models and scientific evidence](lessons/w2-language-models-and-evidence.qmd)
+:::
+
+::: {.card}
+::: {.kicker}
+II · Testing and comparing models (application)
+:::
+### Does the evidence hold in my setting?
+[W3 · Diagnostics, prediction and external evidence](lessons/w3-diagnostics-prediction-evidence.qmd) · [W4 · What imaging, gait and tissue models measure](lessons/w4-imaging-gait-tissue.qmd)
+:::
+
+::: {.card}
+::: {.kicker}
+III · Justifying complex models (advanced)
+:::
+### Which biology or process lies behind the data?
+[W5 · Causal questions, trajectories and phenotypes](lessons/w5-causality-trajectories-phenotypes.qmd) · [W6 · Pharmacometrics, forecasting and simulation](lessons/w6-pharmacometrics-forecasting-simulation.qmd)
+:::
+
+::: {.card}
+::: {.kicker}
+IV · Translating models into practice (independent application)
+:::
+### Which decision is defensible today?
+[W7 · Regulation, data protection and a security incident](lessons/w7-regulation-data-protection-incident.qmd) · [W8 · Model colloquium, decision and review](lessons/w8-colloquium-and-decision.qmd)
+:::
+
+:::
 
 In Part I participants formulate a clinical question and check where their data come from. In Part II they test a
 model, in Part III they compare explanations for their findings, and in Part IV they defend a decision about its
@@ -81,6 +125,6 @@ recommendation.
 Texts are licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), code under the
 [MIT licence](https://opensource.org/licenses/MIT).
 
-> Heller, R. (2026). *Clinical Data Science in R · Course.* <https://r-heller.github.io/clinical-data-science-in-r-course/>
+> Heller, R. (2026). *Clinical Data Science in R · Course.* <https://cttir.github.io/clinical-data-science-in-r-course/>
 
 This course does not replace individual medical, legal or statistical advice.

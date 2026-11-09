@@ -18,9 +18,23 @@ jobs:
       - uses: quarto-dev/quarto-actions/setup@8a96df13519ee81fd526f2dfca5962811136661b
         with:
           version: '1.10.19'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+      - run: npm ci
       # R results come from the committed _freeze/ directory; a changed page without an
       # updated _freeze/ makes this build fail on purpose (no R installed here).
       - run: quarto render
+      - run: python3 scripts/check_site.py
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:browser
+      - name: Preserve browser screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-screenshots
+          path: /tmp/clinical-course-browser
       - name: Check output
         run: |
           test -f _site/index.html

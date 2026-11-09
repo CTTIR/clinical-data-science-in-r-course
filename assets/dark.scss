@@ -1,0 +1,60 @@
+/*-- scss:defaults --*/
+
+// Bootstrap variables — dark palette
+$body-bg: #1d1f21;
+$body-color: #e8e8e8;
+$primary: #79b8ff;
+$link-color: #79b8ff;
+$link-hover-color: #b8d4fd;
+$border-color: #2d3035;
+$secondary-bg: #26292c;
+$tertiary-bg: #26292c;
+$headings-color: #e8e8e8;
+$headings-font-weight: 600;
+$navbar-dark-color: #a8a8a8;
+$navbar-dark-hover-color: #79b8ff;
+$dropdown-link-color: #e8e8e8;
+$dropdown-link-hover-color: #79b8ff;
+$dropdown-link-hover-bg: #1d1f21;
+$dropdown-bg: #26292c;
+$border-radius: 6px;
+
+$font-family-sans-serif: "Source Sans 3", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+$font-family-monospace: "JetBrains Mono", "Fira Code", "SFMono-Regular", Menlo, Consolas, monospace;
+
+/*-- scss:rules --*/
+
+:root {
+  --bg: #1d1f21;
+  --fg: #e8e8e8;
+  --fg-alt: #a8a8a8;
+  --rule: #2d3035;
+  --surface: #26292c;
+  --accent: #79b8ff;
+  --accent-hover: #b8d4fd;
+  --accent-soft: #1f3a5f;
+  --code-bg: #2a2d31;
+  --code-fg: #e8e8e8;
+
+  --font-body: "Source Sans 3", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", "SFMono-Regular", Menlo, Consolas, monospace;
+
+  --content-max: 46rem;
+  --radius: 6px;
+  --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.4);
+
+  --bs-body-bg: var(--bg);
+  --bs-body-color: var(--fg);
+  --bs-border-color: var(--rule);
+  --bs-secondary-bg: var(--surface);
+  --bs-tertiary-bg: var(--surface);
+  --bs-emphasis-color: var(--fg);
+  --bs-link-color: var(--accent);
+  --bs-link-hover-color: var(--accent-hover);
+  --bs-code-color: var(--code-fg);
+  --bs-heading-color: var(--fg);
+  --bs-primary: var(--accent);
+  --bs-primary-rgb: 121, 184, 255;
+}
+
+@import "shared";

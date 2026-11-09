@@ -6,17 +6,27 @@
       "index.qmd",
       "syllabus.qmd",
       "lessons/*.qmd",
-      "exercises/*.qmd"
+      "exercises/*.qmd",
+      "overview.qmd"
     ],
     "resources": [
       "data/*.csv",
-      "r/*.R"
+      "r/*.R",
+      "css/**",
+      "assets/**",
+      "artifacts/**"
+    ],
+    "pre-render": [
+      "python3 scripts/build_graph.py"
+    ],
+    "post-render": [
+      "python3 scripts/build_pagefind.py"
     ]
   },
   "website": {
     "title": "Clinical Data Science in R · Course",
-    "site-url": "https://r-heller.github.io/clinical-data-science-in-r-course/",
-    "repo-url": "https://github.com/r-heller/clinical-data-science-in-r-course",
+    "site-url": "https://cttir.github.io/clinical-data-science-in-r-course/",
+    "repo-url": "https://github.com/CTTIR/clinical-data-science-in-r-course",
     "repo-actions": [
       "issue",
       "source"
@@ -24,8 +34,8 @@
     "navbar": {
       "left": [
         {
-          "href": "index.qmd",
-          "text": "Home"
+          "href": "overview.qmd",
+          "text": "Overview"
         },
         {
           "href": "syllabus.qmd",
@@ -172,24 +182,55 @@
         {
           "href": "https://r-heller.github.io/clinical-data-science-in-r/",
           "text": "Companion book"
+        },
+        {
+          "href": "https://cttir.github.io/courses/impressum.html",
+          "text": "Impressum"
+        },
+        {
+          "href": "https://github.com/CTTIR/clinical-data-science-in-r-course",
+          "icon": "github"
         }
-      ]
+      ],
+      "title": "#clinical-data-science"
     },
-    "search": true
+    "search": true,
+    "description": "Eight workshops on clinical AI and translational trauma research, with R labs and a linked learning network.",
+    "page-navigation": true,
+    "page-footer": {
+      "left": "Prose: CC BY 4.0 · Code: MIT",
+      "center": "[Syllabus](/syllabus.qmd) · [Overview](/overview.qmd) · [Biostatistics courses](https://cttir.github.io/courses/) · [Impressum](https://cttir.github.io/courses/impressum.html)",
+      "right": "Built with [Quarto](https://quarto.org)"
+    }
   },
   "author": "R. Heller",
   "lang": "en",
   "format": {
     "html": {
       "theme": {
-        "light": "cosmo",
-        "dark": "darkly"
+        "dark": [
+          "darkly",
+          "assets/dark.scss"
+        ],
+        "light": [
+          "flatly",
+          "assets/light.scss"
+        ]
       },
       "toc": true,
       "code-copy": true,
       "fig-width": 7,
       "fig-height": 4.5,
-      "fig-dpi": 150
+      "fig-dpi": 150,
+      "toc-depth": 3,
+      "toc-location": "right",
+      "code-overflow": "wrap",
+      "link-external-newwindow": true,
+      "include-in-header": [
+        {
+          "text": "<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\n<link href=\"https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap\" rel=\"stylesheet\">\n<script>\n  (function () {\n    try {\n      if (!localStorage.getItem('quarto-color-scheme')) {\n        localStorage.setItem('quarto-color-scheme', 'dark');\n      }\n      if (localStorage.getItem('quarto-color-scheme') === 'dark') {\n        document.documentElement.classList.add('quarto-dark');\n        document.documentElement.classList.remove('quarto-light');\n      }\n    } catch (e) {}\n  })();\n</script>"
+        }
+      ]
     }
   },
   "execute": {

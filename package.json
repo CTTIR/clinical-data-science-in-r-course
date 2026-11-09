@@ -1,0 +1,13 @@
+{
+  "name": "cttir-clinical-data-science-course",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "python3 scripts/check_site.py",
+    "test:browser": "node tests/browser.mjs"
+  },
+  "devDependencies": {
+    "pagefind": "1.5.2",
+    "playwright": "1.64.1"
+  }
+}

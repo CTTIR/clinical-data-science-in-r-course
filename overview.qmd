@@ -1,0 +1,91 @@
+---
+title: "Overview"
+description: "Explore workshops, learning activities, case sheets and project materials by course part and shared topics."
+toc: false
+page-layout: full
+title-block-style: none
+---
+
+::: {.hero}
+::: {.kicker}
+WORKSHOPS AND EXERCISES · LINKED FILTERS · LABEL NETWORK
+:::
+# Overview
+::: {.lead}
+Browse all workshops and exercises in the four-part course. Selecting a part or tag filters the network, the activity list, and the chip counts together. Click any node in the graph to open the activity; shift-click adds its part to the filter, alt-click adds its tags.
+:::
+:::
+
+## Learning network
+
+::: {.network-help}
+Each node is an activity; nodes share an edge when they have tags in common (solid edges: two or more; dashed edges: one). Colour encodes part. Non-matching nodes fade rather than disappear so the layout stays stable as you filter.
+:::
+
+::: {#tutorial-network style="height: 560px;"}
+:::
+
+::: {.network-controls}
+<button id="network-reset" type="button">Reset zoom</button>
+<details class="downloads-menu">
+<summary>Download data</summary>
+<ul>
+<li><a href="artifacts/graph.json" download>graph.json</a> — nodes, edges, parts, tags</li>
+<li><a href="artifacts/labs.csv" download>learning activities.csv</a> — id, title, url, part, week, session, tags</li>
+<li><a href="artifacts/cooccurrence.csv" download>cooccurrence.csv</a> — tag pairs and counts</li>
+</ul>
+</details>
+:::
+
+## Filter
+
+::: {#filter-summary .filter-summary aria-live="polite" aria-atomic="true"}
+<span id="filter-summary-text"></span>
+<button id="filter-reset" type="button" hidden>Reset all filters</button>
+:::
+
+::: {.search-row}
+<label for="overview-search" class="visually-hidden">Search learning activities</label>
+<input id="overview-search" type="search" placeholder="Search learning activities…" autocomplete="off" spellcheck="false" />
+<p id="search-status" role="alert"></p>
+:::
+
+::: {#topic-filter-bar .filter-bar aria-label="Filter by part"}
+:::
+
+::: {#tag-filter-bar .filter-bar aria-label="Filter by tag"}
+:::
+
+::: {#label-filter-bar .filter-bar .label-bar aria-label="Filter by label"}
+:::
+
+## Learning activities
+
+<div id="a11y-announcer" class="visually-hidden" role="status" aria-live="polite" aria-atomic="true"></div>
+
+::: {#tutorial-list-empty .tutorial-list-empty hidden=true}
+No learning activities match the current filters. Try removing one, or use “Reset all filters” above.
+:::
+
+::: {#tutorial-list .tutorial-list}
+Loading…
+:::
+
+<nav id="all-tutorials-nav" class="all-tutorials-nav" aria-label="All learning activities grouped by part"></nav>
+
+<details id="heatmap-wrapper" class="heatmap-wrapper">
+<summary>Tag co-occurrence heatmap</summary>
+
+::: {.heatmap-controls}
+<label for="heatmap-n">Top tags: <span id="heatmap-n-readout">20</span></label>
+<input id="heatmap-n" type="range" min="10" max="50" step="1" value="20" />
+:::
+
+::: {#heatmap .heatmap}
+:::
+
+</details>
+
+<link rel="stylesheet" href="css/overview.css">
+<script src="https://unpkg.com/vis-network@9.1.9/standalone/umd/vis-network.min.js"></script>
+<script type="module" src="assets/js/overview/main.js"></script>

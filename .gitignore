@@ -3,3 +3,6 @@
 /.DS_Store
 
 **/*.quarto_ipynb
+
+node_modules/
+artifacts/

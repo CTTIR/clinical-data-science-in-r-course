@@ -4,7 +4,7 @@ A course in four parts on clinical AI and translational trauma research: eight w
 units of 45 minutes each, 32 units in total. Participants learn to read a finding, carry out the appropriate check in
 R and defend a limited recommendation to patients, researchers or hospital management.
 
-Course website: <https://r-heller.github.io/clinical-data-science-in-r-course/>
+Course website: <https://cttir.github.io/clinical-data-science-in-r-course/>
 
 Companion book: [Clinical Data Science in R](https://r-heller.github.io/clinical-data-science-in-r/). Each
 workshop requires the core readings of two book chapters (B01–B28); course and book share cases, identifiers and
@@ -39,6 +39,10 @@ The repository keeps the layout of [coursegen](https://github.com/r-heller/cours
 Examination questions are not part of this repository. The public course contains newly developed practice cases
 only (`exercises/self-test.qmd`).
 
+## Layout and learning network
+
+The site shares the light/dark themes, typography, cards and interactive overview components of [CTTIR courses](https://cttir.github.io/courses/). The overview connects all eight workshops and fourteen exercises through shared topics, with linked filters, full-text search, a tag heatmap and mobile navigation. `scripts/build_graph.py` derives the activity titles and targets from the published sources; `scripts/check_site.py` verifies the built links, network and search artifacts.
+
 ## Building locally
 
 Requirements: [Quarto](https://quarto.org/) and R with the packages ggplot2, scales, glmnet, dagitty, lme4,
@@ -47,6 +51,7 @@ glmnet 5.0, lme4 2.0.1, dagitty 0.3.4, mclust 6.1.3, cluster 2.1.8.3, deSolve 1.
 knitr 1.51) on 8 November 2026.
 
 ```sh
+npm ci                # pinned search and browser tooling
 quarto render          # website into _site/
 quarto preview
 ```
@@ -98,4 +103,4 @@ publishers.
 
 ## Citation
 
-> Heller, R. (2026). *Clinical Data Science in R · Course.* <https://r-heller.github.io/clinical-data-science-in-r-course/>
+> Heller, R. (2026). *Clinical Data Science in R · Course.* <https://cttir.github.io/clinical-data-science-in-r-course/>
