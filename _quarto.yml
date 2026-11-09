@@ -194,7 +194,7 @@
       ],
       "title": "#clinical-data-science"
     },
-    "search": true,
+    "search": false,
     "description": "Eight workshops on clinical AI and translational trauma research, with R labs and a linked learning network.",
     "page-navigation": true,
     "page-footer": {

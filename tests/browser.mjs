@@ -55,6 +55,7 @@ try {
  await page.screenshot({path:output+'/desktop-network-alternate-theme.png',fullPage:true});
  await page.locator('.tutorial-card h3 a').first().click();
  assert.match(page.url(),/\/(lessons|exercises)\//);
+ await page.locator('h1').waitFor({state:'visible'});
  assert.equal(await page.locator('h1').count(),1);
  await page.setViewportSize({width:390,height:844});
  await page.goto(base+'overview.html');
