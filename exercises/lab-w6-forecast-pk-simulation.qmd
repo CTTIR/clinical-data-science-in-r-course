@@ -303,20 +303,20 @@ you run it on your own.
 
 ## Further reading
 
-- Companion book: [B17 · Forecasting patient flow](https://r-heller.github.io/clinical-data-science-in-r/chapters/b17-forecasting-patient-flow.html#sec-b17-core)
-  (required for W6), and either [B15 · Mechanistic models and pharmacometrics](https://r-heller.github.io/clinical-data-science-in-r/chapters/b15-mechanistic-models-pharmacometrics.html#sec-b15-core)
-  or [B18 · Mass casualty incidents, operating capacity and simulation](https://r-heller.github.io/clinical-data-science-in-r/chapters/b18-mass-casualty-capacity-simulation.html#sec-b18-core),
-  depending on your station; [B16 · Bayes, small samples and the 3Rs](https://r-heller.github.io/clinical-data-science-in-r/chapters/b16-bayes-small-samples-3rs.html#sec-b16-core)
+- Companion book: [B17 · Forecasting patient flow](https://cttir.github.io/clinical-data-science-in-r/chapters/b17-forecasting-patient-flow.html#sec-b17-core)
+  (required for W6), and either [B15 · Mechanistic models and pharmacometrics](https://cttir.github.io/clinical-data-science-in-r/chapters/b15-mechanistic-models-pharmacometrics.html#sec-b15-core)
+  or [B18 · Mass casualty incidents, operating capacity and simulation](https://cttir.github.io/clinical-data-science-in-r/chapters/b18-mass-casualty-capacity-simulation.html#sec-b18-core),
+  depending on your station; [B16 · Bayes, small samples and the 3Rs](https://cttir.github.io/clinical-data-science-in-r/chapters/b16-bayes-small-samples-3rs.html#sec-b16-core)
   for Part C.
-- [Methods in R: Rolling-Origin Cross-Validation](https://r-heller.github.io/methods-in-r/sec-ch-09-timeseries.html#sec-chapters-09-timeseries-rolling-origin-cv)
-  and [Forecast Accuracy Metrics](https://r-heller.github.io/methods-in-r/sec-ch-09-timeseries.html#sec-chapters-09-timeseries-forecast-accuracy-metrics)
+- [Methods in R: Rolling-Origin Cross-Validation](https://cttir.github.io/methods-in-r/sec-ch-09-timeseries.html#sec-chapters-09-timeseries-rolling-origin-cv)
+  and [Forecast Accuracy Metrics](https://cttir.github.io/methods-in-r/sec-ch-09-timeseries.html#sec-chapters-09-timeseries-forecast-accuracy-metrics)
   – how to test forecasts on later periods and which error measure answers which question.
 - [Forecasting: Principles and Practice](https://otexts.com/fpp3/) by Hyndman and Athanasopoulos – the standard open
   textbook on seasonal baselines and prediction intervals.
 - [CTTIR Courses: SIR and SEIR models with deSolve](https://cttir.github.io/courses/course3_design_causal/labs/lab_week4_session4.html)
   – the same solver applied to a compartment model of infection.
-- [Strategy in R: Monte Carlo Methods for Games](https://r-heller.github.io/strategy-in-r/sec-monte-carlo.html)
+- [Strategy in R: Monte Carlo Methods for Games](https://cttir.github.io/strategy-in-r/sec-monte-carlo.html)
   – replications, random seeds and the spread of simulated outcomes.
-- [Methods in R: The Beta-Binomial Model](https://r-heller.github.io/methods-in-r/sec-ch-10-bayesian.html#sec-chapters-10-bayesian-beta-binomial-model)
+- [Methods in R: The Beta-Binomial Model](https://cttir.github.io/methods-in-r/sec-ch-10-bayesian.html#sec-chapters-10-bayesian-beta-binomial-model)
   and [CTTIR Tutorials: Prior Specification](https://cttir.github.io/tutorials/tutorials/bayesian/prior-specification.html)
   – conjugate updating and how to justify a prior.

@@ -103,9 +103,9 @@ page is rendered.
 
 ## Further reading
 
-- [B27 · Model passport, study report and decision](https://r-heller.github.io/clinical-data-science-in-r/chapters/b27-model-passport-study-report.html#sec-b27-core)
+- [B27 · Model passport, study report and decision](https://cttir.github.io/clinical-data-science-in-r/chapters/b27-model-passport-study-report.html#sec-b27-core)
   – the passport, the study report and the separate decision sheet.
-- [Methods in R: TRIPOD-AI reporting template](https://r-heller.github.io/methods-in-r/sec-reporting-tripod-ai.html)
+- [Methods in R: TRIPOD-AI reporting template](https://cttir.github.io/methods-in-r/sec-reporting-tripod-ai.html)
   – the reporting items behind several rows of the passport.
 - Collins GS, et al. TRIPOD+AI statement. *BMJ*. 2024;385:e078378.
   [doi:10.1136/bmj-2023-078378](https://doi.org/10.1136/bmj-2023-078378)

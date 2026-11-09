@@ -33,13 +33,13 @@ By the end of this workshop you can
 ## Preparation
 
 - **Required reading** (about 20 minutes):
-  [B22 · Regulating research software and clinical AI – core reading](https://r-heller.github.io/clinical-data-science-in-r/chapters/b22-regulation.html#sec-b22-core)
+  [B22 · Regulating research software and clinical AI – core reading](https://cttir.github.io/clinical-data-science-in-r/chapters/b22-regulation.html#sec-b22-core)
   and
-  [B23 · Data protection along the entire data flow – core reading](https://r-heller.github.io/clinical-data-science-in-r/chapters/b23-data-protection.html#sec-b23-core).
-- **On the table during the exercise:** [B24 · Information security and recovery](https://r-heller.github.io/clinical-data-science-in-r/chapters/b24-information-security-recovery.html)
-  and [B25 · Security risks of learning and generative systems](https://r-heller.github.io/clinical-data-science-in-r/chapters/b25-security-risks-ai-systems.html);
-  [B21 · Ethics](https://r-heller.github.io/clinical-data-science-in-r/chapters/b21-ethics.html) for the patient
-  perspective and [B20 · Pilot operation, impact and monitoring](https://r-heller.github.io/clinical-data-science-in-r/chapters/b20-pilot-operation-monitoring.html)
+  [B23 · Data protection along the entire data flow – core reading](https://cttir.github.io/clinical-data-science-in-r/chapters/b23-data-protection.html#sec-b23-core).
+- **On the table during the exercise:** [B24 · Information security and recovery](https://cttir.github.io/clinical-data-science-in-r/chapters/b24-information-security-recovery.html)
+  and [B25 · Security risks of learning and generative systems](https://cttir.github.io/clinical-data-science-in-r/chapters/b25-security-risks-ai-systems.html);
+  [B21 · Ethics](https://cttir.github.io/clinical-data-science-in-r/chapters/b21-ethics.html) for the patient
+  perspective and [B20 · Pilot operation, impact and monitoring](https://cttir.github.io/clinical-data-science-in-r/chapters/b20-pilot-operation-monitoring.html)
   for the restart.
 - **Guests (proposal):** contributions from data protection, medical device regulation and information security.
   The roles are suggestions; any of them can be played by course participants.
@@ -106,16 +106,16 @@ the whole package.
 
 ## Further reading
 
-- [B24 · Information security and recovery](https://r-heller.github.io/clinical-data-science-in-r/chapters/b24-information-security-recovery.html#sec-b24-core)
-  and [B26 · Secondary use and responsible open science](https://r-heller.github.io/clinical-data-science-in-r/chapters/b26-secondary-use-open-science.html#sec-b26-core)
+- [B24 · Information security and recovery](https://cttir.github.io/clinical-data-science-in-r/chapters/b24-information-security-recovery.html#sec-b24-core)
+  and [B26 · Secondary use and responsible open science](https://cttir.github.io/clinical-data-science-in-r/chapters/b26-secondary-use-open-science.html#sec-b26-core)
   – recovery tests and research use without exporting raw data.
 - [CTTIR Courses: TRIPOD-AI, fairness auditing, reproducibility at scale](https://cttir.github.io/courses/course4_ml_highdim/labs/lab_week4_session5.html)
   – documentation that a regulator or reviewer can check.
-- [Methods in R: Shared reviewer checklist](https://r-heller.github.io/methods-in-r/sec-how-to-use.html#sec-reviewer-checklist)
+- [Methods in R: Shared reviewer checklist](https://cttir.github.io/methods-in-r/sec-how-to-use.html#sec-reviewer-checklist)
   – questions a reviewer asks before trusting a model.
-- [Strategy in R: Ethical Frameworks for Strategic AI](https://r-heller.github.io/strategy-in-r/sec-ethics-frameworks.html)
+- [Strategy in R: Ethical Frameworks for Strategic AI](https://cttir.github.io/strategy-in-r/sec-ethics-frameworks.html)
   – competing ethical frameworks made explicit.
-- [Scientometrics in R: Ethics and Responsible Metrics](https://r-heller.github.io/scientometrics-in-r/ethics-and-responsible-metrics.html)
+- [Scientometrics in R: Ethics and Responsible Metrics](https://cttir.github.io/scientometrics-in-r/ethics-and-responsible-metrics.html)
   – responsible use of indicators in another domain.
 
 ## Sources

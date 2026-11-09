@@ -23,7 +23,8 @@ class Links(HTMLParser):
 for page in SITE.rglob('*.html'):
     text=page.read_text()
     parser=Links(); parser.page=page; parser.feed(text)
-    if 'r-heller.github.io/clinical-data-science-in-r-course' in text: errors.append(f'{page.name}: stale course URL')
+    for slug in ('clinical-data-science-in-r-course', 'clinical-data-science-in-r', 'methods-in-r', 'scientometrics-in-r', 'strategy-in-r'):
+        if 'r-heller.github.io/' + slug + '/' in text: errors.append(f'{page.name}: stale URL for {slug}')
     if '?@sec' in text or '?@fig' in text or '?@tbl' in text: errors.append(f'{page.name}: unresolved reference')
 for name in ['index.html','overview.html','pagefind/pagefind.js','pagefind/pagefind-entry.json','artifacts/graph.json']:
     if not (SITE/name).is_file(): errors.append(f'Missing {name}')

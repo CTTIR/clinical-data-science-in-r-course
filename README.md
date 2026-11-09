@@ -6,7 +6,7 @@ R and defend a limited recommendation to patients, researchers or hospital manag
 
 Course website: <https://cttir.github.io/clinical-data-science-in-r-course/>
 
-Companion book: [Clinical Data Science in R](https://r-heller.github.io/clinical-data-science-in-r/). Each
+Companion book: [Clinical Data Science in R](https://cttir.github.io/clinical-data-science-in-r/). Each
 workshop requires the core readings of two book chapters (B01–B28); course and book share cases, identifiers and
 figure style.
 

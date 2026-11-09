@@ -30,11 +30,11 @@ By the end of this workshop you can
 ## Preparation
 
 - **Required reading** (about 20 minutes):
-  [B17 · Forecasting patient flow – core reading](https://r-heller.github.io/clinical-data-science-in-r/chapters/b17-forecasting-patient-flow.html#sec-b17-core),
+  [B17 · Forecasting patient flow – core reading](https://cttir.github.io/clinical-data-science-in-r/chapters/b17-forecasting-patient-flow.html#sec-b17-core),
   and for your station either
-  [B15 · Mechanistic models and pharmacometrics – core reading](https://r-heller.github.io/clinical-data-science-in-r/chapters/b15-mechanistic-models-pharmacometrics.html#sec-b15-core)
+  [B15 · Mechanistic models and pharmacometrics – core reading](https://cttir.github.io/clinical-data-science-in-r/chapters/b15-mechanistic-models-pharmacometrics.html#sec-b15-core)
   or
-  [B18 · Mass casualty incidents, operating capacity and simulation – core reading](https://r-heller.github.io/clinical-data-science-in-r/chapters/b18-mass-casualty-capacity-simulation.html#sec-b18-core).
+  [B18 · Mass casualty incidents, operating capacity and simulation – core reading](https://cttir.github.io/clinical-data-science-in-r/chapters/b18-mass-casualty-capacity-simulation.html#sec-b18-core).
 - **Before the session:** compare the two kinds of simulation: a concentration over time and a queue in front of
   the operating theatres. What is the input, what is random, and what would count as a wrong answer in each?
 - **Organisation:** each group runs one station analysis completely and reviews the other station from its
@@ -80,20 +80,20 @@ responsible for what when a tool changes purpose, receives an update and leaks d
 
 ## Further reading
 
-- [B16 · Bayes, small samples and the 3Rs](https://r-heller.github.io/clinical-data-science-in-r/chapters/b16-bayes-small-samples-3rs.html)
+- [B16 · Bayes, small samples and the 3Rs](https://cttir.github.io/clinical-data-science-in-r/chapters/b16-bayes-small-samples-3rs.html)
   – priors, small samples and the step from rate to experiment.
-- [B19 · From one centre or species to the next](https://r-heller.github.io/clinical-data-science-in-r/chapters/b19-transfer-across-centres-and-species.html)
+- [B19 · From one centre or species to the next](https://cttir.github.io/clinical-data-science-in-r/chapters/b19-transfer-across-centres-and-species.html)
   – the next test on another cohort, time period or species.
-- [Methods in R: Rolling-Origin Cross-Validation](https://r-heller.github.io/methods-in-r/sec-ch-09-timeseries.html#sec-chapters-09-timeseries-rolling-origin-cv)
-  and [Forecast Accuracy Metrics](https://r-heller.github.io/methods-in-r/sec-ch-09-timeseries.html#sec-chapters-09-timeseries-forecast-accuracy-metrics).
-- [Methods in R: The Beta-Binomial Model](https://r-heller.github.io/methods-in-r/sec-ch-10-bayesian.html#sec-chapters-10-bayesian-beta-binomial-model)
+- [Methods in R: Rolling-Origin Cross-Validation](https://cttir.github.io/methods-in-r/sec-ch-09-timeseries.html#sec-chapters-09-timeseries-rolling-origin-cv)
+  and [Forecast Accuracy Metrics](https://cttir.github.io/methods-in-r/sec-ch-09-timeseries.html#sec-chapters-09-timeseries-forecast-accuracy-metrics).
+- [Methods in R: The Beta-Binomial Model](https://cttir.github.io/methods-in-r/sec-ch-10-bayesian.html#sec-chapters-10-bayesian-beta-binomial-model)
   – the conjugate model behind unit 23.
 - [CTTIR Courses: Time series basics](https://cttir.github.io/courses/course3_design_causal/labs/lab_week2_session5.html)
   and [SIR and SEIR models with deSolve](https://cttir.github.io/courses/course3_design_causal/labs/lab_week4_session4.html).
 - [CTTIR Courses: Bayesian thinking; α control vs decision error](https://cttir.github.io/courses/course4_ml_highdim/labs/lab_week3_session1.html).
 - [CTTIR Tutorials: Credible Intervals](https://cttir.github.io/tutorials/tutorials/bayesian/credible-intervals.html).
-- [Strategy in R: Monte Carlo Methods for Games](https://r-heller.github.io/strategy-in-r/sec-monte-carlo.html)
-  and [Agent-Based Models for Strategic Interaction](https://r-heller.github.io/strategy-in-r/sec-agent-based-models.html)
+- [Strategy in R: Monte Carlo Methods for Games](https://cttir.github.io/strategy-in-r/sec-monte-carlo.html)
+  and [Agent-Based Models for Strategic Interaction](https://cttir.github.io/strategy-in-r/sec-agent-based-models.html)
   – simulation with explicit assumptions.
 
 ## Sources

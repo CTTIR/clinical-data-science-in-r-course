@@ -35,8 +35,8 @@ recommendation "not yet", and a modest model can be worth piloting under clear c
 
 ## Further reading
 
-- [B27 · Model passport, study report and decision](https://r-heller.github.io/clinical-data-science-in-r/chapters/b27-model-passport-study-report.html#sec-b27-core).
-- [B20 · Pilot operation, impact and monitoring](https://r-heller.github.io/clinical-data-science-in-r/chapters/b20-pilot-operation-monitoring.html#sec-b20-core)
+- [B27 · Model passport, study report and decision](https://cttir.github.io/clinical-data-science-in-r/chapters/b27-model-passport-study-report.html#sec-b27-core).
+- [B20 · Pilot operation, impact and monitoring](https://cttir.github.io/clinical-data-science-in-r/chapters/b20-pilot-operation-monitoring.html#sec-b20-core)
   – shadow mode, monitoring and stop criteria.
-- [B21 · Ethics at the bedside and in study design](https://r-heller.github.io/clinical-data-science-in-r/chapters/b21-ethics.html#sec-b21-core)
+- [B21 · Ethics at the bedside and in study design](https://cttir.github.io/clinical-data-science-in-r/chapters/b21-ethics.html#sec-b21-core)
   – conflicts of goals and the perspective of people affected.

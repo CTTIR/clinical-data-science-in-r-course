@@ -29,9 +29,9 @@ By the end of this workshop you can
 ## Preparation
 
 - **Required reading** (about 20 minutes):
-  [B06 · Accuracy, calibration and clinical utility – core reading](https://r-heller.github.io/clinical-data-science-in-r/chapters/b06-accuracy-calibration-utility.html#sec-b06-core)
+  [B06 · Accuracy, calibration and clinical utility – core reading](https://cttir.github.io/clinical-data-science-in-r/chapters/b06-accuracy-calibration-utility.html#sec-b06-core)
   and
-  [B09 · A fracture alert in the emergency department – core reading](https://r-heller.github.io/clinical-data-science-in-r/chapters/b09-fracture-alert-emergency-department.html#sec-b09-core),
+  [B09 · A fracture alert in the emergency department – core reading](https://cttir.github.io/clinical-data-science-in-r/chapters/b09-fracture-alert-emergency-department.html#sec-b09-core),
   in B09 up to the first two-by-two table.
 - **Team assignment:** half of the teams take the low-prevalence setting (5%), the other half the higher-prevalence
   setting (20%). Each team presents its table to a team with the other setting.
@@ -102,14 +102,14 @@ claims to measure when images, animals and measurement devices are involved.
 
 ## Further reading
 
-- [B05 · From baseline to learning model](https://r-heller.github.io/clinical-data-science-in-r/chapters/b05-from-baseline-to-learning-model.html)
+- [B05 · From baseline to learning model](https://cttir.github.io/clinical-data-science-in-r/chapters/b05-from-baseline-to-learning-model.html)
   – null model, regression, regularisation and nested validation.
-- [B07 · Reading an AI study critically](https://r-heller.github.io/clinical-data-science-in-r/chapters/b07-reading-an-ai-study.html)
+- [B07 · Reading an AI study critically](https://cttir.github.io/clinical-data-science-in-r/chapters/b07-reading-an-ai-study.html)
   – reporting guidelines for the journal club.
-- [B17 · Forecasting patient flow](https://r-heller.github.io/clinical-data-science-in-r/chapters/b17-forecasting-patient-flow.html)
+- [B17 · Forecasting patient flow](https://cttir.github.io/clinical-data-science-in-r/chapters/b17-forecasting-patient-flow.html)
   – the same evaluation logic for time series; returns in W6.
-- [Methods in R: Diagnostic Test Accuracy](https://r-heller.github.io/methods-in-r/sec-ch-14-clinical.html#sec-chapters-14-clinical-diagnostic-accuracy)
-  and [Predictive Values and Prevalence](https://r-heller.github.io/methods-in-r/sec-ch-14-clinical.html#sec-chapters-14-clinical-predictive-values-prevalence).
+- [Methods in R: Diagnostic Test Accuracy](https://cttir.github.io/methods-in-r/sec-ch-14-clinical.html#sec-chapters-14-clinical-diagnostic-accuracy)
+  and [Predictive Values and Prevalence](https://cttir.github.io/methods-in-r/sec-ch-14-clinical.html#sec-chapters-14-clinical-predictive-values-prevalence).
 - [CTTIR Courses: Diagnostic testing: Se, Sp, PPV, NPV, LR](https://cttir.github.io/courses/course1_foundations/labs/lab_week2_session3.html)
   – the foundations lab behind unit 09.
 - [CTTIR Courses: Calibration, discrimination, ROC/AUC, Brier score](https://cttir.github.io/courses/course2_regression/labs/lab_week3_session5.html)
@@ -117,7 +117,7 @@ claims to measure when images, animals and measurement devices are involved.
   – the next steps after units 10 and 11.
 - [CTTIR Tutorials: Calibration Plots](https://cttir.github.io/tutorials/tutorials/machine-learning/calibration-plots.html)
   – variants of the calibration plot.
-- [Strategy in R: Fairness in Machine Learning](https://r-heller.github.io/strategy-in-r/sec-fairness-ml.html)
+- [Strategy in R: Fairness in Machine Learning](https://cttir.github.io/strategy-in-r/sec-fairness-ml.html)
   – formal fairness criteria and why they conflict.
 
 ## Sources

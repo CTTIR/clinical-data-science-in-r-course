@@ -30,9 +30,9 @@ By the end of this workshop you can
 ## Preparation
 
 - **Required reading** (about 20 minutes):
-  [B02 · Describe, predict, explain – core reading](https://r-heller.github.io/clinical-data-science-in-r/chapters/b02-describe-predict-explain.html#sec-b02-core)
+  [B02 · Describe, predict, explain – core reading](https://cttir.github.io/clinical-data-science-in-r/chapters/b02-describe-predict-explain.html#sec-b02-core)
   and
-  [B13 · Longitudinal biomarkers – core reading](https://r-heller.github.io/clinical-data-science-in-r/chapters/b13-longitudinal-biomarkers.html#sec-b13-core).
+  [B13 · Longitudinal biomarkers – core reading](https://cttir.github.io/clinical-data-science-in-r/chapters/b13-longitudinal-biomarkers.html#sec-b13-core).
 - **Before the session:** look at the trajectory figure in the B13 core reading. Mark the measurement days, the
   missing samples and the people who contribute to each time point.
 - **Organisation:** everyone computes Parts A and B. In Part C each group deepens one method and presents it to a
@@ -82,10 +82,10 @@ explanation to forecasting and simulation: which assumptions make a number good 
 
 ## Further reading
 
-- [B14 · Cluster, gradient or artefact](https://r-heller.github.io/clinical-data-science-in-r/chapters/b14-cluster-gradient-artefact.html)
-  and [B16 · Bayes, small samples and the 3Rs](https://r-heller.github.io/clinical-data-science-in-r/chapters/b16-bayes-small-samples-3rs.html)
+- [B14 · Cluster, gradient or artefact](https://cttir.github.io/clinical-data-science-in-r/chapters/b14-cluster-gradient-artefact.html)
+  and [B16 · Bayes, small samples and the 3Rs](https://cttir.github.io/clinical-data-science-in-r/chapters/b16-bayes-small-samples-3rs.html)
   – stability and uncertainty during the analysis.
-- [B03 · How data arise](https://r-heller.github.io/clinical-data-science-in-r/chapters/b03-how-data-arise.html)
+- [B03 · How data arise](https://cttir.github.io/clinical-data-science-in-r/chapters/b03-how-data-arise.html)
   – missingness mechanisms with clinical examples.
 - [CTTIR Courses: DAGs with dagitty and ggdag](https://cttir.github.io/courses/course3_design_causal/labs/lab_week3_session3.html)
   and [MCAR, MAR, MNAR](https://cttir.github.io/courses/course3_design_causal/labs/lab_week2_session1.html).
@@ -93,10 +93,10 @@ explanation to forecasting and simulation: which assumptions make a number good 
   and [Clustering: k-means, hierarchical, model-based](https://cttir.github.io/courses/course4_ml_highdim/labs/lab_week1_session4.html).
 - [CTTIR Courses: Bench and translational design](https://cttir.github.io/courses/course3_design_causal/labs/lab_week1_session4.html)
   – design choices behind unit 20.
-- [Methods in R: Random-Slope Models](https://r-heller.github.io/methods-in-r/sec-ch-07-regression.html#sec-chapters-07-regression-random-slopes)
-  and [k-Means Clustering](https://r-heller.github.io/methods-in-r/sec-ch-08-multivariate.html#sec-chapters-08-multivariate-kmeans-clustering).
+- [Methods in R: Random-Slope Models](https://cttir.github.io/methods-in-r/sec-ch-07-regression.html#sec-chapters-07-regression-random-slopes)
+  and [k-Means Clustering](https://cttir.github.io/methods-in-r/sec-ch-08-multivariate.html#sec-chapters-08-multivariate-kmeans-clustering).
 - [CTTIR Tutorials: Cluster Validation: Silhouette](https://cttir.github.io/tutorials/tutorials/multivariate/cluster-validation-silhouette.html).
-- [Scientometrics in R: Causal Inference in Scientometrics](https://r-heller.github.io/scientometrics-in-r/causal-inference-in-scientometrics.html)
+- [Scientometrics in R: Causal Inference in Scientometrics](https://cttir.github.io/scientometrics-in-r/causal-inference-in-scientometrics.html)
   – the same selection problems in another field.
 
 ## Sources

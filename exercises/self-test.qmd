@@ -242,9 +242,9 @@ after harm; D protects confidentiality, not integrity; E addresses access, not w
 
 ## Further reading
 
-- [B28 · Case atlas, glossary and transfer](https://r-heller.github.io/clinical-data-science-in-r/chapters/b28-case-atlas-glossary.html#sec-b28-core)
+- [B28 · Case atlas, glossary and transfer](https://cttir.github.io/clinical-data-science-in-r/chapters/b28-case-atlas-glossary.html#sec-b28-core)
   – the case atlas from which these practice cases draw their themes.
 - [CTTIR Courses: Common errors](https://cttir.github.io/courses/appendices/common_errors.html)
   – frequent statistical mistakes with explanations.
-- [Methods in R: Common errors](https://r-heller.github.io/methods-in-r/sec-appendices-c-common-errors.html)
+- [Methods in R: Common errors](https://cttir.github.io/methods-in-r/sec-appendices-c-common-errors.html)
   – mistakes in R, Quarto and reproducible workflows.

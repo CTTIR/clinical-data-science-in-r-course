@@ -283,11 +283,11 @@ Use the [NC3Rs description of the 3Rs](https://nc3rs.org.uk/who-we-are/3rs) and 
 
 ## Further reading
 
-- Companion book: [B02 · Describe, predict, explain](https://r-heller.github.io/clinical-data-science-in-r/chapters/b02-describe-predict-explain.html#sec-b02-core)
-  and [B13 · Longitudinal biomarkers](https://r-heller.github.io/clinical-data-science-in-r/chapters/b13-longitudinal-biomarkers.html#sec-b13-core)
+- Companion book: [B02 · Describe, predict, explain](https://cttir.github.io/clinical-data-science-in-r/chapters/b02-describe-predict-explain.html#sec-b02-core)
+  and [B13 · Longitudinal biomarkers](https://cttir.github.io/clinical-data-science-in-r/chapters/b13-longitudinal-biomarkers.html#sec-b13-core)
   – the required reading behind Parts A and B.
-- Companion book: [B14 · Cluster, gradient or artefact](https://r-heller.github.io/clinical-data-science-in-r/chapters/b14-cluster-gradient-artefact.html#sec-b14-core)
-  and [B16 · Bayes, small samples and the 3Rs](https://r-heller.github.io/clinical-data-science-in-r/chapters/b16-bayes-small-samples-3rs.html#sec-b16-core)
+- Companion book: [B14 · Cluster, gradient or artefact](https://cttir.github.io/clinical-data-science-in-r/chapters/b14-cluster-gradient-artefact.html#sec-b14-core)
+  and [B16 · Bayes, small samples and the 3Rs](https://cttir.github.io/clinical-data-science-in-r/chapters/b16-bayes-small-samples-3rs.html#sec-b16-core)
   – background for station 1 and unit 20.
 - Hernán, Hernández-Díaz and Robins (2004), [A structural approach to selection bias](https://doi.org/10.1097/01.ede.0000135174.63482.43)
   – the collider argument of Part A in general form.
@@ -296,8 +296,8 @@ Use the [NC3Rs description of the 3Rs](https://nc3rs.org.uk/who-we-are/3rs) and 
   – drawing causal graphs and classifying missing data.
 - [CTTIR Courses: Linear mixed models with lme4](https://cttir.github.io/courses/course3_design_causal/labs/lab_week2_session3.html)
   – random intercepts and slopes step by step.
-- [Methods in R: Random-Slope Models](https://r-heller.github.io/methods-in-r/sec-ch-07-regression.html#sec-chapters-07-regression-random-slopes)
+- [Methods in R: Random-Slope Models](https://cttir.github.io/methods-in-r/sec-ch-07-regression.html#sec-chapters-07-regression-random-slopes)
   – model specification, diagnostics and reporting.
-- [Methods in R: k-Means Clustering](https://r-heller.github.io/methods-in-r/sec-ch-08-multivariate.html#sec-chapters-08-multivariate-kmeans-clustering)
+- [Methods in R: k-Means Clustering](https://cttir.github.io/methods-in-r/sec-ch-08-multivariate.html#sec-chapters-08-multivariate-kmeans-clustering)
   and [CTTIR Tutorials: Cluster Validation: Silhouette](https://cttir.github.io/tutorials/tutorials/multivariate/cluster-validation-silhouette.html)
   – what k-means optimises and how to judge separation.

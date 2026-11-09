@@ -157,14 +157,14 @@ dictionary with the reason it is not needed.
 
 ## Further reading
 
-- Companion book: [B01 · Clinical decisions and the translational chain](https://r-heller.github.io/clinical-data-science-in-r/chapters/b01-clinical-decision.html#sec-b01-core)
-  and [B03 · How data arise: missingness and denominators](https://r-heller.github.io/clinical-data-science-in-r/chapters/b03-how-data-arise.html#sec-b03-core)
+- Companion book: [B01 · Clinical decisions and the translational chain](https://cttir.github.io/clinical-data-science-in-r/chapters/b01-clinical-decision.html#sec-b01-core)
+  and [B03 · How data arise: missingness and denominators](https://cttir.github.io/clinical-data-science-in-r/chapters/b03-how-data-arise.html#sec-b03-core)
   – why the denominator is a clinical decision.
-- [B04 · Reconstructing a research project in R](https://r-heller.github.io/clinical-data-science-in-r/chapters/b04-reconstructing-a-project-in-r.html)
+- [B04 · Reconstructing a research project in R](https://cttir.github.io/clinical-data-science-in-r/chapters/b04-reconstructing-a-project-in-r.html)
   – scripts, relative paths and a target value that a colleague can check.
 - [CTTIR Courses: Data types, tidy data, accuracy and precision](https://cttir.github.io/courses/course1_foundations/labs/lab_week1_session3.html)
   – long and wide tables, one row per observation.
 - [CTTIR Courses: Import, joins, and missingness with dplyr](https://cttir.github.io/courses/course1_foundations/labs/lab_week1_session4.html)
   – the next step after base R.
-- [Methods in R: Scales of Measurement](https://r-heller.github.io/methods-in-r/sec-ch-01-foundations.html#sec-chapters-01-foundations-scales-of-measurement)
+- [Methods in R: Scales of Measurement](https://cttir.github.io/methods-in-r/sec-ch-01-foundations.html#sec-chapters-01-foundations-scales-of-measurement)
   – units and measurement levels.

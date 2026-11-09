@@ -255,17 +255,17 @@ Download the tables linked at the top if you want to continue in a spreadsheet. 
 
 ## Further reading
 
-- Companion book: [B10 · Hyperspectral imaging](https://r-heller.github.io/clinical-data-science-in-r/chapters/b10-hyperspectral-imaging.html#sec-b10-core)
-  and [B19 · From one centre or species to the next](https://r-heller.github.io/clinical-data-science-in-r/chapters/b19-transfer-across-centres-and-species.html#sec-b19-core)
+- Companion book: [B10 · Hyperspectral imaging](https://cttir.github.io/clinical-data-science-in-r/chapters/b10-hyperspectral-imaging.html#sec-b10-core)
+  and [B19 · From one centre or species to the next](https://cttir.github.io/clinical-data-science-in-r/chapters/b19-transfer-across-centres-and-species.html#sec-b19-core)
   – required reading for this workshop.
-- Companion book: [B11 · Measuring gait from video](https://r-heller.github.io/clinical-data-science-in-r/chapters/b11-gait-from-video.html#sec-b11-core)
-  and [B12 · Spatial biology and image analysis](https://r-heller.github.io/clinical-data-science-in-r/chapters/b12-spatial-biology.html#sec-b12-core)
+- Companion book: [B11 · Measuring gait from video](https://cttir.github.io/clinical-data-science-in-r/chapters/b11-gait-from-video.html#sec-b11-core)
+  and [B12 · Spatial biology and image analysis](https://cttir.github.io/clinical-data-science-in-r/chapters/b12-spatial-biology.html#sec-b12-core)
   – background for the two stations.
-- [Methods in R: Cross-Validation](https://r-heller.github.io/methods-in-r/sec-ch-13-ml.html#sec-chapters-13-ml-cross-validation)
+- [Methods in R: Cross-Validation](https://cttir.github.io/methods-in-r/sec-ch-13-ml.html#sec-chapters-13-ml-cross-validation)
   – fold construction and its pitfalls.
-- [Methods in R: Bland-Altman Limits of Agreement](https://r-heller.github.io/methods-in-r/sec-ch-14-clinical.html#sec-chapters-14-clinical-bland-altman-analysis)
+- [Methods in R: Bland-Altman Limits of Agreement](https://cttir.github.io/methods-in-r/sec-ch-14-clinical.html#sec-chapters-14-clinical-bland-altman-analysis)
   – the agreement analysis behind the gait station.
-- [Methods in R: ARRIVE — animal research](https://r-heller.github.io/methods-in-r/sec-reporting-arrive.html)
+- [Methods in R: ARRIVE — animal research](https://cttir.github.io/methods-in-r/sec-reporting-arrive.html)
   – reporting animal studies, including the experimental unit; see also
   [ARRIVE 2.0](https://doi.org/10.1371/journal.pbio.3000410).
 - [CTTIR Courses: Cross-validation, nested CV, bootstrap .632+](https://cttir.github.io/courses/course4_ml_highdim/labs/lab_week1_session1.html)

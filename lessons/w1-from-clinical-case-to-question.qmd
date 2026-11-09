@@ -31,9 +31,9 @@ By the end of this workshop you can
 ## Preparation
 
 - **Required reading** (about 20 minutes):
-  [B01 · Clinical decisions and the translational chain – core reading](https://r-heller.github.io/clinical-data-science-in-r/chapters/b01-clinical-decision.html#sec-b01-core)
+  [B01 · Clinical decisions and the translational chain – core reading](https://cttir.github.io/clinical-data-science-in-r/chapters/b01-clinical-decision.html#sec-b01-core)
   and
-  [B03 · How data arise: missingness and denominators – core reading](https://r-heller.github.io/clinical-data-science-in-r/chapters/b03-how-data-arise.html#sec-b03-core).
+  [B03 · How data arise: missingness and denominators – core reading](https://cttir.github.io/clinical-data-science-in-r/chapters/b03-how-data-arise.html#sec-b03-core).
 - **Before the session:** install R (any version from 4.4) and, if you like, RStudio or Positron. Open
   [`r/w1-case-table.R`](../r/w1-case-table.R) once. If anything fails, bring the printed lab page; a partner
   computer is enough.
@@ -115,18 +115,18 @@ claim about your case, checked against its original source.
 
 ## Further reading
 
-- [B01 · Clinical decisions and the translational chain](https://r-heller.github.io/clinical-data-science-in-r/chapters/b01-clinical-decision.html)
-  and [B03 · How data arise](https://r-heller.github.io/clinical-data-science-in-r/chapters/b03-how-data-arise.html)
+- [B01 · Clinical decisions and the translational chain](https://cttir.github.io/clinical-data-science-in-r/chapters/b01-clinical-decision.html)
+  and [B03 · How data arise](https://cttir.github.io/clinical-data-science-in-r/chapters/b03-how-data-arise.html)
   – the full chapters behind the required reading.
-- [B02 · Describe, predict, explain](https://r-heller.github.io/clinical-data-science-in-r/chapters/b02-describe-predict-explain.html)
+- [B02 · Describe, predict, explain](https://cttir.github.io/clinical-data-science-in-r/chapters/b02-describe-predict-explain.html)
   – the three question types in depth; returns in W5.
-- [B04 · Reconstructing a research project in R](https://r-heller.github.io/clinical-data-science-in-r/chapters/b04-reconstructing-a-project-in-r.html)
+- [B04 · Reconstructing a research project in R](https://cttir.github.io/clinical-data-science-in-r/chapters/b04-reconstructing-a-project-in-r.html)
   – the R basics used in this workshop.
-- [Methods in R: The research workflow – 1. Question](https://r-heller.github.io/methods-in-r/sec-appendices-a-research-workflow.html#sec-appendices-a-research-workflow-1-question)
+- [Methods in R: The research workflow – 1. Question](https://cttir.github.io/methods-in-r/sec-appendices-a-research-workflow.html#sec-appendices-a-research-workflow-1-question)
   – from question to measurement and design.
 - [CTTIR Courses: Scientific process and research workflow](https://cttir.github.io/courses/course1_foundations/labs/lab_week1_session1.html)
   – the first lab of the statistics curriculum this course builds on.
 - [CTTIR Tutorials: Population vs. Sample](https://cttir.github.io/tutorials/tutorials/statistical-foundations/population-vs-sample.html)
   – what the denominator stands for.
-- [Strategy in R: R Refresher](https://r-heller.github.io/strategy-in-r/sec-r-refresher.html)
+- [Strategy in R: R Refresher](https://cttir.github.io/strategy-in-r/sec-r-refresher.html)
   – a compact R introduction for newcomers.

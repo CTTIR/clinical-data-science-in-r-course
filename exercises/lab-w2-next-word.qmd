@@ -113,11 +113,11 @@ For the sentence you underlined as most contentious:
 
 ## Further reading
 
-- Companion book: [B08 · Language models in clinic and science](https://r-heller.github.io/clinical-data-science-in-r/chapters/b08-language-models.html#sec-b08-core)
+- Companion book: [B08 · Language models in clinic and science](https://cttir.github.io/clinical-data-science-in-r/chapters/b08-language-models.html#sec-b08-core)
   – tokens, temperature, retrieval and why generated references need checking.
-- [Scientometrics in R: Text Mining Bibliographic Corpora](https://r-heller.github.io/scientometrics-in-r/text-mining-bibliographic-corpora.html)
+- [Scientometrics in R: Text Mining Bibliographic Corpora](https://cttir.github.io/scientometrics-in-r/text-mining-bibliographic-corpora.html)
   – counting words and word pairs in real literature collections.
-- [Scientometrics in R: Embeddings for Scientometrics](https://r-heller.github.io/scientometrics-in-r/embeddings-for-scientometrics.html)
+- [Scientometrics in R: Embeddings for Scientometrics](https://cttir.github.io/scientometrics-in-r/embeddings-for-scientometrics.html)
   – the step from counts to learnt representations of text.
-- [Strategy in R: LLM Agents and Strategic Reasoning](https://r-heller.github.io/strategy-in-r/sec-llm-agents.html)
+- [Strategy in R: LLM Agents and Strategic Reasoning](https://cttir.github.io/strategy-in-r/sec-llm-agents.html)
   – what changes when generated text triggers actions.

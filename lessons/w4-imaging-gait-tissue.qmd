@@ -30,9 +30,9 @@ By the end of this workshop you can
 ## Preparation
 
 - **Required reading** (about 20 minutes):
-  [B10 · Hyperspectral imaging – core reading](https://r-heller.github.io/clinical-data-science-in-r/chapters/b10-hyperspectral-imaging.html#sec-b10-core)
+  [B10 · Hyperspectral imaging – core reading](https://cttir.github.io/clinical-data-science-in-r/chapters/b10-hyperspectral-imaging.html#sec-b10-core)
   and
-  [B19 · From one centre or species to the next – core reading](https://r-heller.github.io/clinical-data-science-in-r/chapters/b19-transfer-across-centres-and-species.html#sec-b19-core).
+  [B19 · From one centre or species to the next – core reading](https://cttir.github.io/clinical-data-science-in-r/chapters/b19-transfer-across-centres-and-species.html#sec-b19-core).
 - **Before the session:** choose one measurement error shown in either reading (light, device, camera position,
   segmentation boundary) and write one sentence on what it could change in a clinical or experimental decision.
 - **Choose a station** for unit 15: gait or tissue. Both lead to the same kind of evidence.
@@ -97,17 +97,17 @@ You now have a comparison table, an error pattern and a first model passport. In
 
 ## Further reading
 
-- [B11 · Measuring gait from video](https://r-heller.github.io/clinical-data-science-in-r/chapters/b11-gait-from-video.html)
-  and [B12 · Spatial biology and image analysis](https://r-heller.github.io/clinical-data-science-in-r/chapters/b12-spatial-biology.html)
+- [B11 · Measuring gait from video](https://cttir.github.io/clinical-data-science-in-r/chapters/b11-gait-from-video.html)
+  and [B12 · Spatial biology and image analysis](https://cttir.github.io/clinical-data-science-in-r/chapters/b12-spatial-biology.html)
   – the two elective stations in depth.
-- [B27 · Model passport, study report and decision](https://r-heller.github.io/clinical-data-science-in-r/chapters/b27-model-passport-study-report.html)
+- [B27 · Model passport, study report and decision](https://cttir.github.io/clinical-data-science-in-r/chapters/b27-model-passport-study-report.html)
   – the template you start in unit 16.
-- [Methods in R: Cross-Validation](https://r-heller.github.io/methods-in-r/sec-ch-13-ml.html#sec-chapters-13-ml-cross-validation)
-  and [Nested Cross-Validation](https://r-heller.github.io/methods-in-r/sec-ch-13-ml.html#sec-chapters-13-ml-nested-cv)
+- [Methods in R: Cross-Validation](https://cttir.github.io/methods-in-r/sec-ch-13-ml.html#sec-chapters-13-ml-cross-validation)
+  and [Nested Cross-Validation](https://cttir.github.io/methods-in-r/sec-ch-13-ml.html#sec-chapters-13-ml-nested-cv)
   – grouped resampling done properly.
-- [Methods in R: Bland-Altman Limits of Agreement](https://r-heller.github.io/methods-in-r/sec-ch-14-clinical.html#sec-chapters-14-clinical-bland-altman-analysis)
+- [Methods in R: Bland-Altman Limits of Agreement](https://cttir.github.io/methods-in-r/sec-ch-14-clinical.html#sec-chapters-14-clinical-bland-altman-analysis)
   – the agreement analysis of the gait station.
-- [Methods in R: ARRIVE reporting template](https://r-heller.github.io/methods-in-r/sec-reporting-arrive.html)
+- [Methods in R: ARRIVE reporting template](https://cttir.github.io/methods-in-r/sec-reporting-arrive.html)
   – what an animal study must report.
 - [CTTIR Courses: Cross-validation, nested CV, bootstrap .632+](https://cttir.github.io/courses/course4_ml_highdim/labs/lab_week1_session1.html)
   and [Imaging and sequence models intro](https://cttir.github.io/courses/course4_ml_highdim/labs/lab_week2_session4.html).

@@ -30,9 +30,9 @@ By the end of this workshop you can
 ## Preparation
 
 - **Required reading** (about 20 minutes):
-  [B07 · Reading an AI study critically – core reading](https://r-heller.github.io/clinical-data-science-in-r/chapters/b07-reading-an-ai-study.html#sec-b07-core)
+  [B07 · Reading an AI study critically – core reading](https://cttir.github.io/clinical-data-science-in-r/chapters/b07-reading-an-ai-study.html#sec-b07-core)
   and
-  [B08 · Language models in clinic and science – core reading](https://r-heller.github.io/clinical-data-science-in-r/chapters/b08-language-models.html#sec-b08-core).
+  [B08 · Language models in clinic and science – core reading](https://cttir.github.io/clinical-data-science-in-r/chapters/b08-language-models.html#sec-b08-core).
 - **Before the session:** read the two stored answers below and underline the single most contentious sentence in
   each.
 
@@ -129,21 +129,21 @@ number: what does an alert mean for the next patient, and how would you test it?
 
 ## Further reading
 
-- [B07 · Reading an AI study critically](https://r-heller.github.io/clinical-data-science-in-r/chapters/b07-reading-an-ai-study.html)
-  and [B08 · Language models in clinic and science](https://r-heller.github.io/clinical-data-science-in-r/chapters/b08-language-models.html)
+- [B07 · Reading an AI study critically](https://cttir.github.io/clinical-data-science-in-r/chapters/b07-reading-an-ai-study.html)
+  and [B08 · Language models in clinic and science](https://cttir.github.io/clinical-data-science-in-r/chapters/b08-language-models.html)
   – the full chapters behind the required reading.
-- [B25 · Security risks of learning and generative systems](https://r-heller.github.io/clinical-data-science-in-r/chapters/b25-security-risks-ai-systems.html)
-  and [B23 · Data protection along the entire data flow](https://r-heller.github.io/clinical-data-science-in-r/chapters/b23-data-protection.html)
+- [B25 · Security risks of learning and generative systems](https://cttir.github.io/clinical-data-science-in-r/chapters/b25-security-risks-ai-systems.html)
+  and [B23 · Data protection along the entire data flow](https://cttir.github.io/clinical-data-science-in-r/chapters/b23-data-protection.html)
   – background for unit 07.
-- [B21 · Ethics at the bedside and in study design](https://r-heller.github.io/clinical-data-science-in-r/chapters/b21-ethics.html)
+- [B21 · Ethics at the bedside and in study design](https://cttir.github.io/clinical-data-science-in-r/chapters/b21-ethics.html)
   – teach-back and shared decisions, for unit 08.
-- [Scientometrics in R: Working with Full Text](https://r-heller.github.io/scientometrics-in-r/working-with-full-text.html)
+- [Scientometrics in R: Working with Full Text](https://cttir.github.io/scientometrics-in-r/working-with-full-text.html)
   – retrieving and checking original passages at scale.
-- [Scientometrics in R: Retraction Analysis](https://r-heller.github.io/scientometrics-in-r/retraction-analysis.html)
+- [Scientometrics in R: Retraction Analysis](https://cttir.github.io/scientometrics-in-r/retraction-analysis.html)
   – a source can exist and still be withdrawn.
-- [Methods in R: Writing a report – Reporting guidelines](https://r-heller.github.io/methods-in-r/sec-appendices-d-writing-a-report.html#sec-appendices-d-writing-a-report-reporting-guidelines)
+- [Methods in R: Writing a report – Reporting guidelines](https://cttir.github.io/methods-in-r/sec-appendices-d-writing-a-report.html#sec-appendices-d-writing-a-report-reporting-guidelines)
   – what a study must report before its claims can be checked.
-- [Strategy in R: LLM Agents and Strategic Reasoning](https://r-heller.github.io/strategy-in-r/sec-llm-agents.html)
+- [Strategy in R: LLM Agents and Strategic Reasoning](https://cttir.github.io/strategy-in-r/sec-llm-agents.html)
   – language models that act, not only write.
 
 ## Sources

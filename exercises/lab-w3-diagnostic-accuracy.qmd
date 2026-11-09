@@ -158,12 +158,12 @@ to `output/` when you run it on your own.
 
 ## Further reading
 
-- Companion book: [B06 · Accuracy, calibration and clinical utility](https://r-heller.github.io/clinical-data-science-in-r/chapters/b06-accuracy-calibration-utility.html#sec-b06-core)
-  and [B09 · A fracture alert in the emergency department](https://r-heller.github.io/clinical-data-science-in-r/chapters/b09-fracture-alert-emergency-department.html#sec-b09-core)
+- Companion book: [B06 · Accuracy, calibration and clinical utility](https://cttir.github.io/clinical-data-science-in-r/chapters/b06-accuracy-calibration-utility.html#sec-b06-core)
+  and [B09 · A fracture alert in the emergency department](https://cttir.github.io/clinical-data-science-in-r/chapters/b09-fracture-alert-emergency-department.html#sec-b09-core)
   – the case behind Part A.
-- [Methods in R: Predictive Values and Prevalence](https://r-heller.github.io/methods-in-r/sec-ch-14-clinical.html#sec-chapters-14-clinical-predictive-values-prevalence)
+- [Methods in R: Predictive Values and Prevalence](https://cttir.github.io/methods-in-r/sec-ch-14-clinical.html#sec-chapters-14-clinical-predictive-values-prevalence)
   – the general formulae and their pitfalls.
-- [Methods in R: Calibration Plots](https://r-heller.github.io/methods-in-r/sec-ch-13-ml.html#sec-chapters-13-ml-calibration-plots)
+- [Methods in R: Calibration Plots](https://cttir.github.io/methods-in-r/sec-ch-13-ml.html#sec-chapters-13-ml-calibration-plots)
   – more ways to draw and test calibration.
 - [CTTIR Courses: Logistic regression (binomial GLM)](https://cttir.github.io/courses/course2_regression/labs/lab_week3_session1.html)
   – the baseline model step by step.

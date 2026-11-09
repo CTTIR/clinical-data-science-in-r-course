@@ -29,9 +29,9 @@ By the end of this workshop you can
 ## Preparation
 
 - **Required reading** (about 20 minutes):
-  [B27 · Model passport, study report and decision – core reading](https://r-heller.github.io/clinical-data-science-in-r/chapters/b27-model-passport-study-report.html#sec-b27-core)
+  [B27 · Model passport, study report and decision – core reading](https://cttir.github.io/clinical-data-science-in-r/chapters/b27-model-passport-study-report.html#sec-b27-core)
   and
-  [B28 · Case atlas, glossary and transfer – core reading](https://r-heller.github.io/clinical-data-science-in-r/chapters/b28-case-atlas-glossary.html#sec-b28-core).
+  [B28 · Case atlas, glossary and transfer – core reading](https://cttir.github.io/clinical-data-science-in-r/chapters/b28-case-atlas-glossary.html#sec-b28-core).
 - **Submit before W8** (deadline set by the course team): decision sheet (one page), model passport (one page) and
   the commented R script with its start command. See the [project brief](../exercises/project-brief.qmd).
 - **Prepare** a ten-minute presentation following the [colloquium format](../exercises/project-colloquium.qmd).
@@ -89,21 +89,21 @@ and, where needed, a change request.
 
 ## After the course
 
-The transfer task from unit 32 is yours. The [case atlas in B28](https://r-heller.github.io/clinical-data-science-in-r/chapters/b28-case-atlas-glossary.html)
+The transfer task from unit 32 is yours. The [case atlas in B28](https://cttir.github.io/clinical-data-science-in-r/chapters/b28-case-atlas-glossary.html)
 helps you find the method that fits a new problem, starting from the decision rather than from the data type.
 
 ## Further reading
 
-- [B19 · From one centre or species to the next](https://r-heller.github.io/clinical-data-science-in-r/chapters/b19-transfer-across-centres-and-species.html)
-  and [B20 · Pilot operation, impact and monitoring](https://r-heller.github.io/clinical-data-science-in-r/chapters/b20-pilot-operation-monitoring.html)
+- [B19 · From one centre or species to the next](https://cttir.github.io/clinical-data-science-in-r/chapters/b19-transfer-across-centres-and-species.html)
+  and [B20 · Pilot operation, impact and monitoring](https://cttir.github.io/clinical-data-science-in-r/chapters/b20-pilot-operation-monitoring.html)
   – the next steps after a defended recommendation.
-- [Methods in R: Writing a report](https://r-heller.github.io/methods-in-r/sec-appendices-d-writing-a-report.html)
-  and [TRIPOD-AI reporting template](https://r-heller.github.io/methods-in-r/sec-reporting-tripod-ai.html).
-- [Methods in R: Shared reviewer checklist](https://r-heller.github.io/methods-in-r/sec-how-to-use.html#sec-reviewer-checklist)
+- [Methods in R: Writing a report](https://cttir.github.io/methods-in-r/sec-appendices-d-writing-a-report.html)
+  and [TRIPOD-AI reporting template](https://cttir.github.io/methods-in-r/sec-reporting-tripod-ai.html).
+- [Methods in R: Shared reviewer checklist](https://cttir.github.io/methods-in-r/sec-how-to-use.html#sec-reviewer-checklist)
   – for the critical perspectives.
 - [CTTIR Courses: Explanation vs prediction; reporting](https://cttir.github.io/courses/course2_regression/labs/lab_week4_session5.html)
   and [Writing a report](https://cttir.github.io/courses/appendices/writing_a_report.html).
 - [CTTIR Courses: Common errors](https://cttir.github.io/courses/appendices/common_errors.html)
   – a checklist before submission.
-- [Scientometrics in R: Reproducibility, RRIDs, and Badges](https://r-heller.github.io/scientometrics-in-r/reproducibility-rrids-and-badges.html)
-  and [Parameterized Quarto Reports](https://r-heller.github.io/scientometrics-in-r/parameterized-quarto-reports.html).
+- [Scientometrics in R: Reproducibility, RRIDs, and Badges](https://cttir.github.io/scientometrics-in-r/reproducibility-rrids-and-badges.html)
+  and [Parameterized Quarto Reports](https://cttir.github.io/scientometrics-in-r/parameterized-quarto-reports.html).

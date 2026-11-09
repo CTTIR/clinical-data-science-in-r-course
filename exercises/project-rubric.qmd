@@ -99,7 +99,7 @@ levels criterion by criterion and agree on the reasons before scoring further pr
 
 ## Further reading
 
-- [B27 · Model passport, study report and decision](https://r-heller.github.io/clinical-data-science-in-r/chapters/b27-model-passport-study-report.html#sec-b27-core)
+- [B27 · Model passport, study report and decision](https://cttir.github.io/clinical-data-science-in-r/chapters/b27-model-passport-study-report.html#sec-b27-core)
   – the documents the rubric is applied to.
-- [Methods in R: Writing a report – Effect sizes and intervals](https://r-heller.github.io/methods-in-r/sec-appendices-d-writing-a-report.html#sec-appendices-d-writing-a-report-effect-sizes-and-intervals)
+- [Methods in R: Writing a report – Effect sizes and intervals](https://cttir.github.io/methods-in-r/sec-appendices-d-writing-a-report.html#sec-appendices-d-writing-a-report-effect-sizes-and-intervals)
   – what "uncertainty" means in criterion 2.

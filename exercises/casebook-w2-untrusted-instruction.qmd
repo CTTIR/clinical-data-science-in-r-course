@@ -96,9 +96,9 @@ attack is also text. The permission must be enforced outside the assistant, by t
 
 ## Further reading
 
-- [B25 · Security risks of learning and generative systems – core reading](https://r-heller.github.io/clinical-data-science-in-r/chapters/b25-security-risks-ai-systems.html#sec-b25-core)
+- [B25 · Security risks of learning and generative systems – core reading](https://cttir.github.io/clinical-data-science-in-r/chapters/b25-security-risks-ai-systems.html#sec-b25-core)
   – indirect prompt injection, excessive tool permissions and data exfiltration.
-- [B23 · Data protection along the entire data flow](https://r-heller.github.io/clinical-data-science-in-r/chapters/b23-data-protection.html)
+- [B23 · Data protection along the entire data flow](https://cttir.github.io/clinical-data-science-in-r/chapters/b23-data-protection.html)
   – who receives which data for which purpose.
 - Greshake K, et al. Not what you've signed up for: compromising real-world LLM-integrated applications with
   indirect prompt injection. AISec 2023. [doi:10.1145/3605764.3623985](https://doi.org/10.1145/3605764.3623985)
@@ -107,5 +107,5 @@ attack is also text. The permission must be enforced outside the assistant, by t
   (German) – risk catalogue including indirect prompt injection.
 - Vassilev A, et al. Adversarial machine learning: a taxonomy and terminology of attacks and mitigations. NIST AI
   100-2e2025. [doi:10.6028/NIST.AI.100-2e2025](https://doi.org/10.6028/NIST.AI.100-2e2025)
-- [Strategy in R: LLM Agents and Strategic Reasoning](https://r-heller.github.io/strategy-in-r/sec-llm-agents.html)
+- [Strategy in R: LLM Agents and Strategic Reasoning](https://cttir.github.io/strategy-in-r/sec-llm-agents.html)
   – agents that act on text they receive.
