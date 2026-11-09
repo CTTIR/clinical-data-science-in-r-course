@@ -229,6 +229,9 @@
       "include-in-header": [
         {
           "text": "<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\n<link href=\"https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap\" rel=\"stylesheet\">\n<script>\n  (function () {\n    try {\n      if (!localStorage.getItem('quarto-color-scheme')) {\n        localStorage.setItem('quarto-color-scheme', 'dark');\n      }\n      if (localStorage.getItem('quarto-color-scheme') === 'dark') {\n        document.documentElement.classList.add('quarto-dark');\n        document.documentElement.classList.remove('quarto-light');\n      }\n    } catch (e) {}\n  })();\n</script>"
+        },
+        {
+          "text": "<script defer data-domain=\"cttir.github.io/clinical-data-science-in-r-course\" src=\"https://analytics.hellebo.de/js/script.file-downloads.outbound-links.js\"></script>"
         }
       ]
     }
