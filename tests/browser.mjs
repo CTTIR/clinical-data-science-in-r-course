@@ -67,6 +67,11 @@ try {
  await page.goto(base);
  assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'Mobile home overflows');
  await page.screenshot({path:output+'/mobile-home.png',fullPage:true});
+ await page.locator('.navbar-toggler').click();
+ await page.locator('#navbarCollapse').waitFor({state:'visible'});
+ assert.equal(await page.locator('.navbar-toggler').getAttribute('aria-expanded'),'true');
+ await page.locator('#navbarCollapse a[href$="overview.html"]').click();
+ await page.locator('#tutorial-list .tutorial-card').first().waitFor({state:'visible'});
  assert.deepEqual(errors,[]);
  console.log('Browser checks passed: desktop/mobile, both themes, network, filters, URL restore, search, heatmap, navigation, no broken images or runtime errors.');
 }finally{await browser.close();if(server)await new Promise(r=>server.close(r));}

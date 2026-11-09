@@ -144,6 +144,25 @@ hr {
   color: var(--accent) !important;
 }
 
+/* Keep the mobile menu visible with either palette, independently of
+   Bootstrap's navbar theme attribute. */
+.navbar .navbar-toggler-icon {
+  position: relative;
+  background: linear-gradient(var(--fg), var(--fg)) center / 1.2rem 2px no-repeat !important;
+}
+.navbar .navbar-toggler-icon::before,
+.navbar .navbar-toggler-icon::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  width: 1.2rem;
+  height: 2px;
+  background: var(--fg);
+  transform: translateX(-50%);
+}
+.navbar .navbar-toggler-icon::before { top: calc(50% - 7px); }
+.navbar .navbar-toggler-icon::after { top: calc(50% + 5px); }
+
 /* TOC */
 #TOC, .sidebar-navigation {
   font-size: 0.9rem;
